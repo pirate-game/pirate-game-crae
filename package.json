@@ -1,0 +1,14 @@
+{
+  "name": "crae-template",
+  "version": "0.0.1",
+  "description": "Hopefully a template for create-react-app and Express, on Heroku.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "heroku-postbuild": "cd client && npm install && npm run build"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  }
+}
