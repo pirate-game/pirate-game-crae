@@ -1,4 +1,3 @@
-# crae-template
-Hopefully a template for create-react-app and Express, on Heroku.
+# The Great Pirate Game
 
-Woo, it works!
+We are to be found at [https://the-pirate-game.herokuapp.com/] .
