@@ -365,6 +365,130 @@ io.on('connection', function(socket) {
         };
     });
     
+    socket.on('present', function(name) {
+        const pos = crewmemberToGame(socket);
+        if (pos != -1) {
+            const game = games[game];
+            const victim = gameAndNameToPlayer(game, name);
+            if (victim != {}) {
+                const perpetrator = gameAndPlayerToName(game, socket);
+                victim.emit('present');
+                game.leader.emit('some_event', ['present', perpetrator, name]);
+                const thoseWatching = game.watching;
+                const lenWatching = thoseWatching.length;
+                for (let i = 0; i < lenWatching; i++) {
+                    thoseWatching[i].emit('some_event', ['present', perpetrator, name]);
+                };
+            };
+        };
+    });
+    
+    socket.on('swap', function(name, amount) {
+        const pos = crewmemberToGame(socket);
+        if (pos != -1) {
+            const game = games[pos];
+            const victim = gameAndNameToPlayer(game, name);
+            if (victim != {}) {
+                const perpetrator = gameAndPlayerToName(game, socket);
+                victim.emit('swap', perpetrator, amount);
+            };
+        };
+    });
+    
+    socket.on('robbed', function(name, amount) {
+        const pos = crewmemberToGame(socket);
+        if (pos != -1) {
+            const game = games[pos];
+            const perpetrator = gameAndNameToPlayer(game, name);
+            if (perpetrator != {}) {
+                perpetrator.emit('robbed', amount);
+                const victim = gameAndPlayerToName(game, socket);
+                game.leader.emit('some_event', ['rob', name, victim]);
+                const thoseWatching = games[pos].watching;
+                const lenWatching = thoseWatching.length;
+                for (let i = 0; i < lenWatching; i++) {
+                    thoseWatching[i].emit('some_event', ['rob', name, victim]);
+                };
+            };
+        };
+    });
+    
+    socket.on('swapped', function(name, amount) {
+        const pos = crewmemberToGame(socket);
+        if (pos != -1) {
+            const game = games[pos];
+            const perpetrator = gameAndNameToPlayer(game, name);
+            if (perpetrator != {}) {
+                perpetrator.emit('swapped', amount);
+                const victim = gameAndPlayerToName(game, socket);
+                game.leader.emit('some_event', ['swap', name, victim]);
+                const thoseWatching = games[pos].watching;
+                const lenWatching = thoseWatching.length;
+                for (let i = 0; i < lenWatching; i++) {
+                    thoseWatching[i].emit('some_event', ['swap', name, victim]);
+                };
+            };
+        };
+    });
+    
+    socket.on('killed', function(name) {
+        const pos = crewmemberToGame(socket);
+        if (pos != -1) {
+            const game = games[pos];
+            const victim = gameAndPlayerToName(game, socket);
+            game.leader.emit('some_event', ['kill', name, victim]);
+            const thoseWatching = games[pos].watching;
+            const lenWatching = thoseWatching.length;
+            for (let i = 0; i < lenWatching; i++) {
+                thoseWatching[i].emit('some_event', ['kill', name, victim]);
+            };
+        };
+    });
+    
+    socket.on('shielded_rob', function(name) {
+        const pos = crewmemberToGame(socket);
+        if (pos != -1) {
+            const game = games[pos];
+            const victim = gameAndPlayerToName(game, socket);
+            game.leader.emit('some_event', ['shielded_rob', name, victim]);
+            const thoseWatching = games[pos].watching;
+            const lenWatching = thoseWatching.length;
+            for (let i = 0; i < lenWatching; i++) {
+                thoseWatching[i].emit('some_event', ['shielded_rob', name, victim]);
+            };
+        };
+    });
+    
+    socket.on('shielded_swap', function(name) {
+        const pos = crewmemberToGame(socket);
+        if (pos != -1) {
+            const game = games[pos];
+            const victim = gameAndPlayerToName(game, socket);
+            game.leader.emit('some_event', ['shielded_swap', name, victim]);
+            const thoseWatching = games[pos].watching;
+            const lenWatching = thoseWatching.length;
+            for (let i = 0; i < lenWatching; i++) {
+                thoseWatching[i].emit('some_event', ['shielded_swap', name, victim]);
+            };
+        };
+    });
+    
+    socket.on('shielded_kill', function(name) {
+        const pos = crewmemberToGame(socket);
+        if (pos != -1) {
+            const game = games[pos];
+            const victim = gameAndPlayerToName(game, socket);
+            game.leader.emit('some_event', ['shielded_kill', name, victim]);
+            const thoseWatching = games[pos].watching;
+            const lenWatching = thoseWatching.length;
+            for (let i = 0; i < lenWatching; i++) {
+                thoseWatching[i].emit('some_event', ['shielded_kill', name, victim]);
+            };
+        };
+    });
+    
+    
+    
     //rest of refactored functions
 
 });
