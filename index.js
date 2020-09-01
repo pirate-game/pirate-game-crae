@@ -139,13 +139,144 @@ io.on('connection', function(socket) {
             games[pos].watchable = true;
             const theCrew = games[pos].crew;
             const lenCrew = theCrew.length;
-            for (let i = 0; i < lenCrew; i++){
+            for (let i = 0; i < lenCrew; i++) {
                 theCrew[i].pirate.emit('start_game');
             };
             const thoseWatching = games[pos].watching;
             const lenWatching = thoseWatching.length;
-            for (let j = 0; j < lenWatching; j++){
+            for (let j = 0; j < lenWatching; j++) {
                 thoseWatching[j].emit('start_game');
+            };
+        };
+    });
+    
+    socket.on('too_slow', function(who) {
+        const pos = leaderToGame(socket);
+        if (pos != -1) {
+            const game = games[pos];
+            const lenWho = who.length;
+            for (let i = 0; i < lenWho; i++) {
+                const player = gameAndNameToPlayer(game, who[i]);
+                if (player != {}) {
+                    player.emit('too_slow');
+                };
+            };
+            game.crew = game.crew.filter((x)=>(!who.includes(x.pirateName)));
+            const thoseWatching = game.watching;
+            const lenWatching = thoseWatching.length;
+            for (let j = 0; j < lenWatching; j++) {
+                thoseWatching[j].emit('too_slow', who);
+            };
+        };
+    });
+    
+    socket.on('board_ready', function() {
+        const thisGame = crewmemberToGame(socket);
+        if (thisGame != -1) {
+            const game = games[thisGame];
+            const thisName = gameAndPlayerToName(game, socket);
+            if (thisName != "") {
+                game.leader.emit('board_ready', thisName);
+            };
+        };
+    });
+    
+    socket.on('attempt_watch', function(key) {
+        const pos = keyToGame(key);
+        if (pos == -1) {
+            socket.emit('no_such_game');
+        } else {
+            const game = games[pos];
+            game.watching.push(socket);
+            if (game.watchable) {
+                socket.emit('start_game');
+                game.leader.emit('request_state');
+            };
+        };
+    });
+    
+    socket.on('state', function(state) {
+        const pos = leaderToGame(socket);
+        if (pos != -1) {
+            const thoseWatching = games[pos].watching;
+            const len = thoseWatching.length;
+            for (let i = 0; i < len; i++) {
+                thoseWatching[i].emit('state', state);
+            };
+        };
+    });
+    
+    socket.on('current_square', function(square) {
+        const pos = leaderToGame(socket);
+        if (pos != -1) {
+            const game = games[pos];
+            const theCrew = game.crew;
+            const lenCrew = theCrew.length;
+            for (let i = 0; i < lenCrew; i++) {
+                theCrew[i].pirate.emit('current_square', square);
+            };
+            const thoseWatching = game.watching;
+            const lenWatching = thoseWatching.length;
+            for (let j = 0; j < lenWatching; j++) {
+                thoseWatching[j].emit('current_square', square);
+            };
+        };
+    });
+    
+    socket.on('choose_next_square', function(player) {
+        const pos = leaderToGame(socket);
+        if (pos != -1) {
+            const thoseWatching = games[pos].watching;
+            const len = thoseWatching.length;
+            for (let i = 0; i < len; i++) {
+                thoseWatching[i].emit('choose_next_square', player);
+            };
+        };
+    });
+    
+    socket.on('choose', function(toChoose) {
+        const pos = leaderToGame(socket);
+        if (pos != -1){
+            const game = games[pos];
+            const thoseWatching = game.watching;
+            const lenWatching = thoseWatching.length;
+            for (let i = 0; i < lenWatching; i++) {
+                thoseWatching[i].emit('choose', toChoose);
+            };
+            const playerToChoose = gameAndNameToPlayer(game, toChoose);
+            if (playerToChoose == {}) {
+                socket.emit('player_gone', toChoose);
+            } else {
+                playerToChoose.emit('choose');
+            };  
+        };
+    });
+    
+    socket.on('chose', function(square) {
+        const pos = crewmemberToGame(socket);
+        if (pos != -1) {
+            games[pos].leader.emit('chose', square);
+        };
+    });
+    
+    socket.on('ready', function() {
+        const thisGame = crewmemberToGame(socket);
+        if (thisGame != -1) {
+            const game = games[thisGame];
+            const thisName = gameAndPlayerToName(game, socket);
+            if (thisName != "") {
+                game.leader.emit('ready', thisName);
+            };
+        };
+    });
+    
+    socket.on('got_choose', function() {
+        const thisGame = crewmemberToGame(socket);
+        if (thisGame != -1) {
+            const game = games[thisGame];
+            const thisName = gameAndPlayerToName(game, socket);
+            if (thisName != ""){
+                game.leader.emit('got_choose', thisName);
             };
         };
     });
