@@ -275,8 +275,92 @@ io.on('connection', function(socket) {
         if (thisGame != -1) {
             const game = games[thisGame];
             const thisName = gameAndPlayerToName(game, socket);
-            if (thisName != ""){
+            if (thisName != "") {
                 game.leader.emit('got_choose', thisName);
+            };
+        };
+    });
+    
+    socket.on('gobby_parrot', function(score) {
+        const thisGame = crewmemberToGame(socket);
+        if (thisGame != -1) {
+            const game = games[thisGame];
+            const thisName = gameAndPlayerToName(game, socket);
+            if (thisName != "") {
+                game.leader.emit('some_event', ["parrot", thisName, score]);
+            };
+            const thoseWatching = games[thisGame].watching;
+            const len = thoseWatching.length;
+            for (let i = 0; i < len; i++) {
+                thoseWatching[i].emit('some_event', ["parrot", thisName, score]);
+            };
+        };
+    });
+    
+    socket.on('get_scores', function() {
+        const pos = leaderToGame(socket);
+        if (pos != -1) {
+            const theCrew = games[pos].crew;
+            const len = theCrew.length;
+            for (let i = 0; i < len; i++) {
+                theCrew[i].pirate.emit('get_score');
+            };
+        };
+    });
+    
+    socket.on('got_score', function(someScore) {
+        const pos = crewmemberToGame(socket);
+        if (pos != -1) {
+            const game = games[pos];
+            game.scores.push({ name: gameAndPlayerToName(game, socket), score: someScore });
+            game.leader.emit('got_scores', game.scores);
+        };
+    });
+    
+    socket.on('game_over', function(leaderboard) {
+        const pos = leaderToGame(socket);
+        if (pos != -1){
+            const game = games[pos];
+            const theCrew = game.crew;
+            const lenCrew = theCrew.length;
+            for (let i = 0; i < lenCrew; i++){
+                theCrew[i].pirate.emit('game_over', leaderboard);
+            };
+            const thoseWatching = game.watching;
+            const lenWatching = thoseWatching.length;
+            for (var j = 0; j < lenWatching; j++){
+                thoseWatching[j].emit('game_over', leaderboard);
+            };
+        };
+    });
+    
+    socket.on('request_crew', function() {
+        const pos = crewmemberToGame(socket);
+        if (pos != -1) {
+            socket.emit('crew', games[pos].crew.map(e=>e.pirateName));
+        };
+    });
+    
+    socket.on('rob', function(name) {
+        const pos = crewmemberToGame(socket);
+        if (pos != -1) {
+            const game = games[pos];
+            const victim = gameAndNameToPlayer(game, name);
+            if (victim != {}) {
+                const perpetrator = gameAndPlayerToName(game, socket);
+                victim.emit('rob', perpetrator);
+            };
+        };
+    });
+    
+    socket.on('kill', function(name) {
+        const pos = crewmemberToGame(socket);
+        if (pos != -1) {
+            const game = games[pos];
+            const victim = gameAndNameToPlayer(game, name);
+            if (victim != {}) {
+                const perpetrator = gameAndPlayerToName(game, socket);
+                victim.emit('kill', perpetrator);
             };
         };
     });
