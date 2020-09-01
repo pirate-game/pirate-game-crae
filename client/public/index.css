@@ -1,0 +1,25 @@
+* {cursor: cell;}
+
+* * {cursor: inherit;}
+
+body {
+	background-color:#DCDCC4;
+	font-family: 'Calibri', Fallback, sans-serif;
+	overscroll-behavior-y: none;
+}
+
+div {border-radius: 10px;}
+
+img, button, a {cursor:pointer;}
+
+#title {
+	color:white;
+	text-align:center;
+	text-decoration: underline;
+}
+
+.sometext {
+	padding:25px;
+	margin:auto;
+	font-size: 1em!important;
+}
