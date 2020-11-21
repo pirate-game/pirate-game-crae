@@ -26,7 +26,7 @@ const mainPageContent = <React.Fragment>
             		<p>Ya-harr! We be very glad ye's found us.
 				<br />
 				The Pirate Game Online Game is now playable! 
-				Most o' ye's will be familiar with the rules but for those o' ye's that aren't they can be found <button style={{border: "none", background: "none", padding: "0", textDecorationLine: "underline", color: "blue"}} onClick={()=>setContent(rulesContent)}>'ere</button>.
+				Most o' ye's will be familiar with the rules but for those o' ye's that aren't they can be found <button style={{border: "none", background: "none", padding: "0", textDecorationLine: "underline", color: "blue"}} onClick={()=>setContent(<RulesContent />)}>'ere</button>.
 				<br />
 				<br />
 				To play a game, one o' ye's will be the Pirate King an' will click 'Start a Game'. The rest o' y'all'll be crew an' will click 'Join a Game'. 
@@ -55,8 +55,8 @@ const mainPageContent = <React.Fragment>
 
 const defaultLoading = <div>YARR! This be loadin'...</div>;
 
-const rulesContent_helper = React.lazy(() => import("./rules"));
-const rulesContent = <React.Suspense fallback={defaultLoading}><p>Start</p><rulesContent_helper /></React.Suspense>;
+const RulesContent_helper = React.lazy(() => import("./rules"));
+const RulesContent = () => <React.Suspense fallback={defaultLoading}><p>Start</p><RulesContent_helper /></React.Suspense>;
 
 const toRender = <React.Fragment>
 	<div id="navOrTitleBar">{navbar}</div>
