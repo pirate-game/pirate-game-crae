@@ -1,7 +1,7 @@
 {
-  "name": "crae-template",
+  "name": "the-great-pirate-game",
   "version": "0.0.1",
-  "description": "Hopefully a template for create-react-app and Express, on Heroku.",
+  "description": "The Best, Most Pirate-y-est Game Ever.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
