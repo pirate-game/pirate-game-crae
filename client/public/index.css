@@ -10,23 +10,23 @@ body {
 
 div {border-radius: 10px;}
 
-img, button, a {cursor:pointer;}
+img, button, a {cursor: pointer;}
 
 #title {
-	color:white;
-	text-align:center;
+	color: white;
+	text-align: center;
 	text-decoration: underline;
 }
 
 .sometext {
-	padding:25px;
-	margin:auto;
+	padding: 25px;
+	margin: auto;
 	font-size: 1em!important;
 }
 
 #nav {
 	overflow: hidden;
-	background-color:#CC6600;
+	background-color: #CC6600;
 	position: relative;
 	top:0;
 }
@@ -53,7 +53,7 @@ img, button, a {cursor:pointer;}
 }
 
 #nav li button:hover {
-	background-color:cornflowerblue;
+	background-color: cornflowerblue;
 }
 
 #logo:hover {
@@ -61,7 +61,7 @@ img, button, a {cursor:pointer;}
 }
 
 #logo img {
-	width:100px;
-	height:auto;
-	border-radius:10px;
+	width: 100px;
+	height: auto;
+	border-radius: 10px;
 }
