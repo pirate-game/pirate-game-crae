@@ -53,9 +53,7 @@ const mainPageContent = <React.Fragment>
         	</div>
 </React.Fragment>;
 																		     
-const rulesContent = <React.Fragment>
-	<p>Rules</p>
-</React.Fragment>;
+const rulesContent = React.lazy(() => import("./rules.js"));
 
 const toRender = <React.Fragment>
 	<div id="navOrTitleBar">{navbar}</div>
