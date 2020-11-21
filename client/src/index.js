@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import RulesComp from "./rules";
+//import RulesComp from "./rules";
+
+console.log("BEFORE");
+const RulesComp = await import("./rules");
+console.log("AFTER");
 
 function setContent(content) {
 	ReactDOM.render(content, document.getElementById('content'));
