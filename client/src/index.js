@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+function setContent(content) {
+	ReactDOM.render(content, document.getElementById('content'));
+};
+
 const navbar = <div id="nav">
 	<ul>
       		<li><button id="logo"><img border="0" src="logo.png" /></button></li>
@@ -22,7 +26,7 @@ const mainPageContent = <React.Fragment>
             		<p>Ya-harr! We be very glad ye's found us.
 				<br />
 				The Pirate Game Online Game is now playable! 
-				Most o' ye's will be familiar with the rules but for those o' ye's that aren't they can be found <button id="rulesButton">'ere</button>.
+				Most o' ye's will be familiar with the rules but for those o' ye's that aren't they can be found <button id="rulesButton" onClick=(()=>setContent(rulesContent))>'ere</button>.
 				<br />
 				<br />
 				To play a game, one o' ye's will be the Pirate King an' will click 'Start a Game'. The rest o' y'all'll be crew an' will click 'Join a Game'. 
@@ -47,6 +51,10 @@ const mainPageContent = <React.Fragment>
 				<a href="https://www.youtube.com/watch?v=q2j90qg_5_w" target="_blank">Anthony Warlow's Pirate King Song</a>
 			</p>
         	</div>
+</React.Fragment>;
+																		     
+const rulesContent = <React.Fragment>
+	<p>Rules</p>
 </React.Fragment>;
 
 const toRender = <React.Fragment>
