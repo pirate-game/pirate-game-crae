@@ -80,7 +80,7 @@ function crewmemberToGame(someCrewmember) {
     };
     return {};
 };
-
+/*
 io.on('connection', function(socket) {
     
     socket.on('request_key', function() {
@@ -624,7 +624,7 @@ io.on('connection', function(socket) {
     });
 
 });
-
+*/
 //End Game section
 
 app.get('*', (req, res) => {
