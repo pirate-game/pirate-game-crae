@@ -53,7 +53,7 @@ const mainPageContent = <React.Fragment>
         	</div>
 </React.Fragment>;
 																		     
-const rulesContent = React.lazy(() => import("./rules.js"));
+const rulesContent = <React.Suspense fallback={<div>YARR! This be loadin'...</div>}>{React.lazy(() => import("./rules.js"))}</React.Suspense>;
 
 const toRender = <React.Fragment>
 	<div id="navOrTitleBar">{navbar}</div>
