@@ -82,7 +82,9 @@ function crewmemberToGame(someCrewmember) {
 };
 
 io.on('connection', function(socket) {
-/* 
+    
+// FINE ABOVE
+ 
     socket.on('request_key', function() {
         const key = new_key();
         socket.emit('key', key);
@@ -229,7 +231,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+    /*
     socket.on('choose', function(toChoose) {
         const game = leaderToGame(socket);
         if (game != {}){
@@ -623,6 +625,8 @@ io.on('connection', function(socket) {
         };
     });
 */
+    
+// FINE BELOW
 });
 
 //End Game section
