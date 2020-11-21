@@ -18,11 +18,11 @@ const titlebar = <div id="titlebar">
 
 const mainPageContent = <React.Fragment>
 	<br />
-		<div class="sometext" style="background-color:lightblue;">
+		<div class="sometext" style={{backgroundColor: lightblue}}>
             		<p>Ya-harr! We be very glad ye's found us.
 				<br />
 				The Pirate Game Online Game is now playable! 
-				Most o' ye's will be familiar with the rules but for those o' ye's that aren't they can be found <a href="rules.html">'ere</a>.
+				Most o' ye's will be familiar with the rules but for those o' ye's that aren't they can be found <button id="rulesButton">'ere</button>.
 				<br />
 				<br />
 				To play a game, one o' ye's will be the Pirate King an' will click 'Start a Game'. The rest o' y'all'll be crew an' will click 'Join a Game'. 
@@ -34,8 +34,8 @@ const mainPageContent = <React.Fragment>
             		</p>
         	</div>
 		<br />
-		<div class="sometext" style="background-color:lightblue;">
-			<p style="margin-left:4em;text-indent:-4em;">If ye's be needin' some piratical music, we be a recommendin' the followin': (They be openin' in a new tab)<br />
+		<div class="sometext" style={{backgroundColor: lightblue}}>
+			<p style={{marginLeft: 4em, textIndent: -4em}}>If ye's be needin' some piratical music, we be a recommendin' the followin': (They be openin' in a new tab)<br />
 				<a href="https://www.youtube.com/playlist?list=PLXRhW-jVlFrXnHp5YLG_KKSHwxjJW_YrG" target="_blank">Jon English Pirates Of Penzance</a><br />
 				<a href="https://www.youtube.com/playlist?list=PLJYmBTdnt9C5mHeZEGbX9fiUnbii7A2DP" target="_blank">Kevin Kline Pirates Of Penzance</a><br />
 				<a href="https://www.youtube.com/playlist?list=PL18vVEBOfpWbFF79bEU8CA_WQNfoq2sJy" target="_blank">Pirates of the Caribbean</a><br />
@@ -50,7 +50,7 @@ const mainPageContent = <React.Fragment>
 </React.Fragment>;
 
 const toRender = <React.Fragment>
-	<div id="navortitlebar">{navbar}</div>`
+	<div id="navOrTitleBar">{navbar}</div>`
 	<div id="content">{mainPageContent}</div>
 </React.Fragment>;
 
