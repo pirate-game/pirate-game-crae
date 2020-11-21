@@ -627,7 +627,7 @@ io.on('connection', function(socket) {
 
 //End Game section
 
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/build/index.html'));
 });
 
