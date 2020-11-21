@@ -3,7 +3,7 @@
 * * {cursor: inherit;}
 
 body {
-	background-color:#DCDCC4;
+	background-color: #DCDCC4;
 	font-family: 'Calibri', Fallback, sans-serif;
 	overscroll-behavior-y: none;
 }
