@@ -80,9 +80,9 @@ function crewmemberToGame(someCrewmember) {
     };
     return {};
 };
-/*
+
 io.on('connection', function(socket) {
-    
+/* 
     socket.on('request_key', function() {
         const key = new_key();
         socket.emit('key', key);
@@ -622,9 +622,9 @@ io.on('connection', function(socket) {
             };
         };
     });
-
-});
 */
+});
+
 //End Game section
 
 app.get('*', (req, res) => {
