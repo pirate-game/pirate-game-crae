@@ -74,7 +74,7 @@ function crewmemberToGame(someCrewmember) {
     const someCrewmemberId = someCrewmember.id;
     const len = theCrew.length;
     for (let i = 0; i < len; i++) {
-        if (games[i].crew.map(x=>x.pirate.id).includes(someCrewmemberId)) {
+        if (games[i].crew.map(x => x.pirate.id).includes(someCrewmemberId)) {
             return games[i];
         };
     };
@@ -82,8 +82,6 @@ function crewmemberToGame(someCrewmember) {
 };
 
 io.on('connection', function(socket) {
-    
-// FINE ABOVE
  
     socket.on('request_key', function() {
         const key = new_key();
@@ -130,7 +128,7 @@ io.on('connection', function(socket) {
     
     socket.on('change_crew', function() {
         const game = leaderToGame(socket);
-        if (game != {]) {
+        if (game != {}) {
             game.available = true;
         };
     });
@@ -231,7 +229,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    /*
+        
     socket.on('choose', function(toChoose) {
         const game = leaderToGame(socket);
         if (game != {}){
@@ -624,9 +622,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-*/
-    
-// FINE BELOW
+
 });
 
 //End Game section
