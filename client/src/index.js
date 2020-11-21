@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import RulesComp from "./rules";
 
 function setContent(content) {
 	ReactDOM.render(content, document.getElementById('content'));
@@ -55,8 +56,9 @@ const mainPageContent = <React.Fragment>
 
 const defaultLoading = <div>YARR! This be loadin'...</div>;
 
-const rulesContent_impl = React.lazy(() => import("./rules"));
-const rulesContent = <React.Suspense fallback={defaultLoading}><p>Start</p><rulesContent_impl /></React.Suspense>;
+//const rulesContent_impl = React.lazy(() => import("./rules"));
+//const rulesContent = <React.Suspense fallback={defaultLoading}><p>Start</p><rulesContent_impl /></React.Suspense>;
+const rulesContent = <RulesComp />;
 
 const toRender = <React.Fragment>
 	<div id="navOrTitleBar">{navbar}</div>
