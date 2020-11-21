@@ -55,7 +55,7 @@ const mainPageContent = <React.Fragment>
 
 const defaultLoading = <div>YARR! This be loadin'...</div>;
 
-const rulesContent_impl = React.lazy(() => import("./rules.js"));
+const rulesContent_impl = React.lazy(() => import("./rules"));
 const rulesContent = <React.Suspense fallback={defaultLoading}><p>Start</p><rulesContent_impl /></React.Suspense>;
 
 const toRender = <React.Fragment>
