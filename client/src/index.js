@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 //import RulesComp from "./rules";
 
+let RulesComp = undefined;
 console.log("BEFORE");
-const RulesComp = await import("./rules");
+import("./rules").then(module => (RulesComp = module)).catch(err => console.log(err));
 console.log("AFTER");
 
 function setContent(content) {
