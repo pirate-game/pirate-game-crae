@@ -22,7 +22,7 @@ const titlebar = <div id="titlebar">
 
 const mainPageContent = <React.Fragment>
 	<br />
-		<div class="sometext" style={{backgroundColor: lightblue}}>
+		<div class="sometext" style={{backgroundColor: "lightblue"}}>
             		<p>Ya-harr! We be very glad ye's found us.
 				<br />
 				The Pirate Game Online Game is now playable! 
@@ -38,8 +38,8 @@ const mainPageContent = <React.Fragment>
             		</p>
         	</div>
 		<br />
-		<div class="sometext" style={{backgroundColor: lightblue}}>
-			<p style={{marginLeft: 4em, textIndent: -4em}}>If ye's be needin' some piratical music, we be a recommendin' the followin': (They be openin' in a new tab)<br />
+		<div class="sometext" style={{backgroundColor: "lightblue"}}>
+			<p style={{marginLeft: "4em", textIndent: "-4em"}}>If ye's be needin' some piratical music, we be a recommendin' the followin': (They be openin' in a new tab)<br />
 				<a href="https://www.youtube.com/playlist?list=PLXRhW-jVlFrXnHp5YLG_KKSHwxjJW_YrG" target="_blank">Jon English Pirates Of Penzance</a><br />
 				<a href="https://www.youtube.com/playlist?list=PLJYmBTdnt9C5mHeZEGbX9fiUnbii7A2DP" target="_blank">Kevin Kline Pirates Of Penzance</a><br />
 				<a href="https://www.youtube.com/playlist?list=PL18vVEBOfpWbFF79bEU8CA_WQNfoq2sJy" target="_blank">Pirates of the Caribbean</a><br />
