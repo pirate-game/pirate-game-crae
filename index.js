@@ -632,3 +632,7 @@ app.get('/', (req, res) => {
 });
 
 http.listen(port);
+
+app.use(function (req, res, next) {
+  res.status(404).sendFile(__dirname + '/404.html');
+});
