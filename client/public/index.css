@@ -40,7 +40,7 @@ img, button, a {cursor: pointer;}
 	margin: 0 5px 15px;
 }
 
-#nav li button {
+#homeButton, #nav li button {
 	background-color: transparent;
    	display: block;
     	color: white;
@@ -55,7 +55,7 @@ img, button, a {cursor: pointer;}
 	outline: none;
 }
 
-#nav li button:hover {
+#homeButton:hover, #nav li button:hover {
 	background-color: cornflowerblue;
 }
 
