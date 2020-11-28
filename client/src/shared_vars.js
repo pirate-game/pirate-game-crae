@@ -1,6 +1,3 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-
 function pushState(state) {
   window.history.pushState(state, "");
 };
