@@ -3,12 +3,9 @@ import ReactDOM from 'react-dom';
 
 import { f } from './rules';
 import shared_vars from './shared_vars';
-console.log(f());
-++shared_vars.x;
-console.log(f());
 
-function setContent(content) {
-	ReactDOM.render(content, document.getElementById('content'));
+function renderIn(content, place) {
+	ReactDOM.render(content, document.getElementById(place));
 };
 
 const navbar = <div id="nav">
@@ -32,7 +29,7 @@ const mainPageContent = <React.Fragment>
             		<p>Ya-harr! We be very glad ye's found us.
 				<br />
 				The Pirate Game Online Game is now playable! 
-				Most o' ye's will be familiar with the rules but for those o' ye's that aren't they can be found <button style={{border: "none", background: "none", padding: "0", textDecorationLine: "underline", color: "blue"}} onClick={()=>setContent(<RulesContent />)}>'ere</button>.
+				Most o' ye's will be familiar with the rules but for those o' ye's that aren't they can be found <button style={{border: "none", background: "none", padding: "0", textDecorationLine: "underline", color: "blue"}} onClick={()=>{renderIn(<RulesContent />, 'content'); renderIn(titlebar, 'navOrTitleBar');}}>'ere</button>.
 				<br />
 				<br />
 				To play a game, one o' ye's will be the Pirate King an' will click 'Start a Game'. The rest o' y'all'll be crew an' will click 'Join a Game'. 
