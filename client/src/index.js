@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { f } from './rules';
 import shared_vars from './shared_vars';
+window.addEventListener('popstate', shared_vars.back);
+
+const defaultLoading = <div>YARR! This be loadin'...</div>;
 
 function renderIn(content, place) {
 	ReactDOM.render(content, document.getElementById(place));
@@ -23,13 +25,16 @@ const titlebar = <div id="titlebar">
 	<h1 id="title" style={{fontSize: '50px'}}>The&nbsp;Pirate&nbsp;Game</h1>
 </div>;
 
+const RulesContent_helper = React.lazy(() => import("./rules"));
+const RulesContent = () => <React.Suspense fallback={defaultLoading}><p>Start</p><RulesContent_helper /></React.Suspense>;
+
 const mainPageContent = <React.Fragment>
 	<br />
 		<div class="sometext" style={{backgroundColor: "lightblue"}}>
             		<p>Ya-harr! We be very glad ye's found us.
 				<br />
 				The Pirate Game Online Game is now playable! 
-				Most o' ye's will be familiar with the rules but for those o' ye's that aren't they can be found <button style={{border: "none", background: "none", padding: "0", textDecorationLine: "underline", color: "blue"}} onClick={()=>{renderIn(<RulesContent />, 'content'); renderIn(titlebar, 'navOrTitleBar');}}>'ere</button>.
+				Most o' ye's will be familiar with the rules but for those o' ye's that aren't they can be found <button style={{border: "none", background: "none", padding: "0", textDecorationLine: "underline", color: "blue"}} onClick={()=>shared_vars.gotoPage["rules"]()}>'ere</button>.
 				<br />
 				<br />
 				To play a game, one o' ye's will be the Pirate King an' will click 'Start a Game'. The rest o' y'all'll be crew an' will click 'Join a Game'. 
@@ -56,14 +61,14 @@ const mainPageContent = <React.Fragment>
         	</div>
 </React.Fragment>;
 
-const defaultLoading = <div>YARR! This be loadin'...</div>;
-
-const RulesContent_helper = React.lazy(() => import("./rules"));
-const RulesContent = () => <React.Suspense fallback={defaultLoading}><p>Start</p><RulesContent_helper /></React.Suspense>;
-
 const toRender = <React.Fragment>
-	<div id="navOrTitleBar">{navbar}</div>
-	<div id="content">{mainPageContent}</div>
+	<div id="navOrTitleBar"></div>
+	<div id="content"></div>
 </React.Fragment>;
 
-ReactDOM.render(toRender, document.getElementById('root'));
+renderIn(toRender, 'root')
+
+shared_vars.gotoPage["index"] = () => { shared_vars.forward(); renderIn(mainPageContent, 'content'); renderIn(navbar, 'navOrTitleBar'); };
+shared_vars.gotoPage["rules"] = () => { shared_vars.forward(); renderIn(<RulesContent />, 'content'); renderIn(titlebar, 'navOrTitleBar'); };
+
+shared_vars.gotoPage["index"]();
