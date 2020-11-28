@@ -4,6 +4,7 @@ function pushState(state) {
 
 let shared_vars = {
   "theme": "default",
+  "currentPlace": "index",
   "pushState": pushState,
   "gotoPage": {}
 };
