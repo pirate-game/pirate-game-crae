@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { f } from './rules';
-console.log(f());
 import { x } from './shared_vars';
+console.log(f());
 ++x;
 console.log(f());
 
