@@ -4,8 +4,6 @@ import ReactDOM from 'react-dom';
 import shared_vars from './shared_vars';
 window.addEventListener('popstate', shared_vars.back);
 
-const defaultLoading = <div>YARR! This be loadin'...</div>;
-
 function renderIn(content, place) {
 	ReactDOM.render(content, document.getElementById(place));
 };
@@ -26,7 +24,7 @@ const titlebar = <div id="titlebar">
 </div>;
 
 const RulesContent_helper = React.lazy(() => import("./rules"));
-const RulesContent = () => <React.Suspense fallback={defaultLoading}><p>Start</p><RulesContent_helper /></React.Suspense>;
+const RulesContent = () => <React.Suspense fallback={shared_vars.defaultLoading}><br /><RulesContent_helper /></React.Suspense>;
 
 const mainPageContent = <React.Fragment>
 	<br />
