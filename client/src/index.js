@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 
 import { f } from './rules';
 console.log(f());
+import { x } from './shared_vars';
+++x;
+console.log(f());
 
 function setContent(content) {
 	ReactDOM.render(content, document.getElementById('content'));
