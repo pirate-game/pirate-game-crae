@@ -7,7 +7,7 @@ let shared_vars = {
   "currentPlace": "index",
   "pushState": pushState,
   "forward": () => shared_vars.pushState(shared_vars.currentPlace),
-  "back": (ev) => shared_vars.gotoPage[ev.state](),
+  "back": (ev) => { ev.preventDefault(); shared_vars.gotoPage[ev.state](); },
   "gotoPage": {}
 };
 export default shared_vars;
