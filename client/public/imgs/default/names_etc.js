@@ -1,4 +1,10 @@
 export default {
+  "rules_preamble": [
+    "To play a game, one o' ye's will be the Pirate King an' will click 'Start a Game'. The rest o' y'all'll be crew an' will click 'Join a Game'. The Pirate King will, then, share the key for the game which the crew will use to join the game. If ye's can't see the Pirate King's screen, ye's can click 'Watch a Game' and enter the key, and it will copy the Pirate King's screen.",
+    "Now ye's 'ave set up a game, the crew must fill in their boards with the 49 symbols of 15 types. They can do it themselves or the computer can do it randomly. If they do it manually, they can either type the name of the square where they want to place the symbol or can click on that square.",
+    "When all crewmembers 'ave filled their boards, the game can begin.",
+    "On each of the 49 rounds, a square is selected, either at random or by one of the players, and all players get the symbol in that square. Most of the symbols are amounts o' CASH. If a player gets a CASH symbol, their CASH is increased by that amount. There are other symbols which do other things as follows:"
+  ],
   "rob": {
     "file_ext": ".png",
     "name": "Rob",
