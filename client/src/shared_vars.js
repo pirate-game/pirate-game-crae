@@ -11,6 +11,6 @@ let shared_vars = {
   "forward": () => shared_vars.pushState(shared_vars.currentPlace),
   "back": (ev) => { ev.preventDefault(); shared_vars.gotoPage[ev.state](); },
   "gotoPage": {},
-  "defaultLoading": <div>YARR! This be loadin'...</div>;
+  "defaultLoading": <div>YARR! This be loadin'...</div>
 };
 export default shared_vars;
