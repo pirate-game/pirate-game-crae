@@ -1,4 +1,4 @@
 let shared_vars = {
-  "x": 42
+  "theme": "default"
 };
 export default shared_vars;
