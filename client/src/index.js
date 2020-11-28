@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { f } from './rules';
-import { x } from './shared_vars';
+import shared_vars from './shared_vars';
 console.log(f());
-++x;
+++shared_vars.x;
 console.log(f());
 
 function setContent(content) {
