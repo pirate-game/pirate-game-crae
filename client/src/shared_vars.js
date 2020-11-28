@@ -1,1 +1,1 @@
-const x = 42;
+export default const x = 42;
