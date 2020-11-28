@@ -1,6 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+const x = 42;
+
+import { f } from './rules';
+console.log(f());
+
 function setContent(content) {
 	ReactDOM.render(content, document.getElementById('content'));
 };
