@@ -22,7 +22,14 @@ const navbar = <div id="nav">
 		<li><a href="#watch_tag">Watch&nbsp;a<br />Game</a></li>
 		<li><a href="#ack_tag">Acknowledgements</a></li>
 	</ul>
-	<h1 id="title">&nbsp;The&nbsp;Pirate&nbsp;Game&nbsp;</h1>
+	<div id="title">
+		<h1>&nbsp;The&nbsp;Pirate&nbsp;Game&nbsp;</h1>
+		<label for="theme">Theme:</label>
+		<select id="theme" onChange={shared_vars.setTheme}>
+			<option value="default">Pirate</option>
+			<option value="xmas">Christmas</option>
+		</select>
+	</div>
 </div>;
 
 const titlebar = <div id="titlebar">
