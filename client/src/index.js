@@ -103,6 +103,9 @@ shared_vars.gotoPage[""] = () => { shared_vars.allowUnload(); renderIn(navbar, '
 shared_vars.gotoPage["#rules_tag"] = () => { shared_vars.allowUnload(); renderIn(navbar, 'navOrTitleBar'); renderIn(<RulesContent />, 'content'); };
 shared_vars.gotoPage["#ack_tag"] = () => { shared_vars.allowUnload(); renderIn(navbar, 'navOrTitleBar'); renderIn(<AcknowledgeContent />, 'content'); };
 shared_vars.gotoPage["#submitted_tag"] = () => { shared_vars.allowUnload(); renderIn(navbar, 'navOrTitleBar'); renderIn(<SubmittedContent />, 'content'); };
+shared_vars.gotoPage["#start_tag"] = () => { shared_vars.preventUnload(); renderIn(titlebar, 'navOrTitleBar'); renderIn(<p>Start</p>, 'content'); };
+shared_vars.gotoPage["#join_tag"] = () => { shared_vars.preventUnload(); renderIn(titlebar, 'navOrTitleBar'); renderIn(<p>Join</p>, 'content'); };
+shared_vars.gotoPage["#watch_tag"] = () => { shared_vars.preventUnload(); renderIn(titlebar, 'navOrTitleBar'); renderIn(<p>Watch</p>, 'content'); };
 
 shared_vars.authenticHash = window.location.hash;
 shared_vars.gotoPage[window.location.hash]();
