@@ -45,7 +45,7 @@ export default class Rules extends React.Component {
 		        	</div>;}
                         )}
                 </div>
-                <p>The winner is the pirate whose final CASH and Bank balance total the most.</p>
+                <p>{data.rules_footer}</p>
             </React.Fragment>;
 	};
         return <div className="sometext" style={{backgroundColor:"lightblue"}}>
