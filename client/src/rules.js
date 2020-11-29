@@ -9,7 +9,7 @@ export default class Rules extends shared_vars.ThemeDependentComponent {
 	console.log(data);
         if (data) {
 	    content = <React.Fragment>
-                <p>{shared_vars.intersperseWith(data.rules_preamble, <React.Fragment><br /><br /></React.Fragment>)}</p>
+                <p>{shared_vars.intersperseWith(data.rules_preamble, shared_vars.twoNewLines)}</p>
                 <div id="symbols">
                     {shared_vars.symbols.map(symbol => {
                         const sym = data[symbol];
