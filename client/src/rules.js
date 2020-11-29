@@ -41,9 +41,9 @@ export default class Rules extends React.Component {
                     {shared_vars.symbols.map(symbol => {
                         const sym = data[symbol];
                         return <div>
-					            <div class="square"><img src={"imgs/"+shared_vars.theme+"/"+symbol+sym.file_ext} /></div>
-					            <p>{sym.name+": "+sym.description}</p>
-				            </div>;}
+					<div class="square"><img src={process.env.PUBLIC_URL+"/imgs/"+shared_vars.theme+"/"+symbol+sym.file_ext} /></div>
+					<p>{sym.name+": "+sym.description}</p>
+		        	</div>;}
                         )}
                 </div>
                 <p>The winner is the pirate whose final CASH and Bank balance total the most.</p>
