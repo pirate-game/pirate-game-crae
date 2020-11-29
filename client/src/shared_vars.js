@@ -53,6 +53,8 @@ let shared_vars = {
   "setTheme": setTheme,
   "intersperseWith": intersperseWith,
   "twoNewLines": <React.Fragment><br /><br /></React.Fragment>,
-  "unloadFn": unloadFn
+  "unloadFn": unloadFn,
+  "preventUnload": (() => window.addEventListener("beforeunload", shared_vars.unloadFn)),
+  "allowUnload": (() => window.removeEventListener("beforeunload", shared_vars.unloadFn))
 };
 export default shared_vars;
