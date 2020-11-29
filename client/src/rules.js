@@ -6,7 +6,6 @@ export default class Rules extends shared_vars.ThemeDependentComponent {
     render() {
         let content = shared_vars.defaultLoading;
         const data = this.state.data;
-	console.log(data);
         if (data) {
 	    content = <React.Fragment>
                 <p>{shared_vars.intersperseWith(data.rules_preamble, shared_vars.twoNewLines)}</p>
