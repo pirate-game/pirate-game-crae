@@ -1,4 +1,25 @@
 export default {
+  "introduction_before": [
+    "Ya-harr! We be very glad ye's found us.",
+    "The Pirate Game Online Game is now playable! Most o' ye's will be familiar with the rules but for those o' ye's that aren't they can be found"
+  ],
+  "introduction_link_text": "'ere",
+  "introduction_after": [
+    "To play a game, one o' ye's will be the Pirate King an' will click 'Start a Game'. The rest o' y'all'll be crew an' will click 'Join a Game'. The Pirate King will, then, share the key for the game which the crew will use to join the game. If ye's can't see the Pirate King's screen, ye's can click 'Watch a Game' and enter the key, and it will copy the Pirate King's screen.",
+    "We be 'opin' ye's all enjoy The Great Pirate Game!"
+  ],
+  "music_preamble": "If ye's be needin' some piratical music, we be a recommendin' the followin': (They be openin' in a new tab)",
+  "music": [
+    ["https://www.youtube.com/playlist?list=PLXRhW-jVlFrXnHp5YLG_KKSHwxjJW_YrG", "Jon English Pirates Of Penzance"],
+    ["https://www.youtube.com/playlist?list=PLJYmBTdnt9C5mHeZEGbX9fiUnbii7A2DP", "Kevin Kline Pirates Of Penzance"],
+    ["https://www.youtube.com/playlist?list=PL18vVEBOfpWbFF79bEU8CA_WQNfoq2sJy", "Pirates of the Caribbean"],
+    ["https://www.youtube.com/watch?v=dK-pMy_jOKI", "On a Pirate Ship - Jay Foreman feat. Mad Cap'n Tom"],
+    ["https://www.youtube.com/playlist?list=PL1819EBCF5E49C09A", "Muppets' Treasure Island"],
+    ["https://www.youtube.com/watch?v=D_JeKZd9ecE", "The Sailors' Hornpipe"],
+    ["https://www.youtube.com/watch?v=VZ_Tu4-p1O8", "Will Swenson's Pirate King Song"],
+    ["https://www.youtube.com/watch?v=jWzqcele1tY", "Tim Curry's Pirate King Song"],
+    ["https://www.youtube.com/watch?v=q2j90qg_5_w", "Anthony Warlow's Pirate King Song"]
+  ],
   "rules_preamble": [
     "To play a game, one o' ye's will be the Pirate King an' will click 'Start a Game'. The rest o' y'all'll be crew an' will click 'Join a Game'. The Pirate King will, then, share the key for the game which the crew will use to join the game. If ye's can't see the Pirate King's screen, ye's can click 'Watch a Game' and enter the key, and it will copy the Pirate King's screen.",
     "Now ye's 'ave set up a game, the crew must fill in their boards with the 49 symbols of 15 types. They can do it themselves or the computer can do it randomly. If they do it manually, they can either type the name of the square where they want to place the symbol or can click on that square.",
