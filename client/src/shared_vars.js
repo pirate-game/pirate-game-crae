@@ -54,7 +54,8 @@ let shared_vars = {
   "intersperseWith": intersperseWith,
   "twoNewLines": <React.Fragment><br /><br /></React.Fragment>,
   "unloadFn": unloadFn,
-  "preventUnload": (() => window.addEventListener("beforeunload", shared_vars.unloadFn)),
-  "allowUnload": (() => window.removeEventListener("beforeunload", shared_vars.unloadFn))
+  "unload_able": true,
+  "preventUnload": (() => { if (shared_vars.unload_able) { window.addEventListener("beforeunload", shared_vars.unloadFn); shared_vars.unload_able = false; }; }),
+  "allowUnload": (() => { if (!shared_vars.unload_able) { window.removeEventListener("beforeunload", shared_vars.unloadFn); shared_vars.unload_able = true; }; })
 };
 export default shared_vars;
