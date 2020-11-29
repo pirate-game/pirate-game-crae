@@ -32,6 +32,7 @@ export default class Rules extends React.Component {
     render() {
         let content = shared_vars.defaultLoading;
         const data = this.state.data;
+	console.log(data);
         if (data) {
 	    content = <React.Fragment>
                 <p>{intersperseWith(data.rules_preamble, <React.Fragment><br /><br /></React.Fragment>)}</p>
