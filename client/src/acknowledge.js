@@ -7,7 +7,8 @@ import './css/acknowledge.css';
 export default class Acknowledge extends shared_vars.ThemeDependentComponent {
   render() {
 	  let content = shared_vars.defaultLoading;
-	  if (this.state.data) {
+	  const data = this.state.data;
+	  if (data) {
 	  	content = <p style={{marginLeft:"4em", textIndent:"-4em"}}>
 				Coming soon...
 			</p>;
