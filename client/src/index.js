@@ -42,7 +42,7 @@ const navbar = <div id="nav">
 </div>;
 
 const titlebar = <div id="titlebar">
-	<div id="title" style={{float:"unset"}}>
+	<div id="title" style={{float:"unset", width:"unset", paddingRight:"unset"}}>
 		<h1 style={{fontSize: '50px'}}>&nbsp;The&nbsp;Pirate&nbsp;Game&nbsp;</h1>
 		<label for="theme">Theme:</label>
 		<select id="theme" onChange={shared_vars.setTheme}>
