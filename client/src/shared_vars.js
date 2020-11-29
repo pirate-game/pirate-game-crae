@@ -2,7 +2,7 @@ import React from 'react';
 
 class ThemeDependentComponent extends React.Component {
   constructor() {
-		super();
+    super();
     this.state = { data: null };
     this.updateTheme();
 	};
@@ -32,7 +32,7 @@ function intersperseWith(array, element) {
 let shared_vars = {
   "theme": "default",
   "gotoPage": {},
-  "defaultLoading": <div>YARR! This be loadin'...</div>,
+  "defaultLoading": <div>Loading...</div>,
   "symbols": ["rob", "kill", "present", "declareScore", "swap", "chooseNextSquare", "shield", "mirror", "goToZero", "double", "bank"],
   "ThemeDependentComponent": ThemeDependentComponent,
   "intersperseWith": intersperseWith,
