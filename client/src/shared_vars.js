@@ -41,6 +41,8 @@ function intersperseWith(array, element) {
     };
 };
 
+function unloadFn(event) { event.returnValue=""; };
+
 let shared_vars = {
   "theme": "default",
   "gotoPage": {},
@@ -50,6 +52,7 @@ let shared_vars = {
   "themeDependents": themeDependents,
   "setTheme": setTheme,
   "intersperseWith": intersperseWith,
-  "twoNewLines": <React.Fragment><br /><br /></React.Fragment>
+  "twoNewLines": <React.Fragment><br /><br /></React.Fragment>,
+  "unloadFn": unloadFn
 };
 export default shared_vars;
