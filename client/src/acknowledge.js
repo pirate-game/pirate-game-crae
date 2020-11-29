@@ -40,7 +40,7 @@ export default class Acknowledge extends React.Component {
         <br />
         <div id="theform" className="sometext" style={{backgroundColor:"pink"}}>
 			    <form id="contactform" action="https://formsubmit.io/send/c0c7255c-0a38-4439-9a85-f5d3efa40665" method="POST">
-				    <input name="_redirect" type="hidden" id="name" value="#submitted_tag" />
+				    <input name="_redirect" type="hidden" id="name" value="https://the-pirate-game.herokuapp.com/#submitted_tag" />
 				    <div className="row">
     					<div className="col-25"><label>Name:</label></div>
 					    <div className="col-75"><input name="name" type="text" id="theirname" /></div>
