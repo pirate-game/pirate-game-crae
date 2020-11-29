@@ -16,11 +16,25 @@ class ThemeDependentComponent extends React.Component {
   };
 };
 
+function intersperseWith(array, element) {
+    const len = array.length;
+    if (len) {
+        let out = [array[0]];
+        for (let i = 1; i < len; ++i) { // it is meant to start at 1, so that the first element is missed
+            out = out.concat([element, array[i]]);
+        };
+        return out;
+    } else {
+        return array;
+    };
+};
+
 let shared_vars = {
   "theme": "default",
   "gotoPage": {},
   "defaultLoading": <div>YARR! This be loadin'...</div>,
   "symbols": ["rob", "kill", "present", "declareScore", "swap", "chooseNextSquare", "shield", "mirror", "goToZero", "double", "bank"],
-  "ThemeDependentComponent": ThemeDependentComponent
+  "ThemeDependentComponent": ThemeDependentComponent,
+  "intersperseWith": intersperseWith
 };
 export default shared_vars;
