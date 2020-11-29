@@ -76,3 +76,32 @@ img, button, a {cursor: pointer;}
 #titlebar h1 {
 	font-size: 3em;
 }
+
+#symbols > div {
+  display: flow-root;
+  margin: 20px;
+}
+
+#symbols p {
+  max-width: calc(100% - 90px);
+  position: relative;
+  top: -1em;
+  left: 70px;
+  margin-left: 1em;
+}
+
+.square {
+  position: absolute;
+  display: inline-block;
+  height: 70px;
+  width: 70px;
+}
+
+.square img {
+  max-height: 95%;
+  max-width: 95%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: cell;
+}
