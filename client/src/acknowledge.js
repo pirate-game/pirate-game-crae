@@ -6,6 +6,7 @@ import './css/acknowledge.css';
 
 export default class Acknowledge extends shared_vars.ThemeDependentComponent {
   render() {
+	  const content = null;
     return <React.Fragment>
         <div className="sometext" style={{backgroundColor:"lightblue"}}>
           <p style={{marginLeft:"4em", textIndent:"-4em"}}>
