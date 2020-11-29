@@ -5,7 +5,7 @@ import shared_vars from './shared_vars';
 
 window.addEventListener('hashchange', () => {
 	if (window.location.hash != shared_vars.authenticHash) {
-		if (shared_vars.unload_able || confirm("Leaving will irreversibly kick you from the game.")) {
+		if (shared_vars.unload_able || window.confirm("Leaving will irreversibly kick you from the game.")) {
 			const putative_fn = shared_vars.gotoPage[window.location.hash];
 			if (putative_fn) {
 				shared_vars.authenticHash = window.location.hash; // set proper location to actual one, because actual one is valid
