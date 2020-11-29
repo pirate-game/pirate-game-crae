@@ -30,12 +30,10 @@ export default class Rules extends React.Component {
         });
     };
     render() {
-        let content = null;
-        const data = this.state[data];
-        if (data === null) {
-            content = shared_vars.defaultLoading;
-        } else {
-            content = <React.Fragment>
+        let content = shared_vars.defaultLoading;
+        const data = this.state.data;
+        if (data) {
+	    content = <React.Fragment>
                 <p>{intersperseWith(data.rules_preamble, <React.Fragment><br /><br /></React.Fragment>)}</p>
                 <div id="symbols">
                     {shared_vars.symbols.map(symbol => {
@@ -48,7 +46,7 @@ export default class Rules extends React.Component {
                 </div>
                 <p>The winner is the pirate whose final CASH and Bank balance total the most.</p>
             </React.Fragment>;
-        };
+	};
         return <div className="sometext" style={{backgroundColor:"lightblue"}}>
             {content}
         </div>;
