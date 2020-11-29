@@ -1,4 +1,4 @@
-input[type=text], input[type=email], select, textarea {
+#theform input[type=text], #theform input[type=email], #theform select, #theform textarea {
         width: -webkit-fill-available;
         padding: 12px;
         border: 1px solid #ccc;
@@ -6,12 +6,12 @@ input[type=text], input[type=email], select, textarea {
         resize: vertical;
 }
 
-label {
+#theform label {
         padding: 12px 12px 12px 0;
         display: inline-block;
 }
 
-input[type=submit] {
+#theform input[type=submit] {
         background-color: #22971D;
         color: white;
         padding: 12px 20px;
@@ -21,38 +21,33 @@ input[type=submit] {
         border-radius: 10px;
 }
 
-input[type=submit]:hover {
+#theform input[type=submit]:hover {
         background-color: cornflowerblue;
         font-family: 'Calibri', Fallback, sans-serif;
         font-weight: bold;
         fontSize: inherit;
 }
 
-/*.contactform {
-        border-radius: 10px;
-        padding: 20px;
-}*/
-
-.col-25 {
+#theform .col-25 {
         float: left;
         width: 25%;
         margin-top: 6px;
 }
 
-.col-75 {
+#theform .col-75 {
         float: left;
         width: 75%;
         margin-top: 6px;
 }
 
-.row:after {
+#theform .row:after {
         content: "";
         display: table;
         clear: both;
 }
 
 @media screen and (orientation: portrait) {
-        .col-25, .col-75, input[type=submit] {
+        #theform .col-25, #theform .col-75, #theform input[type=submit] {
                 width: 100%;
                 margin-top: 0;
         }
