@@ -4,7 +4,7 @@ import shared_vars from './shared_vars';
 
 import './css/acknowledge.css';
 
-export default class Acknowledge extends React.Fragment {
+export default class Acknowledge extends React.Component {
   render() {
     return <React.Fragment>
         <div className="sometext" style={{backgroundColor:"lightblue"}}>
