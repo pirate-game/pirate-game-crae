@@ -42,8 +42,7 @@ const navbar = <div id="nav">
 </div>;
 
 const titlebar = <div id="titlebar">
-	//<h1 id="title" style={{fontSize: '50px'}}>The&nbsp;Pirate&nbsp;Game</h1>
-	<div id="title">
+	<div id="title" style={{float:"unset"}}>
 		<h1 style={{fontSize: '50px'}}>&nbsp;The&nbsp;Pirate&nbsp;Game&nbsp;</h1>
 		<label for="theme">Theme:</label>
 		<select id="theme" onChange={shared_vars.setTheme}>
