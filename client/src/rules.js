@@ -2,19 +2,6 @@ import React from 'react';
 
 import shared_vars from './shared_vars';
 
-function intersperseWith(array, element) {
-    const len = array.length;
-    if (len) {
-        let out = [array[0]];
-        for (let i = 1; i < len; ++i) { // it is meant to start at 1, so that the first element is missed
-            out = out.concat([element, array[i]]);
-        };
-        return out;
-    } else {
-        return array;
-    };
-};
-
 export default class Rules extends shared_vars.ThemeDependentComponent {
     render() {
         let content = shared_vars.defaultLoading;
@@ -22,7 +9,7 @@ export default class Rules extends shared_vars.ThemeDependentComponent {
 	console.log(data);
         if (data) {
 	    content = <React.Fragment>
-                <p>{intersperseWith(data.rules_preamble, <React.Fragment><br /><br /></React.Fragment>)}</p>
+                <p>{shared_vars.intersperseWith(data.rules_preamble, <React.Fragment><br /><br /></React.Fragment>)}</p>
                 <div id="symbols">
                     {shared_vars.symbols.map(symbol => {
                         const sym = data[symbol];
