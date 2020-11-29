@@ -19,6 +19,15 @@ class ThemeDependentComponent extends React.Component {
   };
 };
 
+function setTheme() {
+  shared_vars.theme = document.getElementById("theme").value;
+  const themeDependents = shared_vars.themeDependents;
+  const len = themeDependents.length;
+  for (let i = 0; i < len; ++i) {
+    themeDependents[i].updateTheme();
+  };
+};
+
 function intersperseWith(array, element) {
     const len = array.length;
     if (len) {
@@ -39,6 +48,7 @@ let shared_vars = {
   "symbols": ["rob", "kill", "present", "declareScore", "swap", "chooseNextSquare", "shield", "mirror", "goToZero", "double", "bank"],
   "ThemeDependentComponent": ThemeDependentComponent,
   "themeDependents": themeDependents,
+  "setTheme": setTheme,
   "intersperseWith": intersperseWith,
   "twoNewLines": <React.Fragment><br /><br /></React.Fragment>
 };
