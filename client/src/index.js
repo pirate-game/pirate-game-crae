@@ -4,7 +4,10 @@ import ReactDOM from 'react-dom';
 import shared_vars from './shared_vars';
 
 window.addEventListener('hashchange', () => {
-	shared_vars.gotoPage[location.hash]();
+	const putative_fn = shared_vars.gotoPage[window.location.hash];
+	if (putative_fn) {
+		putative_fn();
+	};
 });
 
 function renderIn(content, place) {
@@ -13,11 +16,11 @@ function renderIn(content, place) {
 
 const navbar = <div id="nav">
 	<ul>
-      		<li><button id="logo"><img border="0" src="logo.png" /></button></li>
-		<li><button>Start&nbsp;a<br />Game</button></li>
-		<li><button>Join&nbsp;a<br />Game</button></li>
-		<li><button>Watch&nbsp;a<br />Game</button></li>
-		<li><button>Acknowledgements</button></li>
+      		<li><a href="#" id="logo"><img border="0" src="logo.png" /></a></li>
+		<li><a href="#start_tag">Start&nbsp;a<br />Game</a></li>
+		<li><a href="#join_tag">Join&nbsp;a<br />Game</a></li>
+		<li><a href="#watch_tag">Watch&nbsp;a<br />Game</a></li>
+		<li><a href="#ack_tag">Acknowledgements</a></li>
 	</ul>
 	<h1 id="title">&nbsp;The&nbsp;Pirate&nbsp;Game&nbsp;</h1>
 </div>;
