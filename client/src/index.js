@@ -50,6 +50,9 @@ const RulesContent = () => <React.Suspense fallback={shared_vars.defaultLoading}
 const AcknowledgeContent_helper = React.lazy(() => import("./acknowledge"));
 const AcknowledgeContent = () => <React.Suspense fallback={shared_vars.defaultLoading}><br /><AcknowledgeContent_helper /></React.Suspense>;
 
+const SubmittedContent_helper = React.lazy(() => import("./submitted"));
+const SubmittedContent = () => <React.Suspense fallback={shared_vars.defaultLoading}><br /><SubmittedContent_helper /></React.Suspense>;
+
 class MainPageContent extends shared_vars.ThemeDependentComponent {
 	render() {
 		const data = this.state.data;
@@ -90,5 +93,6 @@ renderIn(toRender, 'root')
 shared_vars.gotoPage[""] = () => { renderIn(navbar, 'navOrTitleBar'); renderIn(mainPageContent, 'content'); };
 shared_vars.gotoPage["#rules_tag"] = () => { renderIn(navbar, 'navOrTitleBar'); renderIn(<RulesContent />, 'content'); };
 shared_vars.gotoPage["#ack_tag"] = () => { renderIn(navbar, 'navOrTitleBar'); renderIn(<AcknowledgeContent />, 'content'); };
+shared_vars.gotoPage["#submitted_tag"] = () => { renderIn(navbar, 'navOrTitleBar'); renderIn(<SubmittedContent />, 'content'); };
 
 shared_vars.gotoPage[window.location.hash]();
