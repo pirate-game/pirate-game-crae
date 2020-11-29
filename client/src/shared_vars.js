@@ -56,6 +56,7 @@ let shared_vars = {
   "unloadFn": unloadFn,
   "unload_able": true,
   "preventUnload": (() => { if (shared_vars.unload_able) { window.addEventListener("beforeunload", shared_vars.unloadFn); shared_vars.unload_able = false; }; }),
-  "allowUnload": (() => { if (!shared_vars.unload_able) { window.removeEventListener("beforeunload", shared_vars.unloadFn); shared_vars.unload_able = true; }; })
+  "allowUnload": (() => { if (!shared_vars.unload_able) { window.removeEventListener("beforeunload", shared_vars.unloadFn); shared_vars.unload_able = true; }; }),
+  "authenticHash": ""
 };
 export default shared_vars;
