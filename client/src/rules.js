@@ -15,20 +15,7 @@ function intersperseWith(array, element) {
     };
 };
 
-export default class Rules extends React.Component {
-    constructor() {
-        super();
-        this.state = { data: null };
-        this.updateTheme();
-    };
-    updateTheme() {
-        const theme = shared_vars.theme;
-        import('./theme_info/'+theme).then(d => {
-            if (shared_vars.theme == theme) {
-                this.setState({ data: d.default });
-            };
-        });
-    };
+export default class Rules extends shared_vars.ThemeDependentComponent {
     render() {
         let content = shared_vars.defaultLoading;
         const data = this.state.data;
