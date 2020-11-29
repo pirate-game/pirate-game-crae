@@ -25,7 +25,7 @@ export default class Rules extends React.Component {
         const theme = shared_vars.theme;
         import('./theme_info/'+theme).then(d => {
             if (shared_vars.theme == theme) {
-                this.setState({ data: d });
+                this.setState({ data: d.default });
             };
         });
     };
