@@ -33,11 +33,22 @@ const navbar = <div id="nav">
 </div>;
 
 const titlebar = <div id="titlebar">
-	<h1 id="title" style={{fontSize: '50px'}}>The&nbsp;Pirate&nbsp;Game</h1>
+	//<h1 id="title" style={{fontSize: '50px'}}>The&nbsp;Pirate&nbsp;Game</h1>
+	<div id="title">
+		<h1 style={{fontSize: '50px'}}>&nbsp;The&nbsp;Pirate&nbsp;Game&nbsp;</h1>
+		<label for="theme">Theme:</label>
+		<select id="theme" onChange={shared_vars.setTheme}>
+			<option value="default">Pirate</option>
+			<option value="xmas">Christmas</option>
+		</select>
+	</div>
 </div>;
 
 const RulesContent_helper = React.lazy(() => import("./rules"));
 const RulesContent = () => <React.Suspense fallback={shared_vars.defaultLoading}><br /><RulesContent_helper /></React.Suspense>;
+
+const AcknowledgeContent_helper = React.lazy(() => import("./acknowledge"));
+const AcknowledgeContent = () => <React.Suspense fallback={shared_vars.defaultLoading}><br /><AcknowledgeContent_helper /></React.Suspense>;
 
 class MainPageContent extends shared_vars.ThemeDependentComponent {
 	render() {
@@ -78,5 +89,6 @@ renderIn(toRender, 'root')
 
 shared_vars.gotoPage[""] = () => { renderIn(navbar, 'navOrTitleBar'); renderIn(mainPageContent, 'content'); };
 shared_vars.gotoPage["#rules_tag"] = () => { renderIn(navbar, 'navOrTitleBar'); renderIn(<RulesContent />, 'content'); };
+shared_vars.gotoPage["#ack_tag"] = () => { renderIn(navbar, 'navOrTitleBar'); renderIn(<AcknowledgeContent />, 'content'); };
 
 shared_vars.gotoPage[window.location.hash]();
