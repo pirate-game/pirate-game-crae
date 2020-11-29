@@ -1,6 +1,6 @@
 * {cursor: cell;}
 
-* * {cursor: inherit; font-family: inherit!important;}
+* * {cursor: inherit; font-family: inherit;}
 
 body {
 	background-color: #DCDCC4;
@@ -24,6 +24,8 @@ img, button, a {cursor: pointer;}
 #title h1 {
 	text-decoration: underline;
 }
+
+#title label { padding-right: 10px; }
 
 #title select { outline: none; }
 
