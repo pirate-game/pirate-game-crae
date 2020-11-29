@@ -5,6 +5,7 @@ export default {
   ],
   "introduction_link_text": "'ere",
   "introduction_after": [
+    ".",
     "To play a game, one o' ye's will be the Pirate King an' will click 'Start a Game'. The rest o' y'all'll be crew an' will click 'Join a Game'. The Pirate King will, then, share the key for the game which the crew will use to join the game. If ye's can't see the Pirate King's screen, ye's can click 'Watch a Game' and enter the key, and it will copy the Pirate King's screen.",
     "We be 'opin' ye's all enjoy The Great Pirate Game!"
   ],
