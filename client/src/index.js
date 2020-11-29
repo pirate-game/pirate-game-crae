@@ -35,6 +35,7 @@ const RulesContent = () => <React.Suspense fallback={shared_vars.defaultLoading}
 class MainPageContent extends shared_vars.ThemeDependentComponent {
 	render() {
 		const data = this.data;
+		console.log(data);
 		if (data) {
 			return <React.Fragment>
 				<br />
