@@ -2,7 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import shared_vars from './shared_vars';
-window.addEventListener('popstate', shared_vars.back);
+
+window.addEventListener('hashchange', () => {
+	shared_vars.gotoPage[location.hash]();
+});
 
 function renderIn(content, place) {
 	ReactDOM.render(content, document.getElementById(place));
@@ -32,7 +35,7 @@ const mainPageContent = <React.Fragment>
             		<p>Ya-harr! We be very glad ye's found us.
 				<br />
 				The Pirate Game Online Game is now playable! 
-				Most o' ye's will be familiar with the rules but for those o' ye's that aren't they can be found <button style={{border: "none", background: "none", padding: "0", textDecorationLine: "underline", color: "blue"}} onClick={()=>shared_vars.gotoPage["rules"]()}>'ere</button>.
+				Most o' ye's will be familiar with the rules but for those o' ye's that aren't they can be found <a href="#rules_tag">'ere</a>.
 				<br />
 				<br />
 				To play a game, one o' ye's will be the Pirate King an' will click 'Start a Game'. The rest o' y'all'll be crew an' will click 'Join a Game'. 
@@ -66,7 +69,7 @@ const toRender = <React.Fragment>
 
 renderIn(toRender, 'root')
 
-shared_vars.gotoPage["index"] = () => { shared_vars.forward(); renderIn(mainPageContent, 'content'); renderIn(navbar, 'navOrTitleBar'); };
-shared_vars.gotoPage["rules"] = () => { shared_vars.forward(); renderIn(<RulesContent />, 'content'); renderIn(titlebar, 'navOrTitleBar'); };
+shared_vars.gotoPage[""] = () => { renderIn(navbar, 'navOrTitleBar'); renderIn(mainPageContent, 'content'); };
+shared_vars.gotoPage["#rules_tag"] = () => { renderIn(titlebar, 'navOrTitleBar'); renderIn(<RulesContent />, 'content'); };
 
-shared_vars.gotoPage["index"]();
+shared_vars.gotoPage[""]();
