@@ -75,4 +75,4 @@ renderIn(toRender, 'root')
 shared_vars.gotoPage[""] = () => { renderIn(navbar, 'navOrTitleBar'); renderIn(mainPageContent, 'content'); };
 shared_vars.gotoPage["#rules_tag"] = () => { renderIn(titlebar, 'navOrTitleBar'); renderIn(<RulesContent />, 'content'); };
 
-shared_vars.gotoPage[""]();
+shared_vars.gotoPage[window.location.hash]();
