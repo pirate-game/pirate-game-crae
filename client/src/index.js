@@ -4,10 +4,19 @@ import ReactDOM from 'react-dom';
 import shared_vars from './shared_vars';
 
 window.addEventListener('hashchange', () => {
-	const putative_fn = shared_vars.gotoPage[window.location.hash];
-	if (putative_fn) {
-		putative_fn();
-	};
+	if (window.location.hash != shared_vars.authenticHash) {
+		if (shared_vars.unload_able || confirm("Leaving will irreversibly kick you from the game.")) {
+			const putative_fn = shared_vars.gotoPage[window.location.hash];
+			if (putative_fn) {
+				shared_vars.authenticHash = window.location.hash; // set proper location to actual one, because actual one is valid
+				putative_fn();
+			} else {
+				window.location.hash = shared_vars.authenticHash; // set actual location back to proper one
+			};
+		} else {
+			window.location.hash = shared_vars.authenticHash; // set actual location back to proper one
+		};
+	}
 });
 
 function renderIn(content, place) {
@@ -90,9 +99,10 @@ const toRender = <React.Fragment>
 
 renderIn(toRender, 'root')
 
-shared_vars.gotoPage[""] = () => { renderIn(navbar, 'navOrTitleBar'); renderIn(mainPageContent, 'content'); };
-shared_vars.gotoPage["#rules_tag"] = () => { renderIn(navbar, 'navOrTitleBar'); renderIn(<RulesContent />, 'content'); };
-shared_vars.gotoPage["#ack_tag"] = () => { renderIn(navbar, 'navOrTitleBar'); renderIn(<AcknowledgeContent />, 'content'); };
-shared_vars.gotoPage["#submitted_tag"] = () => { renderIn(navbar, 'navOrTitleBar'); renderIn(<SubmittedContent />, 'content'); };
+shared_vars.gotoPage[""] = () => { shared_vars.allowUnload(); renderIn(navbar, 'navOrTitleBar'); renderIn(mainPageContent, 'content'); };
+shared_vars.gotoPage["#rules_tag"] = () => { shared_vars.allowUnload(); renderIn(navbar, 'navOrTitleBar'); renderIn(<RulesContent />, 'content'); };
+shared_vars.gotoPage["#ack_tag"] = () => { shared_vars.allowUnload(); renderIn(navbar, 'navOrTitleBar'); renderIn(<AcknowledgeContent />, 'content'); };
+shared_vars.gotoPage["#submitted_tag"] = () => { shared_vars.allowUnload(); renderIn(navbar, 'navOrTitleBar'); renderIn(<SubmittedContent />, 'content'); };
 
+shared_vars.authenticHash = window.location.hash;
 shared_vars.gotoPage[window.location.hash]();
