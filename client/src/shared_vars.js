@@ -35,6 +35,7 @@ let shared_vars = {
   "defaultLoading": <div>YARR! This be loadin'...</div>,
   "symbols": ["rob", "kill", "present", "declareScore", "swap", "chooseNextSquare", "shield", "mirror", "goToZero", "double", "bank"],
   "ThemeDependentComponent": ThemeDependentComponent,
-  "intersperseWith": intersperseWith
+  "intersperseWith": intersperseWith,
+  "twoNewLines": <React.Fragment><br /><br /></React.Fragment>
 };
 export default shared_vars;
