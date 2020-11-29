@@ -23,7 +23,7 @@ export default class Rules extends React.Component {
     };
     updateTheme() {
         const theme = shared_vars.theme;
-        import('imgs/'+theme+'/names_etc').then(d => {
+        import(process.env.PUBLIC_URL+'/imgs/'+theme+'/names_etc').then(d => {
             if (shared_vars.theme == theme) {
                 this.setState({ data: d });
             };
