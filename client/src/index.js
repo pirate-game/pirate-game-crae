@@ -32,6 +32,10 @@ const titlebar = <div id="titlebar">
 const RulesContent_helper = React.lazy(() => import("./rules"));
 const RulesContent = () => <React.Suspense fallback={shared_vars.defaultLoading}><br /><RulesContent_helper /></React.Suspense>;
 
+class MainPageContent extends shared_vars.ThemeDependentComponent {
+	render() {};
+};
+
 const mainPageContent = <React.Fragment>
 	<br />
 		<div class="sometext" style={{backgroundColor: "lightblue"}}>
