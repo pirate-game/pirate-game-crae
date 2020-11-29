@@ -33,10 +33,36 @@ const RulesContent_helper = React.lazy(() => import("./rules"));
 const RulesContent = () => <React.Suspense fallback={shared_vars.defaultLoading}><br /><RulesContent_helper /></React.Suspense>;
 
 class MainPageContent extends shared_vars.ThemeDependentComponent {
-	render() {};
+	render() {
+		const data = this.data;
+		if (data) {
+			return <React.Fragment>
+				<br />
+				<div class="sometext" style={{backgroundColor: "lightblue"}}>
+            				<p>
+						{shared_vars.intersperseWith(data.introduction_before, shared_vars.twoNewLines)}
+						<a href="#rules_tag">{data.introduction_link_text}</a>
+						{shared_vars.intersperseWith(data.introduction_after, shared_vars.twoNewLines)}
+					</p>
+				</div>
+				<br />
+				<div class="sometext" style={{backgroundColor: "lightblue"}}>
+					<p style={{marginLeft: "4em", textIndent: "-4em"}}>
+						{data.music_preamble}
+						<br />
+						{shared_vars.intersperseWith(data.music.map(e => <a href={e[0]} target="_blank">{e[1]}</a>), <br />)}
+					</p>
+				</div>
+			</React.Fragment>;
+		} else {
+			return shared_vars.defaultLoading;
+		};
+	};
 };
 
-const mainPageContent = <React.Fragment>
+const mainPageContent = <MainPageContent />;
+
+/*<React.Fragment>
 	<br />
 		<div class="sometext" style={{backgroundColor: "lightblue"}}>
             		<p>Ya-harr! We be very glad ye's found us.
@@ -68,6 +94,7 @@ const mainPageContent = <React.Fragment>
 			</p>
         	</div>
 </React.Fragment>;
+*/
 
 const toRender = <React.Fragment>
 	<div id="navOrTitleBar"></div>
@@ -77,6 +104,6 @@ const toRender = <React.Fragment>
 renderIn(toRender, 'root')
 
 shared_vars.gotoPage[""] = () => { renderIn(navbar, 'navOrTitleBar'); renderIn(mainPageContent, 'content'); };
-shared_vars.gotoPage["#rules_tag"] = () => { renderIn(titlebar, 'navOrTitleBar'); renderIn(<RulesContent />, 'content'); };
+shared_vars.gotoPage["#rules_tag"] = () => { renderIn(navbar, 'navOrTitleBar'); renderIn(<RulesContent />, 'content'); };
 
 shared_vars.gotoPage[window.location.hash]();
