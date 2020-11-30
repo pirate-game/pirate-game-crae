@@ -23,13 +23,21 @@ function renderIn(content, place) {
 	ReactDOM.render(content, document.getElementById(place));
 };
 
-const themeSelector = <React.Fragment>
-	<label for="theme">Theme:</label>
-	<select id="theme" onChange={shared_vars.setTheme} onLoad={() => { console.log(document.getElementById("theme").value); document.getElementById("theme").value = shared_vars.theme; }}>
-		<option value="default">Pirate</option>
-		<option value="xmas">Christmas</option>
-	</select>
-</React.Fragment>;
+class ThemeSelector extends React.Component {
+	render() {
+		return <React.Fragment>
+			<label for="theme">Theme:</label>
+			<select id="theme" onChange={shared_vars.setTheme}>
+				<option value="default">Pirate</option>
+				<option value="xmas">Christmas</option>
+			</select>
+		</React.Fragment>;
+	};
+	componentDidMount() {
+		console.log(document.getElementById("theme").value); 
+		document.getElementById("theme").value = shared_vars.theme;
+	};
+};
 
 const navbar = <div id="nav">
 	<ul>
@@ -41,14 +49,14 @@ const navbar = <div id="nav">
 	</ul>
 	<div id="title">
 		<h1>&nbsp;The&nbsp;Pirate&nbsp;Game&nbsp;</h1>
-		{themeSelector}
+		<ThemeSelector />
 	</div>
 </div>;
 
 const titlebar = <div id="titlebar">
 	<div id="title" style={{float:"unset", width:"unset", paddingRight:"unset"}}>
 		<h1 style={{fontSize: '50px'}}>&nbsp;The&nbsp;Pirate&nbsp;Game&nbsp;</h1>
-		{themeSelector}
+		<ThemeSelector />
 	</div>
 </div>;
 
