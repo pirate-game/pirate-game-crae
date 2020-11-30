@@ -11,7 +11,18 @@ export default {
   ],
   "music_preamble": "If you need some Christmas-y music, we recommend the following: (They will open in a new tab)",
   "music": [
-    ["https://www.youtube.com/", "Coming soon..."]
+    ["https://www.youtube.com/watch?v=wzCQGodWwPU&list=PL3EEBC548773DC9C0", "The soundtrack to The Muppet Christmas Carol."],
+    ["https://www.youtube.com/playlist?list=PL2BiE_4h8TpyTuvWlUu-4vHEU4SQozJPI", "Now That's What I Call Christmas (2015)"],
+    ["https://www.youtube.com/watch?v=hgnxxTECLBo", "Don't Stop Christmas Now"],
+    ["https://www.youtube.com/watch?v=3zQ53oXITyk", "Welcome To The Christmas Parade"],
+    ["https://www.youtube.com/watch?v=vd02GE2E-24", "My Chemical Romance - All I Want For Christmas Is You"],
+    ["https://www.youtube.com/watch?v=-k4yjCo8JWs", "Are You Hanging Up Your Stocking On The Wall?"],
+    ["https://www.youtube.com/watch?v=nranUeNkXpM", "Christmas is Here"],
+    ["https://www.youtube.com/watch?v=5ANDakiQGIY", "Marc Martel's Hallelujah Chorus"],
+    ["https://www.youtube.com/watch?v=Sd8_CCp5-oY", "Christmas at Ground Zero"],
+    ["https://www.youtube.com/watch?v=-ZggJNsAuIw", "Sleigh Ride in 7/8 time"],
+    ["https://www.youtube.com/watch?v=DauxsT3uQOc", "Christmas With The Hannons"],
+    ["https://www.youtube.com/watch?v=j9jbdgZidu8", "That song. You know the one."]
   ],
   "rules_preamble": [
     "To play a game, one of you will be host, and will click 'Start a Game'. The rest of you will be play by clicking 'Join a Game'. The host will, then, share the key for the game which you will use to join the game. If you can't see the host's screen, you can click 'Watch a Game' and enter the key, and it will copy the host's screen.",
