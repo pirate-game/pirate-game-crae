@@ -25,7 +25,7 @@ function renderIn(content, place) {
 
 const themeSelector = <React.Fragment>
 	<label for="theme">Theme:</label>
-	<select id="theme" onChange={shared_vars.setTheme} value={shared_vars.theme}>
+	<select id="theme" onChange={shared_vars.setTheme} onLoad={() => { document.getElementById("theme").value = shared_vars.theme; }}>
 		<option value="default">Pirate</option>
 		<option value="xmas">Christmas</option>
 	</select>
