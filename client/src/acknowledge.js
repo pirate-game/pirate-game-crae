@@ -28,6 +28,17 @@ export default class Acknowledge extends React.Component {
 				The Pirate Ship image was taken from <a href="https://www.cleanpng.com/png-ship-piracy-clip-art-pirate-722920/">Cleanpng</a><br />
 				The Shield image was taken from <a href="http://www.clker.com/clipart-magic-shield-no-shadow.html">Clker</a><br />
 				The Swap image was taken from <a href="https://www.cleanpng.com/png-clothing-swap-computer-icons-clip-art-arrow-789742/">Cleanpng</a><br />
+				The Grinch image was taken from <a href="https://www.cleanpng.com/png-how-the-grinch-stole-christmas-gift-christmas-and-179677/">Cleanpng</a><br />
+				The Christmas Pudding image was by <a href="https://pixabay.com/users/katillustrationlondon-10871763/">Katillustrationlondon</a> from <a href="https://pixabay.com/illustrations/christmas-pudding-xmas-holly-4604383/">Pixabay</a><br />
+				The Christmas Present image was taken from <a href="https://www.cleanpng.com/png-christmas-gift-christmas-gift-free-content-clip-ar-586095/">Cleanpng</a><br />
+				The Scrooge image was taken from <a href="https://www.cleanpng.com/png-charles-dickens-a-christmas-carol-ebenezer-scrooge-2284458/">Cleanpng</a><br />
+				The Mistletoe image was by <a href="https://pixabay.com/users/dandelion_tea-15261675/">dandelion_tea</a> from <a href="https://pixabay.com/vectors/mistletoe-christmas-decoration-5746217/">Pixabay</a><br />
+				The Christmas Tree image was by <a href="https://pixabay.com/users/clker-free-vector-images-3736/">Clker-Free-Vector-Images</a> from <a href="https://pixabay.com/vectors/christmas-tree-christmas-background-41448/">Pixabay</a><br />
+				The Elf image was by <a href="https://pixabay.com/users/artsybee-462611/">ArtsyBee</a> from <a href="https://pixabay.com/illustrations/elf-christmas-holiday-present-2946674/">Pixabay</a><br />
+	  			The Bauble image was by <a href="https://pixabay.com/users/matros306-14395190/">matros306</a> from <a href="https://pixabay.com/vectors/christmas-holidays-decoration-4650282/">Pixabay</a><br />
+				The Turkey image was taken from <a href="https://www.cleanpng.com/png-roast-chicken-hot-chicken-tandoori-chicken-barbecu-310830/">Cleanpng</a><br />
+				The Cracker image was taken from <a href="https://www.cleanpng.com/png-christmas-cracker-png-clipart-image-60566/">Cleanpng</a><br />
+				The Christmas Hat image was by <a href="https://pixabay.com/users/roverhate-1759589/">ROverhate</a> from <a href="https://pixabay.com/vectors/santa-hat-santa-hat-christmas-1087709/">Pixabay</a><br />
 	  </p>
           <p>
 		If you believe that we are using any of this in error and would like us to change our website - or you have anything else you'd like to speak to us about - please contact us with the form below. You <b>do not</b> need to put your email address it will send fine with a fake one like "fake@fake" and <b>do not</b> send us your email address if you are not completely comfortable with our having it.
