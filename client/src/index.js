@@ -23,6 +23,14 @@ function renderIn(content, place) {
 	ReactDOM.render(content, document.getElementById(place));
 };
 
+const themeSelector = <React.Fragment>
+	<label for="theme">Theme:</label>
+	<select id="theme" onChange={shared_vars.setTheme} value={shared_vars.theme}>
+		<option value="default">Pirate</option>
+		<option value="xmas">Christmas</option>
+	</select>
+</React.Fragment>;
+
 const navbar = <div id="nav">
 	<ul>
       		<li><a href="#" id="logo"><img border="0" src="logo.png" /></a></li>
@@ -33,22 +41,14 @@ const navbar = <div id="nav">
 	</ul>
 	<div id="title">
 		<h1>&nbsp;The&nbsp;Pirate&nbsp;Game&nbsp;</h1>
-		<label for="theme">Theme:</label>
-		<select id="theme" onChange={shared_vars.setTheme}>
-			<option value="default">Pirate</option>
-			<option value="xmas">Christmas</option>
-		</select>
+		{themeSelector}
 	</div>
 </div>;
 
 const titlebar = <div id="titlebar">
 	<div id="title" style={{float:"unset", width:"unset", paddingRight:"unset"}}>
 		<h1 style={{fontSize: '50px'}}>&nbsp;The&nbsp;Pirate&nbsp;Game&nbsp;</h1>
-		<label for="theme">Theme:</label>
-		<select id="theme" onChange={shared_vars.setTheme}>
-			<option value="default">Pirate</option>
-			<option value="xmas">Christmas</option>
-		</select>
+		{themeSelector}
 	</div>
 </div>;
 
