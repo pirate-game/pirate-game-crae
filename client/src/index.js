@@ -34,7 +34,6 @@ class ThemeSelector extends React.Component {
 		</React.Fragment>;
 	};
 	componentDidMount() {
-		console.log(document.getElementById("theme").value); 
 		document.getElementById("theme").value = shared_vars.theme;
 	};
 };
