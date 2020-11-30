@@ -11,7 +11,7 @@ export default {
   ],
   "music_preamble": "If you need some Christmas-y music, we recommend the following: (They will open in a new tab)",
   "music": [
-    ["https://www.youtube.com/watch?v=wzCQGodWwPU&list=PL3EEBC548773DC9C0", "The soundtrack to The Muppet Christmas Carol."],
+    ["https://www.youtube.com/watch?v=wzCQGodWwPU&list=PL3EEBC548773DC9C0", "The soundtrack to The Muppet Christmas Carol"],
     ["https://www.youtube.com/playlist?list=PL2BiE_4h8TpyTuvWlUu-4vHEU4SQozJPI", "Now That's What I Call Christmas (2015)"],
     ["https://www.youtube.com/watch?v=hgnxxTECLBo", "Don't Stop Christmas Now"],
     ["https://www.youtube.com/watch?v=3zQ53oXITyk", "Welcome To The Christmas Parade"],
