@@ -1,58 +1,64 @@
-#theform input[type=text], #theform input[type=email], #theform select, #theform textarea {
-        width: -webkit-fill-available;
-        padding: 12px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        resize: vertical;
+#theform input[type=text],
+#theform input[type=email],
+#theform select,
+#theform textarea {
+    width: -webkit-fill-available;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
 }
 
 #theform label {
-        padding: 12px 12px 12px 0;
-        display: inline-block;
+    padding: 12px 12px 12px 0;
+    display: inline-block;
 }
 
 #theform input[type=submit] {
-        background-color: #22971D;
-        color: white;
-        padding: 12px 20px;
-        border: none;
-        cursor: pointer;
-        float: right;
-        border-radius: 10px;
+    background-color: #22971D;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+    float: right;
+    border-radius: 10px;
 }
 
 #theform input[type=submit]:hover {
-        background-color: cornflowerblue;
-        font-family: 'Calibri', Fallback, sans-serif;
-        font-weight: bold;
-        fontSize: inherit;
+    background-color: cornflowerblue;
+    font-family: 'Calibri', Fallback, sans-serif;
+    font-weight: bold;
+    font-size: inherit;
 }
 
 #theform .col-25 {
-        float: left;
-        width: 25%;
-        margin-top: 6px;
+    float: left;
+    width: 25%;
+    margin-top: 6px;
 }
 
 #theform .col-75 {
-        float: left;
-        width: 75%;
-        margin-top: 6px;
+    float: left;
+    width: 75%;
+    margin-top: 6px;
 }
 
 #theform .row:after {
-        content: "";
-        display: table;
-        clear: both;
+    content: "";
+    display: table;
+    clear: both;
 }
 
 @media screen and (orientation: portrait) {
-        #theform .col-25, #theform .col-75, #theform input[type=submit] {
-                width: 100%;
-                margin-top: 0;
-        }
+
+    #theform .col-25,
+    #theform .col-75,
+    #theform input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }
 }
 
 #theform {
-        padding: 25px 25px 40px;
+    padding: 25px 25px 40px;
 }
