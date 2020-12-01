@@ -56,6 +56,10 @@ function intersperseWith(array, element) {
 
 function unloadFn(event) { event.returnValue=""; };
 
+function defaultWrapComponent(cmp) {
+    return <React.Suspense fallback={shared_vars.defaultLoading}><br />{cmp}</React.Suspense>;
+}; 
+
 let shared_vars = {
   "theme": "default",
   "gotoPage": {},
@@ -71,6 +75,7 @@ let shared_vars = {
   "preventUnload": (() => { if (shared_vars.unload_able) { window.addEventListener("beforeunload", shared_vars.unloadFn); shared_vars.unload_able = false; }; }),
   "allowUnload": (() => { if (!shared_vars.unload_able) { window.removeEventListener("beforeunload", shared_vars.unloadFn); shared_vars.unload_able = true; }; }),
   "authenticHash": "",
-  "removeFirstOccurrenceIn": removeFirstOccurrenceIn
+  "removeFirstOccurrenceIn": removeFirstOccurrenceIn,
+  "defaultWrapComponent": defaultWrapComponent
 };
 export default shared_vars;
