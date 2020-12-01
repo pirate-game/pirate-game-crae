@@ -83,14 +83,6 @@ const WatchContent_lazy = React.lazy(() => import("./watch"));
 const WatchContent_helper = shared_vars.defaultWrapComponent(<WatchContent_lazy />);
 const WatchContent = () => WatchContent_helper;
 
-/*							    
-const AcknowledgeContent_helper = React.lazy(() => import("./acknowledge"));
-const AcknowledgeContent = () => <React.Suspense fallback={shared_vars.defaultLoading}><br /><AcknowledgeContent_helper /></React.Suspense>;
-
-const SubmittedContent_helper = React.lazy(() => import("./submitted"));
-const SubmittedContent = () => <React.Suspense fallback={shared_vars.defaultLoading}><br /><SubmittedContent_helper /></React.Suspense>;
-*/
-
 class MainPageContent extends shared_vars.ThemeDependentComponent {
 	render() {
 		const data = this.state.data;
