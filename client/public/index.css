@@ -1,118 +1,135 @@
-* {cursor: cell;}
-
-* * {cursor: inherit; font-family: inherit;}
-
-body {
-	background-color: #DCDCC4;
-	font-family: 'Calibri', Fallback, sans-serif;
-	overscroll-behavior-y: none;
+* {
+    cursor: cell;
 }
 
-div {border-radius: 10px;}
+* * {
+    cursor: inherit;
+    font-family: inherit;
+}
 
-img, button, a {cursor: pointer;}
+body {
+    background-color: #DCDCC4;
+    font-family: 'Calibri', Fallback, sans-serif;
+    overscroll-behavior-y: none;
+}
+
+div {
+    border-radius: 10px;
+}
+
+img,
+button,
+a {
+    cursor: pointer;
+}
 
 #title {
-	color: white;
-	text-align: center;
-	float: right;
-    	width: fit-content;
-    	padding-right: 20px;
-    	padding-bottom: 10px;
+    color: white;
+    text-align: center;
+    float: right;
+    width: fit-content;
+    padding-right: 20px;
+    padding-bottom: 10px;
 }
 
 #title h1 {
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
-#title label { padding-right: 10px; }
+#title label {
+    padding-right: 10px;
+}
 
-#title select { outline: none; }
+#title select {
+    outline: none;
+}
 
 .sometext {
-	padding: 25px;
-	margin: auto;
-	font-size: 1em!important;
+    padding: 25px;
+    margin: auto;
+    font-size: 1em !important;
 }
 
 #nav {
-	overflow: hidden;
-	background-color: #CC6600;
-	position: relative;
-	top:0;
+    overflow: hidden;
+    background-color: #CC6600;
+    position: relative;
+    top: 0;
 }
 
 #nav ul {
-	list-style-type: none;
+    list-style-type: none;
 }
 
 #nav li {
-	float: left;
-	margin: 0 5px 15px;
+    float: left;
+    margin: 0 5px 15px;
 }
 
-#homeButton, #nav li a {
-	display: block;
-	color: white;
-	text-align: center;
-	font-size: 20px;
-	font-weight: bold;
-	padding: 14px 16px;
-	text-decoration: none;
-	transition-duration: 0.4s;
-	border-radius: 6px;
+#homeButton,
+#nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition-duration: 0.4s;
+    border-radius: 6px;
 }
 
-#homeButton:hover, #nav li a:hover {
-	background-color:cornflowerblue;
+#homeButton:hover,
+#nav li a:hover {
+    background-color: cornflowerblue;
 }
 
 #logo:hover {
-    background-color: unset!important;
+    background-color: unset !important;
 }
 
 #logo img {
-	width: 100px;
-	height: auto;
-	border-radius: 10px;
+    width: 100px;
+    height: auto;
+    border-radius: 10px;
 }
 
 #titlebar {
-	overflow: hidden;
-	background-color:#CC6600;
-	position: relative;
-	top:0;
+    overflow: hidden;
+    background-color: #CC6600;
+    position: relative;
+    top: 0;
 }
 
 #titlebar h1 {
-	font-size: 3em;
+    font-size: 3em;
 }
 
-#symbols > div {
-  display: flow-root;
-  margin: 20px;
+#symbols>div {
+    display: flow-root;
+    margin: 20px;
 }
 
 #symbols p {
-  max-width: calc(100% - 90px);
-  position: relative;
-  top: -1em;
-  left: 70px;
-  margin-left: 1em;
+    max-width: calc(100% - 90px);
+    position: relative;
+    top: -1em;
+    left: 70px;
+    margin-left: 1em;
 }
 
 .square {
-  position: absolute;
-  display: inline-block;
-  height: 70px;
-  width: 70px;
+    position: absolute;
+    display: inline-block;
+    height: 70px;
+    width: 70px;
 }
 
 .square img {
-  max-height: 95%;
-  max-width: 95%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  cursor: cell;
+    max-height: 95%;
+    max-width: 95%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: cell;
 }
