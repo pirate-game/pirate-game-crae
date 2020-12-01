@@ -94,16 +94,27 @@ function crewmemberToGame(someCrewmember) {
     return {};
 };
 
-io.on('connection', function(socket) {
- 
+io.on('connection', socket => {
+
     socket.on('request_key', () => {
         const key = new_key();
         socket.emit('key', key);
-        const game = { leader: socket, game_key: key, crew: [], available: true, watchable: false, watching: [], scores: [] };
+        const game = {
+            leader: socket,
+            game_key: key,
+            crew: [],
+            available: true,
+            watchable: false,
+            watching: [],
+            scores: []
+        };
         games.push(game);
-        socket.on('disconnect', (why) => { removeFirstOccurrenceIn(games, game); removeFirstOccurrenceIn(keys_in_use, key); } ); // cleans up the game, and key when the host leaves
+        socket.on('disconnect', why => {
+            removeFirstOccurrenceIn(games, game);
+            removeFirstOccurrenceIn(keys_in_use, key);
+        }); // cleans up the game, and key when the host leaves
     });
-    
+
     socket.on('attempt_join', (name, key) => {
         const game = keyToGame(key);
         if (game == {}) {
@@ -113,7 +124,10 @@ io.on('connection', function(socket) {
                 if (game.crew.map(x => x.pirateName).includes(name)) {
                     socket.emit('name_taken');
                 } else {
-                    game.crew.push({ pirate: socket, pirateName: name });
+                    game.crew.push({
+                        pirate: socket,
+                        pirateName: name
+                    });
                     game.leader.emit('request_join', name);
                 };
             } else {
@@ -121,7 +135,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('crew_assembled', () => {
         const game = leaderToGame(socket);
         if (game != {}) {
@@ -129,25 +143,25 @@ io.on('connection', function(socket) {
             socket.emit('show_provisional_crew');
         };
     });
-    
+
     socket.on('remove_player', who => {
         const game = leaderToGame(socket);
         if (game != {}) {
             const player = gameAndNameToPlayer(game, who);
             if (player != {}) {
                 player.emit('join_rejected');
-                game.crew = game.crew.filter(x => (x.pirate.id!=player.id));
+                game.crew = game.crew.filter(x => (x.pirate.id != player.id));
             };
         };
     });
-    
+
     socket.on('change_crew', () => {
         const game = leaderToGame(socket);
         if (game != {}) {
             game.available = true;
         };
     });
-    
+
     socket.on('start_game', () => {
         const game = leaderToGame(socket);
         if (game != {}) {
@@ -164,7 +178,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('too_slow', who => {
         const game = leaderToGame(socket);
         if (game != {}) {
@@ -175,7 +189,7 @@ io.on('connection', function(socket) {
                     player.emit('too_slow');
                 };
             };
-            game.crew = game.crew.filter((x)=>(!who.includes(x.pirateName)));
+            game.crew = game.crew.filter((x) => (!who.includes(x.pirateName)));
             const thoseWatching = game.watching;
             const lenWatching = thoseWatching.length;
             for (let j = 0; j < lenWatching; j++) {
@@ -183,7 +197,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('board_ready', () => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
@@ -193,7 +207,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('attempt_watch', key => {
         const game = keyToGame(key);
         if (game == {}) {
@@ -206,7 +220,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('state', state => {
         const game = leaderToGame(socket);
         if (game != {}) {
@@ -217,7 +231,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('current_square', square => {
         const game = leaderToGame(socket);
         if (game != {}) {
@@ -233,7 +247,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('choose_next_square', player => {
         const game = leaderToGame(socket);
         if (game != {}) {
@@ -244,10 +258,10 @@ io.on('connection', function(socket) {
             };
         };
     });
-        
+
     socket.on('choose', toChoose => {
         const game = leaderToGame(socket);
-        if (game != {}){
+        if (game != {}) {
             const thoseWatching = game.watching;
             const lenWatching = thoseWatching.length;
             for (let i = 0; i < lenWatching; i++) {
@@ -258,17 +272,17 @@ io.on('connection', function(socket) {
                 socket.emit('player_gone', toChoose);
             } else {
                 playerToChoose.emit('choose');
-            };  
+            };
         };
     });
-    
+
     socket.on('chose', square => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
             game.leader.emit('chose', square);
         };
     });
-    
+
     socket.on('ready', () => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
@@ -278,7 +292,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('got_choose', () => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
@@ -288,7 +302,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('gobby_parrot', score => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
@@ -303,7 +317,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('get_scores', () => {
         const game = leaderToGame(socket);
         if (game != {}) {
@@ -314,38 +328,41 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('got_score', someScore => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
-            game.scores.push({ name: gameAndPlayerToName(game, socket), score: someScore });
+            game.scores.push({
+                name: gameAndPlayerToName(game, socket),
+                score: someScore
+            });
             game.leader.emit('got_scores', game.scores);
         };
     });
-    
+
     socket.on('game_over', leaderboard => {
         const game = leaderToGame(socket);
         if (game != {}) {
             const theCrew = game.crew;
             const lenCrew = theCrew.length;
-            for (let i = 0; i < lenCrew; i++){
+            for (let i = 0; i < lenCrew; i++) {
                 theCrew[i].pirate.emit('game_over', leaderboard);
             };
             const thoseWatching = game.watching;
             const lenWatching = thoseWatching.length;
-            for (var j = 0; j < lenWatching; j++){
+            for (var j = 0; j < lenWatching; j++) {
                 thoseWatching[j].emit('game_over', leaderboard);
             };
         };
     });
-    
+
     socket.on('request_crew', () => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
-            socket.emit('crew', game.crew.map(e=>e.pirateName));
+            socket.emit('crew', game.crew.map(e => e.pirateName));
         };
     });
-    
+
     socket.on('rob', name => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
@@ -356,7 +373,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('kill', name => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
@@ -367,7 +384,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('present', name => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
@@ -384,7 +401,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('swap', (name, amount) => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
@@ -395,7 +412,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('mirror_rob', name => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
@@ -406,7 +423,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('mirror_kill', name => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
@@ -417,7 +434,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('mirror_mirror_rob', name => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
@@ -428,7 +445,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('mirror_mirror_kill', name => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
@@ -439,7 +456,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('robbed', (name, amount) => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
@@ -456,7 +473,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('swapped', (name, amount) => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
@@ -473,7 +490,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('killed', name => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
@@ -486,7 +503,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('shielded_rob', name => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
@@ -499,7 +516,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('shielded_swap', name => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
@@ -512,7 +529,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('shielded_kill', name => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
@@ -525,7 +542,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('mirror_robbed', (name, amount) => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
@@ -541,9 +558,9 @@ io.on('connection', function(socket) {
                 };
             };
         };
-    });   
-    
-     socket.on('mirror_killed', name => {
+    });
+
+    socket.on('mirror_killed', name => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
             const victim = gameAndPlayerToName(game, socket);
@@ -555,7 +572,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('shielded_mirror_rob', name => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
@@ -568,7 +585,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('shielded_mirror_kill', name => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
@@ -581,7 +598,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('mirror_mirror_robbed', (name, amount) => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
@@ -597,9 +614,9 @@ io.on('connection', function(socket) {
                 };
             };
         };
-    });   
-    
-     socket.on('mirror_mirror_killed', name => {
+    });
+
+    socket.on('mirror_mirror_killed', name => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
             const victim = gameAndPlayerToName(game, socket);
@@ -611,8 +628,8 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
-     socket.on('shielded_mirror_mirror_rob', name => {
+
+    socket.on('shielded_mirror_mirror_rob', name => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
             const victim = gameAndPlayerToName(game, socket);
@@ -624,7 +641,7 @@ io.on('connection', function(socket) {
             };
         };
     });
-    
+
     socket.on('shielded_mirror_mirror_kill', name => {
         const game = crewmemberToGame(socket);
         if (game != {}) {
@@ -643,11 +660,11 @@ io.on('connection', function(socket) {
 //End Game section
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build/index.html'));
+    res.sendFile(path.join(__dirname, 'client/build/index.html'));
 });
 
 http.listen(port);
 
-app.use(function (req, res, next) {
-  res.status(404).sendFile(__dirname + '/404.html');
+app.use((req, res, next) => {
+    res.status(404).sendFile(__dirname + '/404.html');
 });
