@@ -14,6 +14,10 @@ export default class Start extends shared_vars.ThemeDependentComponent {
     console.log("will unmount");
   };
   render() {
-    return <p>Start Content</p>;
+    if (this.state.data) {
+      return <p>{this.state.data.introduction_before[0]}</p>;
+    } else {
+      return <p>Start Content</p>;
+    };
   };
 };
