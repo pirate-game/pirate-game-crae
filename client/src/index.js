@@ -59,14 +59,37 @@ const titlebar = <div id="titlebar">
 	</div>
 </div>;
 
-const RulesContent_helper = React.lazy(() => import("./rules"));
-const RulesContent = () => <React.Suspense fallback={shared_vars.defaultLoading}><br /><RulesContent_helper /></React.Suspense>;
+const RulesContent_lazy = React.lazy(() => import("./rules"));
+const RulesContent_helper = shared_vars.defaultWrapComponent(<RulesContent_lazy />);
+const RulesContent = () => RulesContent_helper;
+							    
+const AcknowledgeContent_lazy = React.lazy(() => import("./acknowledge"));
+const AcknowledgeContent_helper = shared_vars.defaultWrapComponent(<AcknowledgeContent_lazy />);
+const AcknowledgeContent = () => AcknowledgeContent_helper;
 
+const SubmittedContent_lazy = React.lazy(() => import("./submitted"));
+const SubmittedContent_helper = shared_vars.defaultWrapComponent(<SubmittedContent_lazy />);
+const SubmittedContent = () => SubmittedContent_helper;
+
+const StartContent_lazy = React.lazy(() => import("./start"));
+const StartContent_helper = shared_vars.defaultWrapComponent(<StartContent_lazy />);
+const StartContent = () => StartContent_helper;
+
+const JoinContent_lazy = React.lazy(() => import("./join"));
+const JoinContent_helper = shared_vars.defaultWrapComponent(<JoinContent_lazy />);
+const JoinContent = () => JoinContent_helper;
+
+const WatchContent_lazy = React.lazy(() => import("./watch"));
+const WatchContent_helper = shared_vars.defaultWrapComponent(<WatchContent_lazy />);
+const WatchContent = () => WatchContent_helper;
+
+/*							    
 const AcknowledgeContent_helper = React.lazy(() => import("./acknowledge"));
 const AcknowledgeContent = () => <React.Suspense fallback={shared_vars.defaultLoading}><br /><AcknowledgeContent_helper /></React.Suspense>;
 
 const SubmittedContent_helper = React.lazy(() => import("./submitted"));
 const SubmittedContent = () => <React.Suspense fallback={shared_vars.defaultLoading}><br /><SubmittedContent_helper /></React.Suspense>;
+*/
 
 class MainPageContent extends shared_vars.ThemeDependentComponent {
 	render() {
@@ -99,19 +122,19 @@ class MainPageContent extends shared_vars.ThemeDependentComponent {
 const mainPageContent = <MainPageContent />;
 
 const toRender = <React.Fragment>
-	<div id="navOrTitleBar"></div>
-	<div id="content"></div>
+	<div id="navOrTitleBar" />
+	<div id="content" />
 </React.Fragment>;
 
 renderIn(toRender, 'root')
 
-shared_vars.gotoPage[""] = () => { shared_vars.allowUnload(); renderIn(navbar, 'navOrTitleBar'); renderIn(mainPageContent, 'content'); };
-shared_vars.gotoPage["#rules_tag"] = () => { shared_vars.allowUnload(); renderIn(navbar, 'navOrTitleBar'); renderIn(<RulesContent />, 'content'); };
-shared_vars.gotoPage["#ack_tag"] = () => { shared_vars.allowUnload(); renderIn(navbar, 'navOrTitleBar'); renderIn(<AcknowledgeContent />, 'content'); };
-shared_vars.gotoPage["#submitted_tag"] = () => { shared_vars.allowUnload(); renderIn(navbar, 'navOrTitleBar'); renderIn(<SubmittedContent />, 'content'); };
-shared_vars.gotoPage["#start_tag"] = () => { shared_vars.preventUnload(); renderIn(titlebar, 'navOrTitleBar'); renderIn(<p>Start</p>, 'content'); };
-shared_vars.gotoPage["#join_tag"] = () => { shared_vars.preventUnload(); renderIn(titlebar, 'navOrTitleBar'); renderIn(<p>Join</p>, 'content'); };
-shared_vars.gotoPage["#watch_tag"] = () => { shared_vars.preventUnload(); renderIn(titlebar, 'navOrTitleBar'); renderIn(<p>Watch</p>, 'content'); };
+shared_vars.gotoPage[""]               = () => { shared_vars.allowUnload();   renderIn(navbar,   'navOrTitleBar'); renderIn(mainPageContent,        'content'); };
+shared_vars.gotoPage["#rules_tag"]     = () => { shared_vars.allowUnload();   renderIn(navbar,   'navOrTitleBar'); renderIn(<RulesContent />,       'content'); };
+shared_vars.gotoPage["#ack_tag"]       = () => { shared_vars.allowUnload();   renderIn(navbar,   'navOrTitleBar'); renderIn(<AcknowledgeContent />, 'content'); };
+shared_vars.gotoPage["#submitted_tag"] = () => { shared_vars.allowUnload();   renderIn(navbar,   'navOrTitleBar'); renderIn(<SubmittedContent />,   'content'); };
+shared_vars.gotoPage["#start_tag"]     = () => { shared_vars.preventUnload(); renderIn(titlebar, 'navOrTitleBar'); renderIn(<StartContent />,       'content'); };
+shared_vars.gotoPage["#join_tag"]      = () => { shared_vars.preventUnload(); renderIn(titlebar, 'navOrTitleBar'); renderIn(<JoinContent />,        'content'); };
+shared_vars.gotoPage["#watch_tag"]     = () => { shared_vars.preventUnload(); renderIn(titlebar, 'navOrTitleBar'); renderIn(<WatchContent />,       'content'); };
 
 shared_vars.authenticHash = window.location.hash;
 shared_vars.gotoPage[window.location.hash]();
