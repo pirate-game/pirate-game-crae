@@ -1,13 +1,26 @@
 import React from 'react';
 
+function removeFirstOccurrenceIn(e, arr) {
+    const index = arr.indexOf(e);
+    if (index != -1) {
+        arr.splice(index, 1);
+    };
+    return arr;
+};
+
 const themeDependents = []; // const objects can be mutated, by cannot be emplaced
 
 class ThemeDependentComponent extends React.Component {
   constructor() {
     super();
     this.state = { data: null };
+  };
+  componentDidMount() {
     this.updateTheme();
     shared_vars.themeDependents.push(this);
+  };
+  componentWillUnmount() {
+    shared_vars.removeFirstOccurrenceIn(this, shared_vars.themeDependents);
   };
   updateTheme() {
     const theme = shared_vars.theme;
@@ -57,6 +70,7 @@ let shared_vars = {
   "unload_able": true,
   "preventUnload": (() => { if (shared_vars.unload_able) { window.addEventListener("beforeunload", shared_vars.unloadFn); shared_vars.unload_able = false; }; }),
   "allowUnload": (() => { if (!shared_vars.unload_able) { window.removeEventListener("beforeunload", shared_vars.unloadFn); shared_vars.unload_able = true; }; }),
-  "authenticHash": ""
+  "authenticHash": "",
+  "removeFirstOccurrenceIn": removeFirstOccurrenceIn
 };
 export default shared_vars;
