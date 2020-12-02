@@ -1,6 +1,6 @@
 import React from 'react';
 
-import shared_vars from './shared_vars';
+import * as shared_vars from './shared_vars';
 
 export default class Rules extends shared_vars.ThemeDependentComponent {
     render() {
