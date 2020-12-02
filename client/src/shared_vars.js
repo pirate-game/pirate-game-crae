@@ -60,6 +60,12 @@ function defaultWrapComponent(cmp) {
     return <React.Suspense fallback={shared_vars.defaultLoading}><br />{cmp}</React.Suspense>;
 }; 
 
+function sortByScore(results) {
+    const out = results.slice();
+    out.sort((a, b) => ((a.score < b.score) ? 1 : -1));
+    return out;
+};
+
 let shared_vars = {
     "theme": "default",
     "gotoPage": {},
@@ -76,6 +82,7 @@ let shared_vars = {
     "allowUnload":   (() => { if (!shared_vars.unload_able) { window.removeEventListener("beforeunload", shared_vars.unloadFn); shared_vars.unload_able = true;  }; }),
     "authenticHash": "",
     "removeFirstOccurrenceIn": removeFirstOccurrenceIn,
-    "defaultWrapComponent": defaultWrapComponent
+    "defaultWrapComponent": defaultWrapComponent,
+    "sortByScore": sortByScore
 };
 export default shared_vars;
