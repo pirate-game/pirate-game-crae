@@ -1,4 +1,9 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+
+function renderIn(content, place) {
+    ReactDOM.render(content, document.getElementById(place));
+};
 
 function removeFirstOccurrenceIn(e, arr) {
     const index = arr.indexOf(e);
@@ -67,6 +72,7 @@ function sortByScore(results) {
 };
 
 let shared_vars = {
+    "renderIn": renderIn,
     "theme": "default",
     "gotoPage": {},
     "defaultLoading": <div>Loading...</div>,
