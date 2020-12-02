@@ -71,6 +71,15 @@ function sortByScore(results) {
     return out;
 };
 
+function makePopUp(id_, title, textLines, btn = undefined) {
+    return <div id={id_} className="popUp"><div>
+        <h3>{title}</h3>
+        <hr />
+        <p>{shared_vars.intersperseWith(textLines, <br />)}</p>
+        {btn && <button className="close" onClick={btn.onClick}>{btn.text}</button>}
+    </div></div>;
+};
+
 let shared_vars = {
     "renderIn": renderIn,
     "theme": "default",
@@ -89,6 +98,7 @@ let shared_vars = {
     "authenticHash": "",
     "removeFirstOccurrenceIn": removeFirstOccurrenceIn,
     "defaultWrapComponent": defaultWrapComponent,
-    "sortByScore": sortByScore
+    "sortByScore": sortByScore,
+    "makePopUp": makePopUp
 };
 export default shared_vars;
