@@ -19,10 +19,6 @@ window.addEventListener('hashchange', () => {
     }
 });
 
-function renderIn(content, place) {
-    ReactDOM.render(content, document.getElementById(place));
-};
-
 class ThemeSelector extends React.Component {
     render() {
         return <React.Fragment>
@@ -118,15 +114,15 @@ const toRender = <React.Fragment>
     <div id="content" />
 </React.Fragment>;
 
-renderIn(toRender, 'root')
+shared_vars.renderIn(toRender, 'root')
 
-shared_vars.gotoPage[""]               = () => { shared_vars.allowUnload();   renderIn(navbar,   'navOrTitleBar'); renderIn(mainPageContent,        'content'); };
-shared_vars.gotoPage["#rules_tag"]     = () => { shared_vars.allowUnload();   renderIn(navbar,   'navOrTitleBar'); renderIn(<RulesContent />,       'content'); };
-shared_vars.gotoPage["#ack_tag"]       = () => { shared_vars.allowUnload();   renderIn(navbar,   'navOrTitleBar'); renderIn(<AcknowledgeContent />, 'content'); };
-shared_vars.gotoPage["#submitted_tag"] = () => { shared_vars.allowUnload();   renderIn(navbar,   'navOrTitleBar'); renderIn(<SubmittedContent />,   'content'); };
-shared_vars.gotoPage["#start_tag"]     = () => { shared_vars.preventUnload(); renderIn(titlebar, 'navOrTitleBar'); renderIn(<StartContent />,       'content'); };
-shared_vars.gotoPage["#join_tag"]      = () => { shared_vars.preventUnload(); renderIn(titlebar, 'navOrTitleBar'); renderIn(<JoinContent />,        'content'); };
-shared_vars.gotoPage["#watch_tag"]     = () => { shared_vars.preventUnload(); renderIn(titlebar, 'navOrTitleBar'); renderIn(<WatchContent />,       'content'); };
+shared_vars.gotoPage[""]               = () => { shared_vars.allowUnload();   shared_vars.renderIn(navbar,   'navOrTitleBar'); shared_vars.renderIn(mainPageContent,        'content'); };
+shared_vars.gotoPage["#rules_tag"]     = () => { shared_vars.allowUnload();   shared_vars.renderIn(navbar,   'navOrTitleBar'); shared_vars.renderIn(<RulesContent />,       'content'); };
+shared_vars.gotoPage["#ack_tag"]       = () => { shared_vars.allowUnload();   shared_vars.renderIn(navbar,   'navOrTitleBar'); shared_vars.renderIn(<AcknowledgeContent />, 'content'); };
+shared_vars.gotoPage["#submitted_tag"] = () => { shared_vars.allowUnload();   shared_vars.renderIn(navbar,   'navOrTitleBar'); shared_vars.renderIn(<SubmittedContent />,   'content'); };
+shared_vars.gotoPage["#start_tag"]     = () => { shared_vars.preventUnload(); shared_vars.renderIn(titlebar, 'navOrTitleBar'); shared_vars.renderIn(<StartContent />,       'content'); };
+shared_vars.gotoPage["#join_tag"]      = () => { shared_vars.preventUnload(); shared_vars.renderIn(titlebar, 'navOrTitleBar'); shared_vars.renderIn(<JoinContent />,        'content'); };
+shared_vars.gotoPage["#watch_tag"]     = () => { shared_vars.preventUnload(); shared_vars.renderIn(titlebar, 'navOrTitleBar'); shared_vars.renderIn(<WatchContent />,       'content'); };
 
 shared_vars.authenticHash = window.location.hash;
-shared_vars.gotoPage[window.location.hash]();
+shared_vars.gotoPage[shared_vars.authenticHash]();
