@@ -63,7 +63,7 @@ export default class Start extends shared_vars.ThemeDependentComponent {
             socket.emit('game_over', leaderboard);
         */});
         
-        socket.emit('request_key'); // last
+        this.socket.emit('request_key'); // last
         
         super.componentDidMount();
     };
