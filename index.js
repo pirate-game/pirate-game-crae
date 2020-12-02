@@ -110,8 +110,8 @@ io.on('connection', socket => {
         };
         games.push(game);
         socket.on('disconnect', why => {
-            removeFirstOccurrenceIn(games, game);
-            removeFirstOccurrenceIn(keys_in_use, key);
+            removeFirstOccurrenceIn(game, games);
+            removeFirstOccurrenceIn(key, keys_in_use);
         }); // cleans up the game, and key when the host leaves
     });
 
