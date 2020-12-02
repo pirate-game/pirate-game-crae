@@ -1,11 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-function renderIn(content, place) {
+export function renderIn(content, place) {
     ReactDOM.render(content, document.getElementById(place));
 };
 
-function removeFirstOccurrenceIn(e, arr) {
+export let theme = "default";
+
+export const gotoPage = {};
+
+export const defaultLoading = <div>Loading...</div>;
+
+export const symbols = ["rob", "kill", "present", "declareScore", "swap", "chooseNextSquare", "shield", "mirror", "goToZero", "double", "bank"];
+
+export const twoNewLines = <React.Fragment><br /><br /></React.Fragment>;
+
+export function removeFirstOccurrenceIn(e, arr) {
     const index = arr.indexOf(e);
     if (index != -1) {
         arr.splice(index, 1);
@@ -13,40 +23,39 @@ function removeFirstOccurrenceIn(e, arr) {
     return arr;
 };
 
-const themeDependents = []; // const objects can be mutated, but cannot be emplaced
+export const themeDependents = []; // const objects can be mutated, but cannot be emplaced
 
-class ThemeDependentComponent extends React.Component {
+export class ThemeDependentComponent extends React.Component {
     constructor() {
         super();
         this.state = { data: null };
     };
     componentDidMount() {
         this.updateTheme();
-        shared_vars.themeDependents.push(this);
+        themeDependents.push(this);
     };
     componentWillUnmount() {
-        shared_vars.removeFirstOccurrenceIn(this, shared_vars.themeDependents);
+        removeFirstOccurrenceIn(this, themeDependents);
     };
     updateTheme() {
-        const theme = shared_vars.theme;
-        import('./theme_info/'+theme).then(d => {
-            if (shared_vars.theme == theme) {
+        const theme_ = theme;
+        import('./theme_info/'+theme_).then(d => {
+            if (theme == theme_) {
                 this.setState({ data: d.default });
             };
         });
     };
 };
 
-function setTheme() {
-    shared_vars.theme = document.getElementById("theme").value;
-    const themeDependents = shared_vars.themeDependents;
+export function setTheme() {
+    theme = document.getElementById("theme").value;
     const len = themeDependents.length;
     for (let i = 0; i < len; ++i) {
         themeDependents[i].updateTheme();
     };
 };
 
-function intersperseWith(array, element) {
+export function intersperseWith(array, element) {
     const len = array.length;
     if (len) {
         let out = [array[0]];
@@ -59,19 +68,26 @@ function intersperseWith(array, element) {
     };
 };
 
-function unloadFn(event) { event.returnValue=""; };
+export function unloadFn(event) { event.returnValue=""; };
 
-function defaultWrapComponent(cmp) {
-    return <React.Suspense fallback={shared_vars.defaultLoading}><br />{cmp}</React.Suspense>;
+export let unload_able = true;
+
+export const preventUnload = () => { if (unload_able)  { window.addEventListener(   "beforeunload", unloadFn); unload_able = false; }; };
+export const allowUnload   = () => { if (!unload_able) { window.removeEventListener("beforeunload", unloadFn); unload_able = true;  }; };
+
+export let authenticHash = "";
+
+export function defaultWrapComponent(cmp) {
+    return <React.Suspense fallback={defaultLoading}><br />{cmp}</React.Suspense>;
 }; 
 
-function sortByScore(results) {
+export function sortByScore(results) {
     const out = results.slice();
     out.sort((a, b) => ((a.score < b.score) ? 1 : -1));
     return out;
 };
 
-class PopUps extends React.Component {
+export class PopUps extends React.Component {
     constructor() {
         super();
         
@@ -90,7 +106,7 @@ class PopUps extends React.Component {
                 <div id={description.id} className="popUp"><div>
                     <h3>{description.title}</h3>
                     <hr />
-                    <p>{shared_vars.intersperseWith(description.textLines || [], <br />)}</p>
+                    <p>{intersperseWith(description.textLines || [], <br />)}</p>
                     {description.btn && <button className="close" onClick={description.btn.onClick}>{description.btn.text}</button>}
                 </div></div>
             ]) 
@@ -102,6 +118,7 @@ class PopUps extends React.Component {
     };
 };
 
+/*
 let shared_vars = {
     "renderIn": renderIn,
     "theme": "default",
@@ -124,3 +141,4 @@ let shared_vars = {
     "PopUps": PopUps
 };
 export default shared_vars;
+*/
