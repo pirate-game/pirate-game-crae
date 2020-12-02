@@ -5,8 +5,6 @@ export function renderIn(content, place) {
     ReactDOM.render(content, document.getElementById(place));
 };
 
-export let theme = "default";
-
 export const gotoPage = {};
 
 export const defaultLoading = <div>Loading...</div>;
@@ -38,9 +36,9 @@ export class ThemeDependentComponent extends React.Component {
         removeFirstOccurrenceIn(this, themeDependents);
     };
     updateTheme() {
-        const theme_ = theme;
-        import('./theme_info/'+theme_).then(d => {
-            if (theme == theme_) {
+        const theme = mutables.theme;
+        import('./theme_info/'+theme).then(d => {
+            if (mutables.theme == theme) {
                 this.setState({ data: d.default });
             };
         });
@@ -48,7 +46,7 @@ export class ThemeDependentComponent extends React.Component {
 };
 
 export function setTheme() {
-    theme = document.getElementById("theme").value;
+    mutables.theme = document.getElementById("theme").value;
     const len = themeDependents.length;
     for (let i = 0; i < len; ++i) {
         themeDependents[i].updateTheme();
@@ -70,12 +68,8 @@ export function intersperseWith(array, element) {
 
 export function unloadFn(event) { event.returnValue=""; };
 
-export let unload_able = true;
-
-export const preventUnload = () => { if (unload_able)  { window.addEventListener(   "beforeunload", unloadFn); unload_able = false; }; };
-export const allowUnload   = () => { if (!unload_able) { window.removeEventListener("beforeunload", unloadFn); unload_able = true;  }; };
-
-export let authenticHash = "";
+export const preventUnload = () => { if (mutables.unload_able)  { window.addEventListener(   "beforeunload", unloadFn); mutables.unload_able = false; }; };
+export const allowUnload   = () => { if (!mutables.unload_able) { window.removeEventListener("beforeunload", unloadFn); mutables.unload_able = true;  }; };
 
 export function defaultWrapComponent(cmp) {
     return <React.Suspense fallback={defaultLoading}><br />{cmp}</React.Suspense>;
@@ -116,6 +110,12 @@ export class PopUps extends React.Component {
     render() {
         return <div id="popUps">{this.state.children}</div>;
     };
+};
+
+export const mutables = {
+    theme: "default",
+    unload_able: true,
+    authenticHash: ""
 };
 
 /*
