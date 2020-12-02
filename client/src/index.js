@@ -4,17 +4,18 @@ import ReactDOM from 'react-dom';
 import * as shared_vars from './shared_vars';
 
 window.addEventListener('hashchange', () => {
-    if (window.location.hash != shared_vars.authenticHash) {
-        if (shared_vars.unload_able || window.confirm("Leaving will irreversibly kick you from the game.")) {
-            const putative_fn = shared_vars.gotoPage[window.location.hash];
+    if (window.location.hash != shared_vars.mutables.authenticHash) {
+        if (shared_vars.mutables.unload_able || window.confirm("Leaving will irreversibly kick you from the game.")) {
+            const loc = window.location.hash;
+            const putative_fn = shared_vars.gotoPage[loc];
             if (putative_fn) {
-                shared_vars.authenticHash = window.location.hash; // set proper location to actual one, because actual one is valid
+                shared_vars.mutables.authenticHash = loc; // set proper location to actual one, because actual one is valid
                 putative_fn();
             } else {
-                window.location.hash = shared_vars.authenticHash; // set actual location back to proper one
+                window.location.hash = shared_vars.mutables.authenticHash; // set actual location back to proper one
             };
         } else {
-            window.location.hash = shared_vars.authenticHash; // set actual location back to proper one
+            window.location.hash = shared_vars.mutables.authenticHash; // set actual location back to proper one
         };
     }
 });
@@ -30,7 +31,7 @@ class ThemeSelector extends React.Component {
         </React.Fragment>;
     };
     componentDidMount() {
-        document.getElementById("theme").value = shared_vars.theme;
+        document.getElementById("theme").value = shared_vars.mutables.theme;
     };
 };
 
@@ -124,5 +125,5 @@ shared_vars.gotoPage["#start_tag"]     = () => { shared_vars.preventUnload(); sh
 shared_vars.gotoPage["#join_tag"]      = () => { shared_vars.preventUnload(); shared_vars.renderIn(titlebar, 'navOrTitleBar'); shared_vars.renderIn(<JoinContent />,        'content'); };
 shared_vars.gotoPage["#watch_tag"]     = () => { shared_vars.preventUnload(); shared_vars.renderIn(titlebar, 'navOrTitleBar'); shared_vars.renderIn(<WatchContent />,       'content'); };
 
-shared_vars.authenticHash = window.location.hash;
-shared_vars.gotoPage[shared_vars.authenticHash]();
+shared_vars.mutables.authenticHash = window.location.hash;
+shared_vars.gotoPage[shared_vars.mutables.authenticHash]();
