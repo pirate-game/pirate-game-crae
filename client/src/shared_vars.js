@@ -71,13 +71,35 @@ function sortByScore(results) {
     return out;
 };
 
-function makePopUp(description) {
-    return <div id={description.id} className="popUp"><div>
-        <h3>{description.title}</h3>
-        <hr />
-        <p>{shared_vars.intersperseWith(description.textLines || [], <br />)}</p>
-        {description.btn && <button className="close" onClick={description.btn.onClick}>{description.btn.text}</button>}
-    </div></div>;
+class PopUps extends React.Component {
+    constructor() {
+        super();
+        
+        this.state = { children: [] };
+        
+        this.clear = this.clear.bind(this);
+        this.addPopUp = this.addPopUp.bind(this);
+    };
+    clear() {
+        this.setState({ children: [] });
+        return this;
+    };
+    addPopUp(description) {
+        this.setState({ 
+            children: this.state.children.concat([
+                <div id={description.id} className="popUp"><div>
+                    <h3>{description.title}</h3>
+                    <hr />
+                    <p>{shared_vars.intersperseWith(description.textLines || [], <br />)}</p>
+                    {description.btn && <button className="close" onClick={description.btn.onClick}>{description.btn.text}</button>}
+                </div></div>
+            ]) 
+        });
+        return this;
+    };
+    render() {
+        return <div id="popUps">{this.state.children}</div>;
+    };
 };
 
 let shared_vars = {
@@ -99,6 +121,6 @@ let shared_vars = {
     "removeFirstOccurrenceIn": removeFirstOccurrenceIn,
     "defaultWrapComponent": defaultWrapComponent,
     "sortByScore": sortByScore,
-    "makePopUp": makePopUp
+    "PopUps": PopUps
 };
 export default shared_vars;
