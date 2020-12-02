@@ -13,7 +13,7 @@ export default class Rules extends shared_vars.ThemeDependentComponent {
                     {shared_vars.symbols.map(symbol => {
                         const sym = data[symbol];
                         return <div>
-                            <div class="square"><img src={process.env.PUBLIC_URL+"/imgs/"+shared_vars.theme+"/"+symbol+sym.file_ext} /></div>
+                            <div class="square"><img src={process.env.PUBLIC_URL+"/imgs/"+shared_vars.mutables.theme+"/"+symbol+sym.file_ext} /></div>
                             <p>{sym.name+": "+sym.description}</p>
                         </div>;}
                     )}
