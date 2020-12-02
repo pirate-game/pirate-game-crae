@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { io } from 'socket.io-client';
+
 import * as shared_vars from './shared_vars';
 
 export default class Start extends shared_vars.ThemeDependentComponent {
