@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import shared_vars from './shared_vars';
+import * as shared_vars from './shared_vars';
 
 window.addEventListener('hashchange', () => {
     if (window.location.hash != shared_vars.authenticHash) {
