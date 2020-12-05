@@ -6,16 +6,51 @@ import * as shared_vars from './shared_vars';
 
 import * as GameThings from './GameThings';
 
+class KeyBox extends React.Component {
+    constructor() {
+        super();
+        this.state = {key: ''};
+        theStart.socket.on('key', msg => this.setState({key: msg})); // theStart.socket is guaranteed to exist by now
+    };
+    render() {
+        return <div id="keyBox" style={{backgroundColor: 'lightblue'}}>
+            <h2> Key: {this.state.key} </h2>
+        </div>;
+    };
+};
+
+class AssembleCrew extends shared_vars.ThemeDependent {
+    render() {
+        const data = this.state.data;
+        if (data) {
+            return <div style={{position: 'relative', minHeight: 'calc(100vh - 230px)'}}>
+                <div style={{position: 'relative',top: '-10%'}}>
+                    <button id="crewAssembled" onClick={assembleCrew}>Crew Assembled!</button>
+                    <KeyBox />
+                </div>
+                <h2 style={{fontSize: '50px', margin: '0px', marginLeft: '10px'}}>Crew:</h2>
+                CrewUl goes here...
+            </div>;
+        } else {
+            return shared_vars.defaultLoading;
+        };
+    };
+};
+
 let theStart = null;
 
 export default class Start extends React.Component {
+    constructor() {
+        super();
+        
+        this.state = {content: null};
+    };
     componentDidMount() {
         
         theStart = this;
         
         this.popUps = <GameThings.PopUps />;
         
-        this.key = '';
         this.allCrew = [];
         this.unreadyCrew = [];
         this.toChoose = null;
@@ -71,7 +106,9 @@ export default class Start extends React.Component {
             socket.emit('game_over', leaderboard);
         */});
         
-        this.socket.emit('request_key'); // last
+        
+        this.socket.emit('request_key'); // last lines
+        this.setState({content: <AssembleCrew />});
         
         // super.componentDidMount(); // add back iff inherits from ThemeDependent
     };
