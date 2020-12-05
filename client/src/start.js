@@ -4,8 +4,16 @@ import io from 'socket.io-client';
 
 import * as shared_vars from './shared_vars';
 
-export default class Start extends shared_vars.ThemeDependentComponent {
+import * as GameThings from './gameThings';
+
+let theStart = null;
+
+export default class Start extends React.Component {
     componentDidMount() {
+        
+        theStart = this;
+        
+        this.popUps = <GameThings.PopUps />;
         
         this.key = '';
         this.allCrew = [];
@@ -75,10 +83,9 @@ export default class Start extends shared_vars.ThemeDependentComponent {
         
     };
     render() {
-        if (this.state.data) {
-            return <p>{this.state.data.introduction_before[0]}</p>;
-        } else {
-        return <p>Start Content</p>;
-        };
+        return <React.Fragment>
+            <div id="startContent" />
+            {this.popUps}
+        </React.Fragment>;
     };
 };
