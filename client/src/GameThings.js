@@ -13,8 +13,10 @@ export function sortByScore(results) {
 };
 
 export class PopUps extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        
+        if (props.obj) { props.obj.popUps = this; };
         
         this.state = { children: [] };
         
@@ -61,8 +63,9 @@ export class PopUps extends React.Component {
 };
 
 export class Board extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        if (props.obj) { props.obj.board = this; };
         this.state = {done: []};
     };
     squareDone(square) {
@@ -97,8 +100,9 @@ export class Board extends React.Component {
 };
 
 export class CurrentSquare extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        if (props.obj) { props.obj.currentSquare = this; };
         this.state = {currentSquare: "??"};
     };
     setCurrent(square) {
@@ -119,6 +123,8 @@ const listStyle = {minHeight: '70px', maxHeight: '-webkit-fill-available', backg
 export class NiceList extends React.Component {
     constructor(props) {
         super(props);
+        
+        if (props.obj) { props.obj.niceList = this; };
         
         Object.assign(this.props.style, listStyle);
         
@@ -150,6 +156,8 @@ export class NiceList extends React.Component {
 export class ListWithCrosses extends NiceList {
     constructor(props) {
         super(props);
+        
+        if (props.obj) { props.obj.listWithCrosses = this; };
         
         Object.assign(this.props.style, listStyle);
 
