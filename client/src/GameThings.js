@@ -41,7 +41,7 @@ export class PopUps extends React.Component {
             state.push(<div id={description.id} className="popUp"><div>
                 <h3>{description.title}</h3>
                 <hr />
-                <p>{intersperseWith(description.textLines || [], <br />)}</p>
+                <p>{shared_vars.intersperseWith(description.textLines || [], <br />)}</p>
                 {description.btn && <button className="close" onClick={description.btn.onClick}>{description.btn.text}</button>}
             </div></div>);
             return state;
