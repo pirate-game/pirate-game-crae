@@ -12,8 +12,8 @@ class KeyBox extends React.Component {
     constructor() {
         super();
         this.state = {key: ''};
-        // theStart.socket.on('key', msg => this.setState({key: msg})); // theStart.socket is guaranteed to exist by now
-        theStart.socket.on('key', msg => {this.setState({key: msg}); console.log(theStart.state.content); theStart.state.content.state.crewList.push("hello");});
+        theStart.socket.on('key', msg => this.setState({key: msg})); // theStart.socket is guaranteed to exist by now
+        theStart.socket.emit('request_key')
     };
     render() {
         return <div id="keyBox" style={{backgroundColor: 'lightblue'}}>
@@ -26,6 +26,7 @@ class AssembleCrew extends shared_vars.ThemeDependentComponent {
     constructor() {
         super();
         this.state.crewList = <GameThings.ListWithCrosses callback={e => this.state.crewList.remove(e) /*replace with extra bits*/} style={{position: 'absolute', left: '10px', right: '10px', top: '60px'}} />;
+        this.state.crewList.push("Hello");
         this.state.keybox = <KeyBox />;
     };
     render() {
@@ -114,7 +115,7 @@ export default class Start extends React.Component {
             socket.emit('game_over', leaderboard);
         */});
         
-        this.setState({content: <AssembleCrew />}, () => theStart.socket.emit('request_key')); // last line
+        this.setState({content: <AssembleCrew />}); // last line
                 
         // super.componentDidMount(); // add back iff inherits from ThemeDependent
     };
