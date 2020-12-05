@@ -1,0 +1,52 @@
+#popUps {
+    position: fixed;
+    height: 0;
+    width: 0;
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
+
+.popUp {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(220, 220, 196);
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 0;
+}
+
+.popUp>div {
+    background-color: white;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid black;
+    width: 80%;
+    z-index: 1;
+}
+
+.close {
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    font-family: 'Calibri', Fallback, sans-serif;
+    background-color: #CC6600;
+    color: white;
+    font-size: inherit;
+    font-weight: bold;
+    padding: 9px 12px;
+    text-decoration: none;
+    transition-duration: 0.4s;
+    border-radius: 6px;
+    border-width: 0;
+}
+
+.close:hover {
+    background-color: cornflowerblue;
+}
