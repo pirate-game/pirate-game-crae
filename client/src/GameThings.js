@@ -120,7 +120,7 @@ export class NiceList extends React.Component {
     constructor(props) {
         super(props);
         
-        this.props.style.update(listStyle);
+        Object.assign(this.props.style, listStyle);
         
         this.state = {elems: []};
     };
@@ -151,7 +151,7 @@ export class ListWithCrosses extends NiceList {
     constructor(props) {
         super(props);
         
-        this.props.style.update(listStyle);
+        Object.assign(this.props.style, listStyle);
 
         this.callback = this.props.callback.bind(this);
     };
