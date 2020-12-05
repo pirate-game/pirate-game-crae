@@ -14,7 +14,6 @@ class KeyBox extends React.Component {
         this.state = {key: ''};
         // theStart.socket.on('key', msg => this.setState({key: msg})); // theStart.socket is guaranteed to exist by now
         theStart.socket.on('key', msg => {this.setState({key: msg}); console.log(theStart.state.content); theStart.state.content.state.crewList.push("hello");});
-        theStart.socket.emit('request_key');
     };
     render() {
         return <div id="keyBox" style={{backgroundColor: 'lightblue'}}>
@@ -115,7 +114,8 @@ export default class Start extends React.Component {
             socket.emit('game_over', leaderboard);
         */});
         
-        this.setState({content: <AssembleCrew />}); // last line
+        this.setState({content: <AssembleCrew />}); // last lines
+        this.socket.emit('request_key');
         
         // super.componentDidMount(); // add back iff inherits from ThemeDependent
     };
