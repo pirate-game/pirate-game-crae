@@ -25,7 +25,7 @@ class AssembleCrew extends shared_vars.ThemeDependentComponent {
         if (data) {
             return <div style={{position: 'relative', minHeight: 'calc(100vh - 230px)'}}>
                 <div style={{position: 'relative',top: '-10%'}}>
-                    <button id="crewAssembled" onClick={assembleCrew}>Crew Assembled!</button>
+                    <button id="crewAssembled" onClick={() => "assemble crew"}>Crew Assembled!</button>
                     <KeyBox />
                 </div>
                 <h2 style={{fontSize: '50px', margin: '0px', marginLeft: '10px'}}>Crew:</h2>
