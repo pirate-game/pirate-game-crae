@@ -111,8 +111,8 @@ const listStyle = {minHeight: '70px', maxHeight: '-webkit-fill-available', backg
                    listStyleType: 'none', margin: 0, padding: 0};
 
 export class NiceList extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         
         Object.assign(this.props.style, listStyle);
         
@@ -142,8 +142,8 @@ export class NiceList extends React.Component {
 };
 
 export class ListWithCrosses extends NiceList {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         
         Object.assign(this.props.style, listStyle);
 
