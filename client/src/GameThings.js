@@ -112,9 +112,16 @@ export class CurrentSquare extends React.Component {
     };
 };
 
+const listStyle = {minHeight: '70px', maxHeight: '-webkit-fill-available', background: '#fff', 
+                   overflow: 'auto', border: 'solid black 3px', borderRadius: '10px',
+                   listStyleType: 'none', margin: 0, padding: 0};
+
 export class NiceList extends React.Component {
     constructor(props) {
         super(props);
+        
+        this.props.style.update(listStyle);
+        
         this.state = {elems: []};
     };
     push(e) {
@@ -130,8 +137,7 @@ export class NiceList extends React.Component {
         });
     };
     render() {
-        return <ul style={{minHeight: '70px', maxHeight: '-webkit-fill-available', background: '#fff', overflow: 'auto', border: 'solid black 3px',
-                          listStyleType: 'none', margin: 0, padding: 0}}>
+        return <ul style={this.props.style}>
             {this.state.elems.slice().reverse().map((e, pos) => (
                 <li style={{position:'relative', padding: '5px 10px'}}>
                     <div style={{background: ((pos % 2) ? '#eee' : '#fff'), width: 'calc(100% - 30px)', overflowWrap: 'break-word'}}>{e}</div>
@@ -144,12 +150,13 @@ export class NiceList extends React.Component {
 export class ListWithCrosses extends NiceList {
     constructor(props) {
         super(props);
+        
+        this.props.style.update(listStyle);
 
         this.callback = this.props.callback.bind(this);
     };
     render() {
-        return <ul style={{minHeight: '70px', maxHeight: '-webkit-fill-available', background: '#fff', overflow: 'auto', border: 'solid black 3px',
-                          listStyleType: 'none', margin: 0, padding: 0}}>
+        return <ul style={this.props.style}>
             {this.state.elems.slice().reverse().map((e, pos) => (
                 <li style={{position:'relative', padding: '5px 10px'}}>
                     <div style={{display: 'inline-block', float: 'right', fontSize: '40px', fontWeight: 'bold', padding: '10px', cursor: 'pointer',
