@@ -38,6 +38,13 @@ export class PopUps extends React.Component {
         });
         return this;
     };
+    push(e) {
+        this.setState(state => {
+            state.elems.push(e);
+            return state;
+        });
+        return this;
+    };
     pop() {
         this.setState(state => {
             state.elems.pop();
