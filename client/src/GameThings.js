@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import * as shared_vars from './shared_vars';
 
-import './css/popUps.css';
+import './css/GameThings.css';
 
 
 export function sortByScore(results) {
