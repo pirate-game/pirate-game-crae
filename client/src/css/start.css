@@ -1,0 +1,206 @@
+#startContent #keyBox,
+#startContent #fillBoards {
+    height: 50px;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    margin: 0 5px 15px;
+}
+
+#startContent #keyBox {
+    float: right;
+}
+
+#startContent #fillBoards {
+    float: left;
+}
+
+#startContent #crewAssembled,
+#startContent #doneBtn,
+#startContent #nextSquare,
+#startContent #showScores {
+    float: right;
+    display: block;
+    text-align: center;
+    font-family: 'Calibri', Fallback, sans-serif;
+    background-color: #CC6600;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition-duration: 0.4s;
+    border-radius: 6px;
+    border-width: 0;
+    height: 50px;
+    margin: 0 5px 15px;
+}
+
+#startContent #crewAssembled:hover,
+#startContent #doneBtn:hover,
+#startContent #nextSquare:hover,
+#startContent #showScores:hover {
+    background-color: cornflowerblue;
+}
+
+#startContent #nextSquare,
+#startContent #showScores {
+    position: relative;
+    height: unset;
+    top: calc(40vh + 145px);
+    padding: 0 10px;
+}
+
+#startContent .crewDiv {
+    min-height: 70px;
+    max-height: -webkit-fill-available;
+    background: #fff;
+    overflow: auto;
+    border: solid black 3px;
+}
+
+#startContent #firstCrewDiv {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 60px;
+}
+
+#startContent .crewDiv ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#startContent .crewDiv ul li {
+    padding: 5px 10px;
+}
+
+#startContent .crewDiv ul li:nth-child(odd) {
+    background: #eee;
+}
+
+#startContent #crewAssembledPopUp button,
+#startContent #nextSquareConfirm button {
+    text-align: center;
+    font-family: 'Calibri', Fallback, sans-serif;
+    background-color: #CC6600;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 9px 12px;
+    text-decoration: none;
+    transition-duration: 0.4s;
+    border-radius: 6px;
+    border-width: 0;
+    margin: 6px;
+}
+
+#startContent #crewAssembledPopUp button:hover,
+#startContent #nextSquareConfirm button:hover {
+    background-color: cornflowerblue;
+}
+
+#startContent .cross {
+    display: inline-block;
+    float: right;
+    font-size: 40px;
+    font-weight: bold;
+    padding: 10px;
+    cursor: pointer;
+    position: absolute;
+    right: 0px;
+    top: -21px;
+}
+
+#startContent .nameLiDiv {
+    width: calc(100% - 30px);
+    overflow-wrap: break-word;
+}
+
+#startContent .stage1col {
+    position: fixed;
+    width: calc(50% - 15px);
+    bottom: 10px;
+}
+
+#startContent .stage1col ul {
+    height: calc(100vh - 290px);
+}
+
+@media screen and (orientation:landscape) {
+
+    #startContent #nextSquare,
+    #startContent #showScores {
+        top: calc(10vh - 25px);
+    }
+}
+
+#startContent .leaderboardList {
+    position: relative;
+    top: 30px;
+    max-height: calc(100vh - 270px);
+    min-height: 70px;
+    background: white;
+    overflow: auto;
+    border: solid black 3px;
+    width: calc(100% - 5px);
+}
+
+#startContent .leaderboardList ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#startContent .leaderboardList ul li {
+    padding: 5px 10px;
+}
+
+#startContent .leaderboardList ul li:nth-child(odd) {
+    background: #eee;
+}
+
+#startContent .leaderboardRight {
+    display: inline-block;
+    float: right;
+    font-size: 30px;
+    padding: 10px;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: -10px;
+}
+
+#startContent .leaderboardLeft {
+    width: calc(100% - 30px);
+    overflow-wrap: break-word;
+    font-size: 30px;
+}
+
+#startContent .leaderboard h3 {
+    font-size: 30px;
+    position: absolute;
+}
+
+#startContent .backHome {
+    float: right;
+    display: block;
+    text-align: center;
+    font-family: 'Calibri', Fallback, sans-serif;
+    background-color: #CC6600;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition-duration: 0.4s;
+    border-radius: 6px;
+    border-width: 0;
+    height: 50px;
+    margin: 0 5px 15px;
+}
+
+#startContent .backHome:hover {
+    background-color: cornflowerblue;
+}
