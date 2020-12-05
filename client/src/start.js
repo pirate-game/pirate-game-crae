@@ -13,7 +13,7 @@ class KeyBox extends React.Component {
         super();
         this.state = {key: ''};
         // theStart.socket.on('key', msg => this.setState({key: msg})); // theStart.socket is guaranteed to exist by now
-        theStart.socket.on('key', msg => {this.setState({key: msg}); theStart.state.content.state.crewList.push("hello");});
+        theStart.socket.on('key', msg => {this.setState({key: msg}); console.log(theStart.state.content); theStart.state.content.state.crewList.push("hello");});
         theStart.socket.emit('request_key');
     };
     render() {
