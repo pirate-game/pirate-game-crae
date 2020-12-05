@@ -27,18 +27,8 @@ export class PopUps extends React.Component {
         return this;
     };
     addPopUp(description) {
-        /*this.setState({ 
-            children: this.state.children.concat([
-                <div id={description.id} className="popUp"><div>
-                    <h3>{description.title}</h3>
-                    <hr />
-                    <p>{intersperseWith(description.textLines || [], <br />)}</p>
-                    {description.btn && <button className="close" onClick={description.btn.onClick}>{description.btn.text}</button>}
-                </div></div>
-            ]) 
-        });*/
         this.setState(state => {
-            state.push(<div id={description.id} className="popUp"><div>
+            state.elems.push(<div id={description.id} className="popUp"><div>
                 <h3>{description.title}</h3>
                 <hr />
                 <p>{shared_vars.intersperseWith(description.textLines || [], <br />)}</p>
@@ -50,7 +40,7 @@ export class PopUps extends React.Component {
     };
     pop() {
         this.setState(state => {
-            state.pop();
+            state.elems.pop();
             return state;
         });
         return this;
@@ -126,7 +116,7 @@ export class NiceList extends React.Component {
     };
     remove(e) {
         this.setState(state => {
-            shared_vars.removeFirstOccurrenceIn(e, state);
+            shared_vars.removeFirstOccurrenceIn(e, state.elems);
             return state;
         });
     };
