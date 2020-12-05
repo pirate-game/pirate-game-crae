@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import ReactDOM from 'react-dom';
 
 import * as shared_vars from './shared_vars';
@@ -12,68 +12,52 @@ export function sortByScore(results) {
     return out;
 };
 
-export class PopUps extends React.Component {
+class PopUps_impl extends React.Component {
     constructor(props) {
         super(props);
-        
-        if (props.obj) { props.obj.popUps = this; };
-        
-        this.state = { children: [] };
-        
-        this.clear = this.clear.bind(this);
-        this.addPopUp = this.addPopUp.bind(this);
-        this.pop = this.pop.bind(this);
+        this.state = { elems: props.elems };
+        props.elems.ref = this;
+    };
+    render() {
+        return <div id="popUps">{this.state.elems}</div>;
+    };
+};
+
+export class PopUps {
+    constructor() {
+        this.elems = [];
+        this.comp = <PopUps_impl elems={this.elems} />;
     };
     clear() {
-        this.setState({ children: [] });
+        this.setState({ elems: [] }, this.comp.ref.forceUpdate);
         return this;
     };
     addPopUp(description) {
-        /*this.setState({ 
-            children: this.state.children.concat([
-                <div id={description.id} className="popUp"><div>
-                    <h3>{description.title}</h3>
-                    <hr />
-                    <p>{intersperseWith(description.textLines || [], <br />)}</p>
-                    {description.btn && <button className="close" onClick={description.btn.onClick}>{description.btn.text}</button>}
-                </div></div>
-            ]) 
-        });*/
         this.setState(state => {
-            state.push(<div id={description.id} className="popUp"><div>
+            state.elems.push(<div id={description.id} className="popUp"><div>
                 <h3>{description.title}</h3>
                 <hr />
                 <p>{shared_vars.intersperseWith(description.textLines || [], <br />)}</p>
                 {description.btn && <button className="close" onClick={description.btn.onClick}>{description.btn.text}</button>}
             </div></div>);
             return state;
-        });
+        }, this.comp.ref.forceUpdate);
         return this;
     };
     pop() {
         this.setState(state => {
-            state.pop();
+            state.elems.pop();
             return state;
-        });
+        }, this.comp.ref.forceUpdate);
         return this;
-    };
-    render() {
-        return <div id="popUps">{this.state.children}</div>;
     };
 };
 
 export class Board extends React.Component {
     constructor(props) {
         super(props);
-        if (props.obj) { props.obj.board = this; };
-        this.state = {done: []};
-    };
-    squareDone(square) {
-        this.setState(state => {
-            state.done.push(square);
-            return state;
-        });
-        return this;
+        this.done = props.done;
+        props.done.ref = this;
     };
     render() {
         return <table id="board">
@@ -91,7 +75,7 @@ export class Board extends React.Component {
                 <tr className="edge">
                     <th className="edge">{col}</th>
                     {["A","B","C","D","E","F","G"].map(row => (
-                        <td id={row+col} className="square" style={{backgroundColor:(this.state.done.includes(row+col)?"#CC6600":"white")}}></td>
+                        <td id={row+col} className="square" style={{backgroundColor:(this.done.includes(row+col)?"#CC6600":"white")}}></td>
                     ))}
                 </tr>
             ))}
@@ -100,9 +84,8 @@ export class Board extends React.Component {
 };
 
 export class CurrentSquare extends React.Component {
-    constructor(props) {
-        super(props);
-        if (props.obj) { props.obj.currentSquare = this; };
+    constructor() {
+        super();
         this.state = {currentSquare: "??"};
     };
     setCurrent(square) {
@@ -121,10 +104,8 @@ const listStyle = {minHeight: '70px', maxHeight: '-webkit-fill-available', backg
                    listStyleType: 'none', margin: 0, padding: 0};
 
 export class NiceList extends React.Component {
-    constructor(props) {
-        super(props);
-        
-        if (props.obj) { props.obj.niceList = this; };
+    constructor() {
+        super();
         
         Object.assign(this.props.style, listStyle);
         
@@ -154,10 +135,7 @@ export class NiceList extends React.Component {
 };
 
 export class ListWithCrosses extends NiceList {
-    constructor(props) {
-        super(props);
-        
-        if (props.obj) { props.obj.listWithCrosses = this; };
+    constructor() {
         
         Object.assign(this.props.style, listStyle);
 
@@ -175,3 +153,4 @@ export class ListWithCrosses extends NiceList {
         </ul>;
     };
 };
+*/
