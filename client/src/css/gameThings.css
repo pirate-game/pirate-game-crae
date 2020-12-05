@@ -115,3 +115,23 @@
         width: calc((100vh - 235px)/7);
     }
 }
+
+.currentSquare {
+    background: lightblue;
+    position: fixed;
+    padding: 0 10px;
+    top: calc(40vh + 300px);
+    width: fit-content;
+}
+
+.currentSquare h2 {
+    font-size: 30px;
+    text-align: left;
+}
+
+@media screen and (orientation:landscape) {
+    .currentSquare {
+        left: calc(100vh - 140px);
+        top: calc(130px + 10vh);
+    }
+}
