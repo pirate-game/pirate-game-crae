@@ -114,9 +114,8 @@ export default class Start extends React.Component {
             socket.emit('game_over', leaderboard);
         */});
         
-        this.setState({content: <AssembleCrew />}); // last lines
-        this.socket.emit('request_key');
-        
+        this.setState({content: <AssembleCrew />}, () => theStart.socket.emit('request_key')); // last line
+                
         // super.componentDidMount(); // add back iff inherits from ThemeDependent
     };
     componentWillUnmount() {
