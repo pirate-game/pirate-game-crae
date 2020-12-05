@@ -85,6 +85,5 @@ export default {
     "file_ext": ".png",
     "name": "Bank",
     "description": "Your CASH moves into your Bank."
-  },
-  "crewName": "Players"
+  }
 };
