@@ -113,7 +113,7 @@ export class NiceList extends React.Component {
         
         Object.assign(this.props.style, listStyle);
         
-        this.state = {elems: []};
+        this.state = {elems: props.initial || []};
     };
     push(e) {
         this.setState(state => {
@@ -141,8 +141,6 @@ export class NiceList extends React.Component {
 export class ListWithCrosses extends NiceList {
     constructor(props) {
         super(props);
-        
-        Object.assign(this.props.style, listStyle);
 
         this.callback = this.props.callback.bind(this);
     };
