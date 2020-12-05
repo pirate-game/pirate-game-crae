@@ -22,26 +22,86 @@ class KeyBox extends React.Component {
     };
 };
 
-class AssembleCrew extends shared_vars.ThemeDependentComponent {
+class AssembleCrew extends React.Component {
+    removePlayer(p) {
+        this.crewListRef.remove(p); 
+        shared_vars.removeFirstOccurrenceIn(p, theStart.allCrew); 
+        theStart.socket.emit('remove_player', p);
+    };
+    changeCrew() {
+        theStart.socket.emit('change_crew');
+        theStart.popUpsRef.pop();
+    };
     constructor() {
         super();
-        this.state.crewList = <GameThings.ListWithCrosses ref={e => {this.crewListRef = e; this.crewListRef.push("hello"); }} callback={e => this.crewListRef.remove(e) /*replace with extra bits*/} style={{position: 'absolute', left: '10px', right: '10px', top: '60px'}} />;      
+        this.state = {};
+        this.removePlayer = this.removePlayer.bind(this);
+        this.changeCrew = this.changeCrew.bind(this);
+        this.state.crewList = <GameThings.ListWithCrosses 
+                                    ref={e => (this.crewListRef = e)} 
+                                    callback={this.removePlayer} style={{position: 'absolute', left: '10px', right: '10px', top: '60px'}} />;      
         this.state.keybox = <KeyBox />;
+        
+        theStart.socket.on('request_join', name => {
+            this.setState(state => {
+                state.crew.push(name);
+                return state;
+            });
+            globalCrew.push(name);
+        });
+        theStart.socket.on('show_provisional_crew', () => {
+            theStart.popUpsRef.push(<div id="crewAssembledPopUp" className="popUp"><div>
+                    <h3>Crew Assembled</h3>
+                    <hr />
+                    <div>
+                        <p style={{display: 'inline-block', width: 'calc(100% - 190px)'}}>Those currently in your crew are below. You can remove them with the crosses.</p>
+                        <div style={{display: 'inline-block'}}>
+                            <button onClick={()=>"start game"}>Start<br />Game</button>
+                            <button onClick={this.changeCrew}>Change<br />Crew</button>
+                        </div>
+                    </div>
+                    <GameThings.ListWithCrosses initial={this.state.crew} callback={this.removePlayer} style={{maxHeight: 'calc(100vh - 400px)'}} />
+        </div></div>});
     };
     render() {
-        const data = this.state.data;
-        if (data) {
-            return <div style={{position: 'relative', minHeight: 'calc(100vh - 230px)'}}>
-                <div style={{position: 'relative',top: '-10%'}}>
-                    <button id="crewAssembled" onClick={() => "assemble crew"}>Crew Assembled!</button>
-                    {this.state.keybox}
-                </div>
-                <h2 style={{fontSize: '50px', margin: '0px', marginLeft: '10px'}}>Crew:</h2>
-                {this.state.crewList}
-            </div>;
-        } else {
-            return shared_vars.defaultLoading;
-        };
+        return <div style={{position: 'relative', minHeight: 'calc(100vh - 230px)'}}>
+            <div style={{position: 'relative',top: '-10%'}}>
+                <button id="crewAssembled" onClick={assembleCrew}>Crew Assembled!</button>
+                {this.state.keybox}
+            </div>
+            <h2 style={{fontSize: '50px', margin: '0px', marginLeft: '10px'}}>Crew:</h2>
+            {this.state.crewList}
+        </div>;
+    };
+};
+
+function assembleCrew() {
+    theStart.popUpsRef.clear();
+    if (theStart.allCrew.length >= 2) {
+        theStart.popUpsRef.addPopUp({
+            title: "Waiting",
+            textLines: ["This won't take too long, I hope!"]
+        });//waiting
+        theStart.socket.emit('crew_assembled');
+    } else {
+        theStart.popUpsRef.addPopUp({
+            title: "Too Few Crewmembers",
+            textLines: ["Yarr, ye be needin' at least 2 players."],
+            btn: {
+                text: "Okay!",
+                onClick: theStart.popUpsRef.clear
+            }
+        });//too few
+    };
+};
+
+function startGame() {
+    theStart.popUpsRef.clear();
+    if (theStart.allCrew.length >= 2) {
+        theStart.socket.emit('start_game');
+        theStart.setState({content: "hello"});///////////////////////////////////
+    } else {
+        document.getElementById("tooFew").style.display = "block";
     };
 };
 
@@ -73,12 +133,23 @@ export default class Start extends React.Component {
         
         this.socket = io();
         
-        this.socket.on('player_gone', player => {/*
-            hidePopUps();
-            document.getElementById("playerGone").style.display = "block";
-        */});
+        this.socket.on('player_gone', player => {
+            this.popUpsRef.clear();
+            this.popUpsRef.addPopUp({
+                title: "Player Gone",
+                textLines: ["They not be 'ere any more. :("],
+                btn: {
+                    text: "Next Square",
+                    onClick: () => "call nextSquare"
+                }
+            });
+        });
         
-        this.socket.on('chose', square => {/*
+        this.socket.on('chose', square => {
+            this.popUpsRef.clear();
+            shared_vars.removeFirstOccurrenceIn(square, this.remainingSquares);
+            //...
+            /*
             hidePopUps();
             remainingSquares = remainingSquares.filter(e=>e!=square);
             theCurrentSquare.setState({currentSquare: square});
