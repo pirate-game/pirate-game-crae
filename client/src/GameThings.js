@@ -143,6 +143,7 @@ export class NiceList extends React.Component {
 
 export class ListWithCrosses extends NiceList {
     constructor() {
+        super();
         
         Object.assign(this.props.style, listStyle);
 
