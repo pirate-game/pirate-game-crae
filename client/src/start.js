@@ -10,7 +10,8 @@ class KeyBox extends React.Component {
     constructor() {
         super();
         this.state = {key: ''};
-        theStart.socket.on('key', msg => this.setState({key: msg})); // theStart.socket is guaranteed to exist by now
+        // theStart.socket.on('key', msg => this.setState({key: msg})); // theStart.socket is guaranteed to exist by now
+        theStart.socket.on('key', msg => {this.setState({key: msg}); theStart.state.content.state.content.push("hello");});
     };
     render() {
         return <div id="keyBox" style={{backgroundColor: 'lightblue'}}>
@@ -20,6 +21,10 @@ class KeyBox extends React.Component {
 };
 
 class AssembleCrew extends shared_vars.ThemeDependentComponent {
+    constructor() {
+        super();
+        this.state.crewList = <GameThings.ListWithCrosses callback={e => this.state.crewList.remove(e) /*replace with extra bits*/} style={{position: 'absolute', left: '10px', right: '10px', top: '60px'}} />;
+    };
     render() {
         const data = this.state.data;
         if (data) {
@@ -29,7 +34,7 @@ class AssembleCrew extends shared_vars.ThemeDependentComponent {
                     <KeyBox />
                 </div>
                 <h2 style={{fontSize: '50px', margin: '0px', marginLeft: '10px'}}>Crew:</h2>
-                CrewUl goes here...
+                {this.state.crewList}
             </div>;
         } else {
             return shared_vars.defaultLoading;
