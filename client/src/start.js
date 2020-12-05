@@ -6,6 +6,8 @@ import * as shared_vars from './shared_vars';
 
 import * as GameThings from './GameThings';
 
+import './css/start.css';
+
 class KeyBox extends React.Component {
     constructor() {
         super();
@@ -24,6 +26,7 @@ class AssembleCrew extends shared_vars.ThemeDependentComponent {
     constructor() {
         super();
         this.state.crewList = <GameThings.ListWithCrosses callback={e => this.state.crewList.remove(e) /*replace with extra bits*/} style={{position: 'absolute', left: '10px', right: '10px', top: '60px'}} />;
+        this.state.keybox = <KeyBox />;
     };
     render() {
         const data = this.state.data;
@@ -31,7 +34,7 @@ class AssembleCrew extends shared_vars.ThemeDependentComponent {
             return <div style={{position: 'relative', minHeight: 'calc(100vh - 230px)'}}>
                 <div style={{position: 'relative',top: '-10%'}}>
                     <button id="crewAssembled" onClick={() => "assemble crew"}>Crew Assembled!</button>
-                    <KeyBox />
+                    {this.state.keybox}
                 </div>
                 <h2 style={{fontSize: '50px', margin: '0px', marginLeft: '10px'}}>Crew:</h2>
                 {this.state.crewList}
@@ -111,9 +114,8 @@ export default class Start extends React.Component {
             socket.emit('game_over', leaderboard);
         */});
         
-        
-        this.socket.emit('request_key'); // last lines
         this.setState({content: <AssembleCrew />});
+        this.socket.emit('request_key'); // last lines
         
         // super.componentDidMount(); // add back iff inherits from ThemeDependent
     };
