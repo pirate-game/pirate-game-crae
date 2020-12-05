@@ -10,6 +10,7 @@ import './css/start.css';
 
 class KeyBox extends React.Component {
     constructor() {
+        super();
         this.state = {key: ''};
         theStart.socket.on('key', msg => this.setState({key: msg})); // theStart.socket is guaranteed to exist by now
         theStart.socket.emit('request_key');
@@ -23,6 +24,7 @@ class KeyBox extends React.Component {
 
 class AssembleCrew extends shared_vars.ThemeDependentComponent {
     constructor() {
+        super();
         this.state.crewList = <GameThings.ListWithCrosses ref={e => (this.crewListRef = e)} callback={e => this.crewListRef.remove(e) /*replace with extra bits*/} style={{position: 'absolute', left: '10px', right: '10px', top: '60px'}} />;
         this.crewListRef.push("hello");        
         this.state.keybox = <KeyBox />;
