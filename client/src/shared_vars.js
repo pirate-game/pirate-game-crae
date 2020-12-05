@@ -89,13 +89,14 @@ export class PopUps extends React.Component {
         
         this.clear = this.clear.bind(this);
         this.addPopUp = this.addPopUp.bind(this);
+        this.pop = this.pop.bind(this);
     };
     clear() {
         this.setState({ children: [] });
         return this;
     };
     addPopUp(description) {
-        this.setState({ 
+        /*this.setState({ 
             children: this.state.children.concat([
                 <div id={description.id} className="popUp"><div>
                     <h3>{description.title}</h3>
@@ -104,6 +105,22 @@ export class PopUps extends React.Component {
                     {description.btn && <button className="close" onClick={description.btn.onClick}>{description.btn.text}</button>}
                 </div></div>
             ]) 
+        });*/
+        this.setState(state => {
+            state.push(<div id={description.id} className="popUp"><div>
+                <h3>{description.title}</h3>
+                <hr />
+                <p>{intersperseWith(description.textLines || [], <br />)}</p>
+                {description.btn && <button className="close" onClick={description.btn.onClick}>{description.btn.text}</button>}
+            </div></div>);
+            return state;
+        });
+        return this;
+    };
+    pop() {
+        this.setState(state => {
+            state.pop();
+            return state;
         });
         return this;
     };
@@ -117,28 +134,3 @@ export const mutables = {
     unload_able: true,
     authenticHash: ""
 };
-
-/*
-let shared_vars = {
-    "renderIn": renderIn,
-    "theme": "default",
-    "gotoPage": {},
-    "defaultLoading": <div>Loading...</div>,
-    "symbols": ["rob", "kill", "present", "declareScore", "swap", "chooseNextSquare", "shield", "mirror", "goToZero", "double", "bank"],
-    "ThemeDependentComponent": ThemeDependentComponent,
-    "themeDependents": themeDependents,
-    "setTheme": setTheme,
-    "intersperseWith": intersperseWith,
-    "twoNewLines": <React.Fragment><br /><br /></React.Fragment>,
-    "unloadFn": unloadFn,
-    "unload_able": true,
-    "preventUnload": (() => { if (shared_vars.unload_able)  { window.addEventListener(   "beforeunload", shared_vars.unloadFn); shared_vars.unload_able = false; }; }),
-    "allowUnload":   (() => { if (!shared_vars.unload_able) { window.removeEventListener("beforeunload", shared_vars.unloadFn); shared_vars.unload_able = true;  }; }),
-    "authenticHash": "",
-    "removeFirstOccurrenceIn": removeFirstOccurrenceIn,
-    "defaultWrapComponent": defaultWrapComponent,
-    "sortByScore": sortByScore,
-    "PopUps": PopUps
-};
-export default shared_vars;
-*/
