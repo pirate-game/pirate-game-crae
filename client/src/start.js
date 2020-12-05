@@ -121,7 +121,7 @@ export default class Start extends React.Component {
     };
     render() {
         return <React.Fragment>
-            <div id="startContent" />
+            <div id="startContent">{this.state.content}</div>
             {this.popUps}
         </React.Fragment>;
     };
