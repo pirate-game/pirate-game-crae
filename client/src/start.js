@@ -19,7 +19,7 @@ class KeyBox extends React.Component {
     };
 };
 
-class AssembleCrew extends shared_vars.ThemeDependent {
+class AssembleCrew extends shared_vars.ThemeDependentComponent {
     render() {
         const data = this.state.data;
         if (data) {
