@@ -25,8 +25,7 @@ class KeyBox extends React.Component {
 class AssembleCrew extends shared_vars.ThemeDependentComponent {
     constructor() {
         super();
-        this.state.crewList = <GameThings.ListWithCrosses ref={e => (this.crewListRef = e)} callback={e => this.crewListRef.remove(e) /*replace with extra bits*/} style={{position: 'absolute', left: '10px', right: '10px', top: '60px'}} />;
-        this.crewListRef.push("hello");        
+        this.state.crewList = <GameThings.ListWithCrosses ref={e => {this.crewListRef = e; this.crewListRef.push("hello"); }} callback={e => this.crewListRef.remove(e) /*replace with extra bits*/} style={{position: 'absolute', left: '10px', right: '10px', top: '60px'}} />;      
         this.state.keybox = <KeyBox />;
     };
     render() {
