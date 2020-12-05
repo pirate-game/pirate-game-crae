@@ -73,10 +73,10 @@ export default class Start extends React.Component {
         
         this.socket.emit('request_key'); // last
         
-        super.componentDidMount();
+        // super.componentDidMount(); // add back iff inherits from ThemeDependent
     };
     componentWillUnmount() {
-        super.componentWillUnmount();
+        // super.componentWillUnmount(); // add back iff inherits from ThemeDependent
         
         
         if (this.socket.connected) this.socket.disconnect();
