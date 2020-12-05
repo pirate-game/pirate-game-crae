@@ -9,11 +9,12 @@ import * as GameThings from './GameThings';
 import './css/start.css';
 
 class KeyBox extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        if (props.obj) { props.obj.keyBox = this; };
         this.state = {key: ''};
         theStart.socket.on('key', msg => this.setState({key: msg})); // theStart.socket is guaranteed to exist by now
-        theStart.socket.emit('request_key')
+        theStart.socket.emit('request_key');
     };
     render() {
         return <div id="keyBox" style={{backgroundColor: 'lightblue'}}>
@@ -23,11 +24,12 @@ class KeyBox extends React.Component {
 };
 
 class AssembleCrew extends shared_vars.ThemeDependentComponent {
-    constructor() {
-        super();
-        this.state.crewList = <GameThings.ListWithCrosses callback={e => this.state.crewList.remove(e) /*replace with extra bits*/} style={{position: 'absolute', left: '10px', right: '10px', top: '60px'}} />;
-        this.state.crewList.push("Hello");
-        this.state.keybox = <KeyBox />;
+    constructor(props) {
+        super(props);
+        if (props.obj) { props.obj.assembleCrew = this; };
+        this.state.crewList = <GameThings.ListWithCrosses obj={this} callback={e => this.listWithCrosses.remove(e) /*replace with extra bits*/} style={{position: 'absolute', left: '10px', right: '10px', top: '60px'}} />;
+        this.listWithCrosses.push("hello");
+        this.state.keybox = <KeyBox obj={this}/>;
     };
     render() {
         const data = this.state.data;
@@ -58,7 +60,7 @@ export default class Start extends React.Component {
         
         theStart = this;
         
-        this.popUps = <GameThings.PopUps />;
+        this.popUps_torender = <GameThings.PopUps obj={this} />;
         
         this.allCrew = [];
         this.unreadyCrew = [];
@@ -115,7 +117,7 @@ export default class Start extends React.Component {
             socket.emit('game_over', leaderboard);
         */});
         
-        this.setState({content: <AssembleCrew />}); // last line
+        this.setState({content: <AssembleCrew obj={this}/>}); // last line
                 
         // super.componentDidMount(); // add back iff inherits from ThemeDependent
     };
@@ -129,7 +131,7 @@ export default class Start extends React.Component {
     render() {
         return <React.Fragment>
             <div id="startContent">{this.state.content}</div>
-            {this.popUps}
+            {this.popUps_torender}
         </React.Fragment>;
     };
 };
