@@ -82,5 +82,6 @@ export default {
     "file_ext": ".svg",
     "name": "Bank",
     "description": "Your CASH moves into your Bank."
-  }
+  },
+  "crewName": "Crew"
 };
