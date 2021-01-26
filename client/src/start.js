@@ -8,6 +8,10 @@ import * as GameThings from './GameThings';
 
 import './css/start.css';
 
+
+
+/*
+
 class KeyBox extends React.Component {
     constructor() {
         super();
@@ -155,16 +159,16 @@ export default class Start extends React.Component {
             theCurrentSquare.setState({currentSquare: square});
             theBoard.squareDone(square);
             socket.emit('current_square', square);
-        */});
+        *//*});
 
         this.socket.on('got_choose', player => {/*
             theChooseNextSquare.addPlayer(player);
             socket.emit('choose_next_square', player);
-        */});
+        *//*});
 
         this.socket.on('request_state', () => {/*
             socket.emit('state', [theBoard.state, theCurrentSquare.state, theChooseNextSquare.state]);
-        */});
+        *//*});
         
         this.socket.on('ready', name => {/*
             unreadyCrew = unreadyCrew.filter(e=>e!=name);
@@ -172,9 +176,9 @@ export default class Start extends React.Component {
                 theNextSquare.setState({allReady: true});
                 theShowScores.setState({allReady: true});
             };
-        */});
+        *//*});
         
-        this.socket.on('some_event', someEvent => {/* theEventReport.addEvent(someEvent); */});
+        this.socket.on('some_event', someEvent => {/* theEventReport.addEvent(someEvent); *//*});
         
         this.socket.on('got_scores', results => {/*
             var leaderboard = sortByScore(results);
@@ -183,7 +187,7 @@ export default class Start extends React.Component {
             showStage("stage3");
             hidePopUps();
             socket.emit('game_over', leaderboard);
-        */});
+        *//*});
         
         this.setState({content: <AssembleCrew ref={e => (this.contentRef = e)} />}); // last line
                 
@@ -203,3 +207,4 @@ export default class Start extends React.Component {
         </React.Fragment>;
     };
 };
+*/
