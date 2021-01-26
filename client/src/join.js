@@ -6,8 +6,6 @@ import * as shared_vars from './shared_vars';
 
 import * as GameThings from './GameThings';
 
-let theJoin = null;
-
 export default class Join extends React.Component {
     constructor() {
         super();
@@ -15,7 +13,6 @@ export default class Join extends React.Component {
         this.state = {content: null};
     };
     componentDidMount() {
-        theJoin = this;
         
         this.socket = io();
         
