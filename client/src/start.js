@@ -10,74 +10,103 @@ import './css/start.css';
 
 
 
-/*
-
-class KeyBox extends React.Component {
+export default class Start extends shared_vars.ThemeDependentComponent {
     constructor() {
         super();
-        this.state = {key: ''};
-        theStart.socket.on('key', msg => this.setState({key: msg})); // theStart.socket is guaranteed to exist by now
-        theStart.socket.emit('request_key');
-    };
-    render() {
-        return <div id="keyBox" style={{backgroundColor: 'lightblue'}}>
-            <h2> Key: {this.state.key} </h2>
-        </div>;
-    };
-};
-
-class AssembleCrew extends React.Component {
-    removePlayer(p) {
-        this.crewListRef.remove(p); 
-        shared_vars.removeFirstOccurrenceIn(p, theStart.allCrew); 
-        theStart.socket.emit('remove_player', p);
-    };
-    changeCrew() {
-        theStart.socket.emit('change_crew');
-        theStart.popUpsRef.pop();
-    };
-    constructor() {
-        super();
-        this.state = {};
-        this.removePlayer = this.removePlayer.bind(this);
-        this.changeCrew = this.changeCrew.bind(this);
-        this.state.crewList = <GameThings.ListWithCrosses 
-                                    ref={e => (this.crewListRef = e)} 
-                                    callback={this.removePlayer} style={{position: 'absolute', left: '10px', right: '10px', top: '60px'}} />;      
-        this.state.keybox = <KeyBox />;
+        Object.assign(this.state, {stage: -1, key: null, popUps: new GameThings.PopUps_data()});
         
-        theStart.socket.on('request_join', name => {
+        this.crossCallback = p => {
             this.setState(state => {
-                state.crew.push(name);
+                state.allPlayers.remove(p);
                 return state;
             });
-            globalCrew.push(name);
+            this.socket.emit('remove_player', p);
+        };
+    };
+    componentDidMount() {
+        super.componentDidMount(); // first line
+        
+        this.socket = io();
+        
+        this.socket.on('key', msg => this.setState({key: msg}));
+        
+        this.socket.on('request_join', name => {
+            this.setState(state => {
+                state.allPlayers.push(name);
+                return state;
+            });
         });
-        theStart.socket.on('show_provisional_crew', () => {
-            theStart.popUpsRef.push(<div id="crewAssembledPopUp" className="popUp"><div>
-                    <h3>Crew Assembled</h3>
+        
+        this.socket.on('show_provisional_crew', () => {
+            this.setState(state => state.popUps.push(<div id="crewAssembledPopUp" className="popUp"><div>
+                    <h3>{this.state.data.playersName} Assembled</h3>
                     <hr />
                     <div>
-                        <p style={{display: 'inline-block', width: 'calc(100% - 190px)'}}>Those currently in your crew are below. You can remove them with the crosses.</p>
+                        <p style={{display: 'inline-block', width: 'calc(100% - 190px)'}}>Those currently in the game are below. You can remove them with the crosses.</p>
                         <div style={{display: 'inline-block'}}>
                             <button onClick={()=>"start game"}>Start<br />Game</button>
-                            <button onClick={this.changeCrew}>Change<br />Crew</button>
+                            <button onClick={()=>{this.socket.emit('change_crew'); this.setState(state => {
+                                state.popUps.pop();
+                                return state;
+                            });}}>Change<br />{this.state.data.playersName}</button>
                         </div>
                     </div>
-                    <GameThings.ListWithCrosses initial={this.state.crew} callback={this.removePlayer} style={{maxHeight: 'calc(100vh - 400px)'}} />
-        </div></div>});
+                    <GameThings.NiceList elems={this.state.allPlayers} callback={this.crossCallback} style={{maxHeight: 'calc(100vh - 400px)'}} />
+        </div></div>}));
+        
+        // this.socket.on(...)...;
+        
+        this.setState({stage: 0, allPlayers: new GameThings.List_data()}); // last lines
+        
+        this.socket.emit('request_key');
+    };
+    componentWillUnmount() {
+        super.componentWillUnmount(); // first line
+        
+        // resetting this.state.stage is unnecessary (I think)
+        // do NOT call this.setState; set normally
+        
+        if (this.socket.connected) this.socket.disconnect();
     };
     render() {
-        return <div style={{position: 'relative', minHeight: 'calc(100vh - 230px)'}}>
-            <div style={{position: 'relative',top: '-10%'}}>
-                <button id="crewAssembled" onClick={assembleCrew}>Crew Assembled!</button>
-                {this.state.keybox}
-            </div>
-            <h2 style={{fontSize: '50px', margin: '0px', marginLeft: '10px'}}>Crew:</h2>
-            {this.state.crewList}
-        </div>;
+        let content = shared_vars.defaultLoading;
+        const data = this.state.data;
+        if (data) {
+            switch (this.stage) {
+
+                // case -1: do nothing
+
+                case 0: content = <div style={{position: 'relative', minHeight: 'calc(100vh - 230px)'}}>
+                    <div style={{position: 'relative', top: '-10%'}}>
+                        <button id="crewAssembled" onClick={()=>"Assemble crew"}>{data.playersName} Assembled!</button>
+                        <KeyBox key={this.state.key} />
+                    </div>
+                    <h2 style={{fontSize: '50px', margin: '0px', marginLeft: '10px'}}>{data.playersName}:</h2>
+                    <GameThings.NiceList elems={this.state.allPlayers} callback={this.crossCallback} style={{position: 'absolute', left: '10px', right: '10px', top: '60px'}} />
+                </div>; break;
+
+                case 1: content = null; break;
+
+                case 2: content = null; break;
+
+                case 3: content = null; break;
+
+            };
+        };
+        return <React.Fragment>
+            <div id="startContent">{content}</div>
+            <GameThings.PopUps popUps={this.state.popUps} />
+        </React.Fragment>;
     };
 };
+
+function KeyBox(props) {
+    return <div id="keyBox" style={{backgroundColor: 'lightblue'}}>
+        <h2> Key: {props.key} </h2>
+    </div>;
+};
+
+/*
 
 function assembleCrew() {
     theStart.popUpsRef.clear();
