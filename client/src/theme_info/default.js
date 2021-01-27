@@ -28,6 +28,7 @@ export default {
     "On each of the 49 rounds, a square is selected, either at random or by one of the players, and all players get the symbol in that square. Most of the symbols are amounts o' CASH. If a player gets a CASH symbol, their CASH is increased by that amount. There are other symbols which do other things as follows:"
   ],
   "rules_footer": "The winner is the pirate whose final CASH and Bank balance total the most.",
+  "playersName": "Crew",
   "rob": {
     "file_ext": ".png",
     "name": "Rob",
