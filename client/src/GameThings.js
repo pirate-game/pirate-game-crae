@@ -44,6 +44,12 @@ export class PopUps_data {
     };
 };
 
+export const waitingPopUp = <div className="popUp"><div>
+    <h3>Waiting</h3>
+    <hr />
+    <p>This won't take too long, I hope!</p>
+</div></div>;
+
 export function PopUps(props) {
     return <div id="popUps" style={props.style}>{props.popUps.children}</div>;
 };
