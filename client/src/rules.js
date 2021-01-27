@@ -18,11 +18,11 @@ export default class Rules extends shared_vars.ThemeDependentComponent {
                         </div>;}
                     )}
                 </div>
-            <p>{data.rules_footer}</p>
-        </React.Fragment>;
-    };
-    return <div className="sometext" style={{backgroundColor:"lightblue"}}>
-        {content}
-    </div>;
+                <p>{data.rules_footer}</p>
+            </React.Fragment>;
+        };
+        return <div className="sometext" style={{backgroundColor:"lightblue"}}>
+            {content}
+        </div>;
     };
 };
