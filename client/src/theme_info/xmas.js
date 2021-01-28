@@ -32,6 +32,8 @@ export default {
   ],
   "rules_footer": "The winner is the player whose final CASH and Bank balance total the most.",
   "playersName": "Players",
+  "nameQ": "What is your name?",
+  "gameQ": "What is the game's key?",
   "rob": {
     "file_ext": ".png",
     "name": "The Grinch",
