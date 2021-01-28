@@ -22,7 +22,11 @@ export default class Start extends shared_vars.ThemeDependentComponent {
             });
             this.socket.emit('remove_player', p);
         };
-        this.remove_popUp = () => this.setState(state => state.popUps.pop());
+        
+        this.remove_popUp = () => this.setState(state => {
+            state.popUps.pop();
+            return state;
+        });
         
         this.assembleCrew = this.assembleCrew.bind(this);
     };
