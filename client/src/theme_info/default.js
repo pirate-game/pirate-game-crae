@@ -29,6 +29,8 @@ export default {
   ],
   "rules_footer": "The winner is the pirate whose final CASH and Bank balance total the most.",
   "playersName": "Crew",
+  "nameQ": "What be your name?",
+  "gameQ": "What game be ye joinin'?",
   "rob": {
     "file_ext": ".png",
     "name": "Rob",
