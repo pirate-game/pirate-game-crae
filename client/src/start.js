@@ -13,36 +13,8 @@ import './css/start.css';
 export default class Start extends GameThings.SocketfulComponent {
     constructor() {
         super();
-        Object.assign(this.state, {stage: -1, key: null, popUps: new GameThings.PopUps_data()});
+        Object.assign(this.state, {key: null});
         this.outerName = "startContent";
-        
-        this.crossCallback = p => {
-            this.setState(state => {
-                state.allPlayers.remove(p);
-                return state;
-            });
-            this.socket.emit('remove_player', p);
-        };
-        
-        this.push_popUp = p => this.setState(state => {
-            state.popUps.push(p);
-            return state;
-        });
-        
-        this.add_popUp = p => this.setState(state => {
-            state.popUps.addPopUp(p);
-            return state;
-        });
-        
-        this.remove_popUp = () => this.setState(state => {
-            state.popUps.pop();
-            return state;
-        });
-        
-        this.default_btn = {
-            text: "Okay!",
-            onClick: this.remove_popUp
-        };
         
         this.assembleCrew = this.assembleCrew.bind(this);
     };
