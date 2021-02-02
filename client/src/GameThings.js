@@ -12,25 +12,6 @@ export function sortByScore(results) {
     return out;
 };
 
-export class SocketfulComponent extends shared_vars.ThemeDependentComponent {
-    // would be CRTP in C++
-    componentDidMount() {
-        super.componentDidMount();
-        this.socket = io();
-    };
-    componentWillUnmount() {
-        super.componentWillUnmount();        
-        if (this.socket.connected) this.socket.disconnect();
-    };
-    render() {
-        const data = this.state.data;
-        return <React.Fragment>
-            <div id={this.outerName}>{data ? this.render_helper(data, this.state.stage) : shared_vars.defaultLoading}</div>
-            <PopUps popUps={this.state.popUps} />
-        </React.Fragment>;
-    };
-};
-
 export class PopUps_data {
     constructor() {
         this.children = [];
@@ -129,4 +110,47 @@ export function NiceList(props) {
             </li>
         ))}
     </ul>;
+};
+
+export class SocketfulComponent extends shared_vars.ThemeDependentComponent {
+    // would be CRTP in C++
+    constructor() {
+        super();
+        Object.assign(this.state, {stage: -1, popUps: new PopUps_data()});
+        
+        this.push_popUp = p => this.setState(state => {
+            state.popUps.push(p);
+            return state;
+        });
+        
+        this.add_popUp = p => this.setState(state => {
+            state.popUps.addPopUp(p);
+            return state;
+        });
+        
+        this.remove_popUp = () => this.setState(state => {
+            state.popUps.pop();
+            return state;
+        });
+        
+        this.default_btn = {
+            text: "Okay!",
+            onClick: this.remove_popUp
+        };
+    };
+    componentDidMount() {
+        super.componentDidMount();
+        this.socket = io();
+    };
+    componentWillUnmount() {
+        super.componentWillUnmount();        
+        if (this.socket.connected) this.socket.disconnect();
+    };
+    render() {
+        const data = this.state.data;
+        return <React.Fragment>
+            <div id={this.outerName}>{data ? this.render_helper(data, this.state.stage) : shared_vars.defaultLoading}</div>
+            <PopUps popUps={this.state.popUps} />
+        </React.Fragment>;
+    };
 };
