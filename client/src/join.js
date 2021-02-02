@@ -9,10 +9,11 @@ import * as GameThings from './GameThings';
 import './css/join.css';
 
 
-export default class Join extends shared_vars.ThemeDependentComponent {
+export default class Join extends GameThings.SocketfulComponent {
     constructor() {
         super();
         Object.assign(this.state, {stage: -1, popUps: new GameThings.PopUps_data()});
+        this.outerName = "joinContent";
         
         this.push_popUp = p => this.setState(state => {
             state.popUps.push(p);
@@ -90,44 +91,21 @@ export default class Join extends shared_vars.ThemeDependentComponent {
         
         this.setState({stage: 0}); // last line
     };
-    componentWillUnmount() {
-        super.componentWillUnmount(); // first line
-        
-        // resetting this.state.stage is unnecessary (I think)
-        // do NOT call this.setState; set normally
-        
-        if (this.socket.connected) this.socket.disconnect();
-    };
-    render() {
-        let content = shared_vars.defaultLoading;
-        const data = this.state.data;
-        if (data) {
-            switch (this.stage) {
-
-                // case -1: do nothing
-
-                case 0: content = <div>
-                    <div className="inputsDiv">
-                        <h2 id="nameH2">{data.nameQ}</h2>
-                        <input type="text" id="pirateName" maxLength="172" />
-                        <h2>{data.gameQ}</h2>
-                        <input type="text" id="gameKey" maxLength="6" />
-                    </div>
-                    <button id="join" onClick={this.attemptJoin}>Join</button>
-                </div>; break;
-
-                case 1: content = "GAME STARTED!"; break;
-
-                case 2: /* content = null; */ break;
-
-                case 3: /* content = null; */ break;
-
-            };
+    // add back componentWillUnmount in unlikely event that stage must be reset
+    render_helper(data, stage) {
+        switch (stage) {
+            default: return null;
+            case 0: return <div>
+                <div className="inputsDiv">
+                    <h2 id="nameH2">{data.nameQ}</h2>
+                    <input type="text" id="pirateName" maxLength="172" />
+                    <h2>{data.gameQ}</h2>
+                    <input type="text" id="gameKey" maxLength="6" />
+                </div>
+                <button id="join" onClick={this.attemptJoin}>Join</button>
+            </div>;
+            case 1: return "GAME STARTED!";
         };
-        return <React.Fragment>
-            <div id="joinContent">{content}</div>
-            <GameThings.PopUps popUps={this.state.popUps} />
-        </React.Fragment>;
     };
     attemptJoin() {
         const name = document.getElementById("pirateName").value;
