@@ -12,6 +12,24 @@ export function sortByScore(results) {
     return out;
 };
 
+export class SocketfulComponent extends shared_vars.ThemeDependentComponent {
+    // would be CRTP in C++
+    componentDidMount() {
+        super.componentDidMount();
+        this.socket = io();
+    };
+    componentWillUnmount() {
+        super.componentWillUnmount();        
+        if (this.socket.connected) this.socket.disconnect();
+    };
+    render() {
+        const data = this.state.data;
+        return <React.Fragment>
+            <div id={this.outerName}>{data ? this.render_helper(data) : shared_vars.defaultLoading}</div>
+            <PopUps popUps={this.state.popUps} />
+        </React.Fragment>;
+    };
+};
 
 export class PopUps_data {
     constructor() {
