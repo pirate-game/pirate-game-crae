@@ -40,8 +40,6 @@ export default class Join extends GameThings.SocketfulComponent {
     componentDidMount() {
         super.componentDidMount(); // first line
         
-        this.socket = io();
-        
         this.socket.on('no_such_game', () => {
             document.getElementById("gameKey").value = "";
             this.remove_popUp();
