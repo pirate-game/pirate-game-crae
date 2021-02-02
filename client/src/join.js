@@ -46,7 +46,54 @@ export default class Join extends shared_vars.ThemeDependentComponent {
         
         this.socket = io();
         
-        this.setState({content: null}); // last line
+        this.socket.on('no_such_game', () => {
+            document.getElementById("gameKey").value = "";
+            this.remove_popUp();
+            this.add_popUp({
+                title: "No Such Game",
+                textLines: ["You've probably mistyped your key. Try again."],
+                btn: this.default_btn
+            });
+        });
+        
+        this.socket.on('name_taken', () => {
+            document.getElementById("pirateName").value = "";
+            this.remove_popUp();
+            this.add_popUp({
+                title: "Name Taken",
+                textLines: ["Great minds think alike! (And fools' seldom differ!)",
+                            "Someone's taken your name already. Choose another one."],
+                btn: this.default_btn
+            });
+        });
+        
+        this.socket.on('game_unavailable', () => {
+            document.getElementById("gameKey").value = "";
+            this.remove_popUp();
+            this.add_popUp({
+                title: "Game Unavailable",
+                textLines: ["Unfortunately for you, this probably means they've started without you. :("],
+                btn: this.default_btn
+            });
+        });
+        
+        this.socket.on('join_rejected', () => {
+            document.getElementById("pirateName").value = "";
+            document.getElementById("gameKey").value = "";
+            this.remove_popUp();
+            this.add_popUp({
+                title: "Join Rejected",
+                textLines: ["You have not been allowed to join that game (yet). Maybe they don't like your Pirate Name? Or, maybe they can't stand how you always beat them!"],
+                btn: this.default_btn
+            });
+        });
+        
+        this.socket.on('start_game', () => {
+            this.remove_popUp();
+            this.setState({stage: 1});
+        });
+        
+        this.setState({stage: 0}); // last line
     };
     componentWillUnmount() {
         super.componentWillUnmount(); // first line
@@ -74,7 +121,7 @@ export default class Join extends shared_vars.ThemeDependentComponent {
                     <button id="join" onClick={this.attemptJoin}>Join</button>
                 </div>; break;
 
-                case 1: /* content = null; */ break;
+                case 1: content = "GAME STARTED!"; break;
 
                 case 2: /* content = null; */ break;
 
