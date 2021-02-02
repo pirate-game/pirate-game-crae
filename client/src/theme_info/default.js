@@ -31,6 +31,7 @@ export default {
   "playersName": "Crew",
   "nameQ": "What be your name?",
   "gameQ": "What game be ye joinin'?",
+  "watchQ": "What game be ye watchin'?",
   "rob": {
     "file_ext": ".png",
     "name": "Rob",
