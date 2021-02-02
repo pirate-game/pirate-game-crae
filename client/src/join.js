@@ -8,10 +8,36 @@ import * as GameThings from './GameThings';
 
 import './css/join.css';
 
+
+const wsPattern  = /^\s*$/; // any number of whitespace characters
+const keyPattern = /^[0-9a-f]{6}$/; // six characters 0 to 9 or a to f
+const squarePattern = /^[A-G][1-7]$/; // a character A to G, followed by a digit 1 to 7
+
+
 export default class Join extends shared_vars.ThemeDependentComponent {
     constructor() {
         super();
         Object.assign(this.state, {stage: -1, popUps: new GameThings.PopUps_data()});
+        
+        this.push_popUp = p => this.setState(state => {
+            state.popUps.push(p);
+            return state;
+        });
+        
+        this.add_popUp = p => this.setState(state => {
+            state.popUps.addPopUp(p);
+            return state;
+        });
+        
+        this.remove_popUp = () => this.setState(state => {
+            state.popUps.pop();
+            return state;
+        });
+        
+        this.default_btn = {
+            text: "Okay!",
+            onClick: this.remove_popUp
+        };
         
         this.attemptJoin = this.attemptJoin.bind(this);
     };
@@ -63,21 +89,26 @@ export default class Join extends shared_vars.ThemeDependentComponent {
     };
     attemptJoin() {
         const name = document.getElementById("pirateName").value;
-        const key = document.getElementById("gameKey").value;
-        if (namePattern.test(name) && !exclPattern.test(name)) {
+        const key = document.getElementById("gameKey").value.toLowerCase(); // ignore uppercase'ness
+        this.remove_popUp();
+        if (!wsPattern.test(name)) {
             if (keyPattern.test(key)) {
-                // clear popUps
-                // display waiting
+                this.push_popUp(GameThings.waitingPopUp);
                 this.socket.emit('attempt_join', name, key);
                 this.name = name;
             } else {
-                hidePopUps();
-                // clear popUps
-                // display invalid key
+                this.add_popUp({
+                    title: "Invalid Key",
+                    textLines: ['Please correctly type the key you have been given. It should be 6 hexadecimal digits e.g. "face42".'],
+                    btn: this.default_btn
+                });
             };
         } else {
-            // clear popUps
-            // display invalid name
+            this.add_popUp({
+                    title: "Invalid Name",
+                    textLines: ["Maybe put some non-whitespace characters in your name?", "Maybe?"],
+                    btn: this.default_btn
+                });
         };
     };
 };
