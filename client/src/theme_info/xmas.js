@@ -34,6 +34,7 @@ export default {
   "playersName": "Players",
   "nameQ": "What is your name?",
   "gameQ": "What is the game's key?",
+  "watchQ": "What is the game to watch's key?",
   "rob": {
     "file_ext": ".png",
     "name": "The Grinch",
