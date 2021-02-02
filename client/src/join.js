@@ -12,29 +12,9 @@ import './css/join.css';
 export default class Join extends GameThings.SocketfulComponent {
     constructor() {
         super();
-        Object.assign(this.state, {stage: -1, popUps: new GameThings.PopUps_data()});
+        Object.assign(this.state, {/* ... */});
         this.outerName = "joinContent";
-        
-        this.push_popUp = p => this.setState(state => {
-            state.popUps.push(p);
-            return state;
-        });
-        
-        this.add_popUp = p => this.setState(state => {
-            state.popUps.addPopUp(p);
-            return state;
-        });
-        
-        this.remove_popUp = () => this.setState(state => {
-            state.popUps.pop();
-            return state;
-        });
-        
-        this.default_btn = {
-            text: "Okay!",
-            onClick: this.remove_popUp
-        };
-        
+
         this.attemptJoin = this.attemptJoin.bind(this);
     };
     componentDidMount() {
