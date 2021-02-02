@@ -10,10 +10,11 @@ import './css/start.css';
 
 
 
-export default class Start extends shared_vars.ThemeDependentComponent {
+export default class Start extends GameThings.SocketfulComponent {
     constructor() {
         super();
         Object.assign(this.state, {stage: -1, key: null, popUps: new GameThings.PopUps_data()});
+        this.outerName = "startContent";
         
         this.crossCallback = p => {
             this.setState(state => {
@@ -48,8 +49,6 @@ export default class Start extends shared_vars.ThemeDependentComponent {
     componentDidMount() {
         super.componentDidMount(); // first line
         
-        this.socket = io();
-        
         this.socket.on('key', msg => this.setState({key: msg}));
         
         this.socket.on('request_join', name => {
@@ -80,43 +79,19 @@ export default class Start extends shared_vars.ThemeDependentComponent {
         
         this.socket.emit('request_key');
     };
-    componentWillUnmount() {
-        super.componentWillUnmount(); // first line
-        
-        // resetting this.state.stage is unnecessary (I think)
-        // do NOT call this.setState; set normally
-        
-        if (this.socket.connected) this.socket.disconnect();
-    };
-    render() {
-        let content = shared_vars.defaultLoading;
-        const data = this.state.data;
-        if (data) {
-            switch (this.stage) {
-
-                // case -1: do nothing
-
-                case 0: content = <div style={{position: 'relative', minHeight: 'calc(100vh - 230px)'}}>
-                    <div style={{position: 'relative', top: '-10%'}}>
-                        <button id="crewAssembled" onClick={this.assembleCrew}>{data.playersName} Assembled!</button>
-                        <KeyBox key={this.state.key} />
-                    </div>
-                    <h2 style={{fontSize: '50px', margin: '0px', marginLeft: '10px'}}>{data.playersName}:</h2>
-                    <GameThings.NiceList elems={this.state.allPlayers} callback={this.crossCallback} style={{position: 'absolute', left: '10px', right: '10px', top: '60px'}} />
-                </div>; break;
-
-                case 1: /* content = null; */ break;
-
-                case 2: /* content = null; */ break;
-
-                case 3: /* content = null; */ break;
-
-            };
+    // add back componentWillUnmount in unlikely event that stage must be reset
+    render_helper(data, stage) {
+        switch (stage) {
+            default: return null;
+            case 0: return <div style={{position: 'relative', minHeight: 'calc(100vh - 230px)'}}>
+                <div style={{position: 'relative', top: '-10%'}}>
+                    <button id="crewAssembled" onClick={this.assembleCrew}>{data.playersName} Assembled!</button>
+                    <KeyBox key={this.state.key} />
+                </div>
+                <h2 style={{fontSize: '50px', margin: '0px', marginLeft: '10px'}}>{data.playersName}:</h2>
+                <GameThings.NiceList elems={this.state.allPlayers} callback={this.crossCallback} style={{position: 'absolute', left: '10px', right: '10px', top: '60px'}} />
+            </div>;
         };
-        return <React.Fragment>
-            <div id="startContent">{content}</div>
-            <GameThings.PopUps popUps={this.state.popUps} />
-        </React.Fragment>;
     };
     assembleCrew() {
         this.setState(state => {
