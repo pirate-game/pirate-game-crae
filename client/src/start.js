@@ -23,6 +23,16 @@ export default class Start extends shared_vars.ThemeDependentComponent {
             this.socket.emit('remove_player', p);
         };
         
+        this.push_popUp = p => this.setState(state => {
+            state.popUps.push(p);
+            return state;
+        });
+        
+        this.add_popUp = p => this.setState(state => {
+            state.popUps.addPopUp(p);
+            return state;
+        });
+        
         this.remove_popUp = () => this.setState(state => {
             state.popUps.pop();
             return state;
@@ -44,8 +54,8 @@ export default class Start extends shared_vars.ThemeDependentComponent {
             });
         });
         
-        this.socket.on('show_provisional_crew', () => {
-            this.setState(state => state.popUps.push(<div id="crewAssembledPopUp" className="popUp"><div>
+        this.socket.on('show_provisional_crew', () => this.push_popUp(
+            <div id="crewAssembledPopUp" className="popUp"><div>
                     <h3>{this.state.data.playersName} Assembled</h3>
                     <hr />
                     <div>
@@ -56,7 +66,8 @@ export default class Start extends shared_vars.ThemeDependentComponent {
                         </div>
                     </div>
                     <GameThings.NiceList elems={this.state.allPlayers} callback={this.crossCallback} style={{maxHeight: 'calc(100vh - 400px)'}} />
-        </div></div>}));
+            </div></div>
+        );
         
         // this.socket.on(...)...;
         
