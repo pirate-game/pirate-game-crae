@@ -9,11 +9,6 @@ import * as GameThings from './GameThings';
 import './css/join.css';
 
 
-const wsPattern  = /^\s*$/; // any number of whitespace characters
-const keyPattern = /^[0-9a-f]{6}$/; // six characters 0 to 9 or a to f
-const squarePattern = /^[A-G][1-7]$/; // a character A to G, followed by a digit 1 to 7
-
-
 export default class Join extends shared_vars.ThemeDependentComponent {
     constructor() {
         super();
@@ -138,8 +133,8 @@ export default class Join extends shared_vars.ThemeDependentComponent {
         const name = document.getElementById("pirateName").value;
         const key = document.getElementById("gameKey").value.toLowerCase(); // ignore uppercase'ness
         this.remove_popUp();
-        if (!wsPattern.test(name)) {
-            if (keyPattern.test(key)) {
+        if (!shared_vars.wsPattern.test(name)) {
+            if (shared_vars.keyPattern.test(key)) {
                 this.push_popUp(GameThings.waitingPopUp);
                 this.socket.emit('attempt_join', name, key);
                 this.name = name;
