@@ -25,7 +25,7 @@ export class SocketfulComponent extends shared_vars.ThemeDependentComponent {
     render() {
         const data = this.state.data;
         return <React.Fragment>
-            <div id={this.outerName}>{data ? this.render_helper(data) : shared_vars.defaultLoading}</div>
+            <div id={this.outerName}>{data ? this.render_helper(data, this.state.stage) : shared_vars.defaultLoading}</div>
             <PopUps popUps={this.state.popUps} />
         </React.Fragment>;
     };
