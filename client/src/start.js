@@ -38,6 +38,11 @@ export default class Start extends shared_vars.ThemeDependentComponent {
             return state;
         });
         
+        this.default_btn = {
+            text: "Okay!",
+            onClick: this.remove_popUp
+        };
+        
         this.assembleCrew = this.assembleCrew.bind(this);
     };
     componentDidMount() {
@@ -123,10 +128,7 @@ export default class Start extends shared_vars.ThemeDependentComponent {
                 state.popUps.addPopUp({
                     title: "Too Few Crewmembers",
                     textLines: ["Yarr, ye be needin' at least 2 players."],
-                    btn: {
-                        text: "Okay!",
-                        onClick: this.remove_popUp
-                    }
+                    btn: this.default_btn
                 });
             };
         });
