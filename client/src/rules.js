@@ -21,7 +21,7 @@ export default class Rules extends shared_vars.ThemeDependentComponent {
                 <p>{data.rules_footer}</p>
             </React.Fragment>;
         };
-        return <div className="sometext" style={{backgroundColor:"lightblue"}}>
+        return <div id="rulesContent" className="sometext">
             {content}
         </div>;
     };
