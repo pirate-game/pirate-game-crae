@@ -20,7 +20,7 @@ export default class Start extends GameThings.SocketfulComponent {
     componentDidMount() {
         super.componentDidMount(); // first line
         
-        this.socket.on('key', msg => this.setState({key: msg}));
+        this.socket.on('key', msg => { this.setState({key: msg}); console.log(msg); });
         
         this.socket.on('request_join', name => {
             this.setState(state => {
@@ -52,6 +52,7 @@ export default class Start extends GameThings.SocketfulComponent {
     };
     // add back componentWillUnmount in unlikely event that stage must be reset
     render_helper(data, stage) {
+        console.log("rendering");
         switch (stage) {
             default: return null;
             case 0: return <div style={{position: 'relative', minHeight: 'calc(100vh - 230px)'}}>
