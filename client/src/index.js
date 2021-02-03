@@ -44,13 +44,13 @@ const navbar = <React.Fragment>
         <li><a href="#ack_tag"   className="niceButton">Acknowledgements</a></li>
     </ul>
     <div id="title" style={{float:"right", width:"fit-content", paddingRight:"20px"}}>
-        <h1 style={{fontSize: "3em"}}>&nbsp;The&nbsp;Pirate&nbsp;Game&nbsp;</h1>
+        <h1>&nbsp;The&nbsp;Pirate&nbsp;Game&nbsp;</h1>
         <ThemeSelector />
     </div>
 </React.Fragment>;
 
 const titlebar = <div id="title">
-    <h1 style={{fontSize: "50px"}}>&nbsp;The&nbsp;Pirate&nbsp;Game&nbsp;</h1>
+    <h1>&nbsp;The&nbsp;Pirate&nbsp;Game&nbsp;</h1>
     <ThemeSelector />
 </div>;
 
