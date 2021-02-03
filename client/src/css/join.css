@@ -1,1 +1,40 @@
+#joinContent h2 {
+  text-align: center;
+  font-size: 40px;
+}
+
+#joinContent #nameH2 {margin-top: 0;}
+
+#joinContent #join {
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+  font-family: 'Calibri', Fallback, sans-serif;
+  background-color: #CC6600;
+  color: white;
+  font-size: 35px;
+  font-weight: bold;
+  padding: 14px 16px;
+  text-decoration: none;
+  transition-duration: 0.4s;
+  border-radius: 6px;
+  border-width: 0;
+  position: relative;
+  top: 40px;
+}
+
+#joinContent #join:hover {
+  background-color: cornflowerblue;
+}
+
+#joinContent input {
+  width: 70%;
+  font-family: 'Calibri', Fallback, sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+  display: block;
+  margin: auto;
+  text-align: center;
+  border: 1px solid black;
+}
 
