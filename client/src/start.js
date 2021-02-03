@@ -11,7 +11,7 @@ import './css/start.css';
 export default class Start extends GameThings.SocketfulComponent {
     constructor() {
         super();
-        // Object.assign(this.state, {key: null});
+        Object.assign(this.state, {gameKey: null});
         this.outerName = "startContent";
         
         this.assembleCrew = this.assembleCrew.bind(this);
@@ -20,7 +20,7 @@ export default class Start extends GameThings.SocketfulComponent {
     componentDidMount() {
         super.componentDidMount(); // first line
         
-        this.socket.on('key', msg => { this.setState(state => { state.key = msg; this.push_popUp("in callback"); }); console.log(msg); });
+        this.socket.on('key', key => this.setState({gameKey: key}));
         
         this.socket.on('request_join', name => {
             this.setState(state => {
@@ -52,13 +52,12 @@ export default class Start extends GameThings.SocketfulComponent {
     };
     // add back componentWillUnmount in unlikely event that stage must be reset
     render_helper(data, stage) {
-        console.log("key is "+this.state.key);
         switch (stage) {
             default: return null;
             case 0: return <div style={{position: 'relative', minHeight: 'calc(100vh - 230px)'}}>
                 <div style={{position: 'relative', top: '-10%'}}>
                     <button id="crewAssembled" onClick={this.assembleCrew}>{data.playersName} Assembled!</button>
-                    <KeyBox key={this.state.key} />
+                    <KeyBox gameKey={this.state.gameKey} />
                 </div>
                 <h2 style={{fontSize: '50px', margin: '0px', marginLeft: '10px'}}>{data.playersName}:</h2>
                 <GameThings.NiceList elems={this.state.allPlayers} callback={this.crossCallback} style={{position: 'absolute', left: '10px', right: '10px', top: '60px'}} />
@@ -101,7 +100,7 @@ export default class Start extends GameThings.SocketfulComponent {
 
 function KeyBox(props) {
     return <div id="keyBox" style={{backgroundColor: 'lightblue'}}>
-        <h2> Key: {props.key} </h2>
+        <h2> Key: {props.gameKey} </h2>
     </div>;
 };
 
