@@ -8,14 +8,14 @@ export default class Acknowledge extends React.Component {
     render() {
         return <React.Fragment>
             <div className="sometext" style={{backgroundColor:"lightblue"}}>
-                <p style={{marginLeft:"4em", textIndent:"-4em"}}>We here at The Pirate Game would like to thank:<br />
+                <p className="indented">We here at The Pirate Game would like to thank:<br />
                     <a href="https://pages.github.com/">GitHub Pages</a> for originally hosting our lovely website<br />
                     <a href="https://www.heroku.com/home">Heroku</a> for hosting it in all its glory with Node.js etc.<br />
                     <a href="https://formsubmit.io/">FormSubmit.io</a> for handling our forms<br />
                     <a href="https://www.tes.com/teaching-resource/the-pirate-game-end-of-term-activity-6258063">paulcollins</a> for providing the idea for the Pirate Game and allowing us to use it under the Tes Classic Free Licence<br />
                     <a href="https://www.tes.com/teaching-resource/the-pirate-game-square-picker-6437335">htmort</a> for providing the 'Square Picker' and allowing us to use it with attribution under the Creative Commons "Sharealike"<br />
                 </p>
-                <p style={{marginLeft:"4em", textIndent:"-4em"}}>And also <a href="http://www.clker.com/">Clker</a>, <a href="https://www.cleanpng.com/">Cleanpng</a>, <a href="https://publicdomainvectors.org/">Publicdomainvectors</a> and <a href="https://pixabay.com/">Pixabay</a> for the clip art etc.<br />
+                <p className="indented">And also <a href="http://www.clker.com/">Clker</a>, <a href="https://www.cleanpng.com/">Cleanpng</a>, <a href="https://publicdomainvectors.org/">Publicdomainvectors</a> and <a href="https://pixabay.com/">Pixabay</a> for the clip art etc.<br />
                     The Pirate image was taken from <a href="https://www.cleanpng.com/png-piracy-cartoon-drawing-clip-art-pirate-722951/">Cleanpng</a><br />
                     The Chest image was by <a href="https://pixabay.com/users/OpenClipart-Vectors-30363/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=153593">OpenClipart-Vectors</a> from <a href="https://pixabay.com/vectors/booty-chest-gold-pirate-treasure-153593/">Pixabay</a><br />
                     The Kraken image was by <a href="https://pixabay.com/users/fantasticpicture-1560299/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3189017">Michael Seibt</a> from <a href="https://pixabay.com/illustrations/sea-ocean-nature-sky-ship-octopus-3189017/">Pixabay</a><br />
