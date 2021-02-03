@@ -162,14 +162,14 @@ io.on('connection', socket => {
         };
     });
 
-    socket.on('start_game', () => {
+    socket.on('prepare_boards', () => {
         const game = leaderToGame(socket);
         if (game !== null) {
             game.watchable = true;
             const theCrew = game.crew;
             const lenCrew = theCrew.length;
             for (let i = 0; i < lenCrew; ++i) {
-                theCrew[i].pirate.emit('start_game');
+                theCrew[i].pirate.emit('prepare_board');
             };
             const thoseWatching = game.watching;
             const lenWatching = thoseWatching.length;
