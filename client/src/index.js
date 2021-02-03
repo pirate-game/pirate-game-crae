@@ -37,7 +37,7 @@ class ThemeSelector extends React.Component {
 
 const navbar = <React.Fragment>
     <ul>
-        <li><a href="#"          className="niceButton" id="logo"><img border="0" src="logo.png" /></a></li>
+        <li><a href="#"          className="niceButton" id="logo"><img border="0" src="logo.png" className="buttonlike" /></a></li>
         <li><a href="#start_tag" className="niceButton">Start&nbsp;a<br />Game</a></li>
         <li><a href="#join_tag"  className="niceButton">Join&nbsp;a<br />Game</a></li>
         <li><a href="#watch_tag" className="niceButton">Watch&nbsp;a<br />Game</a></li>
