@@ -1,12 +1,29 @@
-#symbols>div {
+#rulesContent #symbols>div {
     display: flow-root;
     margin: 20px;
 }
 
-#symbols p {
+#rulesContent #symbols p {
     max-width: calc(100% - 90px);
     position: relative;
     top: -1em;
     left: 70px;
     margin-left: 1em;
+}
+
+
+#rulesContent .square {
+    position: absolute;
+    display: inline-block;
+    height: 70px;
+    width: 70px;
+}
+
+#rulesContent .square img {
+    max-height: 95%;
+    max-width: 95%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: cell;
 }
