@@ -42,6 +42,9 @@ div {
     text-decoration: none;
     transition-duration: 0.4s;
     border-radius: 6px;
+    border-width: 0;
+    font-family: 'Calibri', Fallback, sans-serif;
+    background-color: #CC6600;
 }
 
 .niceButton:hover {
@@ -97,22 +100,4 @@ div {
     width: 100px;
     height: auto;
     border-radius: 10px;
-}
-
-
-
-.square {
-    position: absolute;
-    display: inline-block;
-    height: 70px;
-    width: 70px;
-}
-
-.square img {
-    max-height: 95%;
-    max-width: 95%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    cursor: cell;
 }
