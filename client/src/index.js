@@ -43,15 +43,15 @@ const navbar = <div id="nav">
         <li><a href="#watch_tag">Watch&nbsp;a<br />Game</a></li>
         <li><a href="#ack_tag">Acknowledgements</a></li>
     </ul>
-    <div id="title">
+    <div id="title" style={{float:"right", width:"fit-content", paddingRight:"20px"}}>
         <h1>&nbsp;The&nbsp;Pirate&nbsp;Game&nbsp;</h1>
         <ThemeSelector />
     </div>
 </div>;
 
 const titlebar = <div id="titlebar">
-    <div id="title" style={{float:"unset", width:"unset", paddingRight:"unset"}}>
-        <h1 style={{fontSize: '50px'}}>&nbsp;The&nbsp;Pirate&nbsp;Game&nbsp;</h1>
+    <div id="title">
+        <h1 style={{fontSize: "50px"}}>&nbsp;The&nbsp;Pirate&nbsp;Game&nbsp;</h1>
         <ThemeSelector />
     </div>
 </div>;
