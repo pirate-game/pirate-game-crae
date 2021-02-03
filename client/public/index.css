@@ -101,3 +101,22 @@ div {
     height: auto;
     border-radius: 10px;
 }
+
+
+#body404 {
+    background-image: url(imgs/Kraken.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+#div404 {
+    position: fixed;
+    margin: auto;
+    width: 60%;
+    height: 20%;
+    left: calc(20vw - 25px);
+    top: calc(15vh - 25px);
+    text-align: center;
+}
