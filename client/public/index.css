@@ -67,7 +67,6 @@ a {
 }
 
 .niceButton,
-#homeButton,
 #nav li a {
     display: block;
     color: white;
@@ -81,7 +80,6 @@ a {
 }
 
 .niceButton:hover,
-#homeButton:hover,
 #nav li a:hover {
     background-color: cornflowerblue;
 }
