@@ -135,3 +135,15 @@
         top: calc(130px + 10vh);
     }
 }
+
+.listClass {
+    min-height: '70px';
+    max-height: '-webkit-fill-available';
+    background: '#fff';
+    overflow: 'auto';
+    border: 'solid black 3px';
+    border-radius: '10px';
+    list-style-type: 'none';
+    margin: 0;
+    padding: 0;
+}
