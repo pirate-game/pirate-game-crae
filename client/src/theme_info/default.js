@@ -32,6 +32,7 @@ export default {
   "nameQ": "What be your name?",
   "gameQ": "What game be ye joinin'?",
   "watchQ": "What game be ye watchin'?",
+  "tooFewTextLines": ["Yarr, ye be needin' at least 2 players."],
   "rob": {
     "file_ext": ".png",
     "name": "Rob",
