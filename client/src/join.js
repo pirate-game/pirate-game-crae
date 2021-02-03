@@ -62,7 +62,7 @@ export default class Join extends GameThings.SocketfulComponent {
             });
         });
         
-        this.socket.on('start_game', () => {
+        this.socket.on('prepare_board', () => {
             this.remove_popUp();
             this.setState({stage: 1});
         });
