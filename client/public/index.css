@@ -29,55 +29,10 @@ div {
     padding: 25px;
     margin: auto;
     font-size: 1em !important;
+    background-color: lightblue;
 }
 
-
-
-#title {
-    color: white;
-    text-align: center;
-    padding-bottom: 10px;
-}
-
-#title h1 {
-    text-decoration: underline;
-}
-
-#title label {
-    padding-right: 10px;
-}
-
-#title select {
-    outline: none;
-}
-
-
-
-#nav,
-#titlebar {
-    overflow: hidden;
-    background-color: #CC6600;
-    position: relative;
-    top: 0;
-}
-
-#titlebar h1 {
-    font-size: 3em;
-}
-
-
-
-#nav ul {
-    list-style-type: none;
-}
-
-#nav li {
-    float: left;
-    margin: 0 5px 15px;
-}
-
-.niceButton,
-#nav li a {
+.niceButton {
     display: block;
     color: white;
     text-align: center;
@@ -89,18 +44,51 @@ div {
     border-radius: 6px;
 }
 
-.niceButton:hover,
-#nav li a:hover {
+.niceButton:hover {
     background-color: cornflowerblue;
 }
 
 
 
-#logo:hover {
+#navOrTitleBar {
+    overflow: hidden;
+    background-color: #CC6600;
+    position: relative;
+    top: 0;
+}
+
+#navOrTitleBar #title {
+    color: white;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+#navOrTitleBar #title h1 {
+    text-decoration: underline;
+}
+
+#navOrTitleBar #title label {
+    padding-right: 10px;
+}
+
+#navOrTitleBar #title select {
+    outline: none;
+}
+
+#navOrTitleBar ul {
+    list-style-type: none;
+}
+
+#navOrTitleBar li {
+    float: left;
+    margin: 0 5px 15px;
+}
+
+#navOrTitleBar #logo:hover {
     background-color: unset !important;
 }
 
-#logo img {
+#navOrTitleBar #logo img {
     width: 100px;
     height: auto;
     border-radius: 10px;
