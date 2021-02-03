@@ -11,7 +11,7 @@ import './css/start.css';
 export default class Start extends GameThings.SocketfulComponent {
     constructor() {
         super();
-        Object.assign(this.state, {key: null});
+        // Object.assign(this.state, {key: null});
         this.outerName = "startContent";
         
         this.assembleCrew = this.assembleCrew.bind(this);
