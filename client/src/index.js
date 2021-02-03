@@ -35,25 +35,23 @@ class ThemeSelector extends React.Component {
     };
 };
 
-const navbar = <div id="nav">
+const navbar = <React.Fragment>
     <ul>
-        <li><a href="#" id="logo"><img border="0" src="logo.png" /></a></li>
-        <li><a href="#start_tag">Start&nbsp;a<br />Game</a></li>
-        <li><a href="#join_tag">Join&nbsp;a<br />Game</a></li>
-        <li><a href="#watch_tag">Watch&nbsp;a<br />Game</a></li>
-        <li><a href="#ack_tag">Acknowledgements</a></li>
+        <li><a href="#"          className="niceButton" id="logo"><img border="0" src="logo.png" /></a></li>
+        <li><a href="#start_tag" className="niceButton">Start&nbsp;a<br />Game</a></li>
+        <li><a href="#join_tag"  className="niceButton">Join&nbsp;a<br />Game</a></li>
+        <li><a href="#watch_tag" className="niceButton">Watch&nbsp;a<br />Game</a></li>
+        <li><a href="#ack_tag"   className="niceButton">Acknowledgements</a></li>
     </ul>
     <div id="title" style={{float:"right", width:"fit-content", paddingRight:"20px"}}>
-        <h1>&nbsp;The&nbsp;Pirate&nbsp;Game&nbsp;</h1>
+        <h1 style={{fontSize: "3em"}}>&nbsp;The&nbsp;Pirate&nbsp;Game&nbsp;</h1>
         <ThemeSelector />
     </div>
-</div>;
+</React.Fragment>;
 
-const titlebar = <div id="titlebar">
-    <div id="title">
-        <h1 style={{fontSize: "50px"}}>&nbsp;The&nbsp;Pirate&nbsp;Game&nbsp;</h1>
-        <ThemeSelector />
-    </div>
+const titlebar = <div id="title">
+    <h1 style={{fontSize: "50px"}}>&nbsp;The&nbsp;Pirate&nbsp;Game&nbsp;</h1>
+    <ThemeSelector />
 </div>;
 
 const RulesContent_lazy         = React.lazy(() => import("./rules"));
@@ -84,7 +82,7 @@ class MainPageContent extends shared_vars.ThemeDependentComponent {
     render() {
         const data = this.state.data;
         if (data) {
-            return <React.Fragment>
+            return <div id="mainContent">
                 <br />
                 <div class="sometext" style={{backgroundColor: "lightblue"}}>
                     <p>
@@ -101,23 +99,21 @@ class MainPageContent extends shared_vars.ThemeDependentComponent {
                         {shared_vars.intersperseWith(data.music.map(e => <a href={e[0]} target="_blank">{e[1]}</a>), <br />)}
                     </p>
                 </div>
-            </React.Fragment>;
+            </div>;
         } else {
             return shared_vars.defaultLoading;
         };
     };
 };
 
-const mainPageContent = <MainPageContent />;
-
 const toRender = <React.Fragment>
     <div id="navOrTitleBar" />
     <div id="content" />
 </React.Fragment>;
 
-shared_vars.renderIn(toRender, 'root')
+shared_vars.renderIn(toRender, 'root');
 
-shared_vars.gotoPage[""]               = () => { shared_vars.allowUnload();   shared_vars.renderIn(navbar,   'navOrTitleBar'); shared_vars.renderIn(mainPageContent,        'content'); };
+shared_vars.gotoPage[""]               = () => { shared_vars.allowUnload();   shared_vars.renderIn(navbar,   'navOrTitleBar'); shared_vars.renderIn(<MainPageContent />,    'content'); };
 shared_vars.gotoPage["#rules_tag"]     = () => { shared_vars.allowUnload();   shared_vars.renderIn(navbar,   'navOrTitleBar'); shared_vars.renderIn(<RulesContent />,       'content'); };
 shared_vars.gotoPage["#ack_tag"]       = () => { shared_vars.allowUnload();   shared_vars.renderIn(navbar,   'navOrTitleBar'); shared_vars.renderIn(<AcknowledgeContent />, 'content'); };
 shared_vars.gotoPage["#submitted_tag"] = () => { shared_vars.allowUnload();   shared_vars.renderIn(navbar,   'navOrTitleBar'); shared_vars.renderIn(<SubmittedContent />,   'content'); };
