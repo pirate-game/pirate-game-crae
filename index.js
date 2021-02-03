@@ -1,22 +1,22 @@
 const express = require('express');
-const app = express();
-const path = require('path');
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
-const port = process.env.PORT || 3000;
+const app     = express();
+const path    = require('path');
+const http    = require('http').Server(app);
+const io      = require('socket.io')(http);
+const port    = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 //Begin Game section
 
-//js const means no =; it does not prohibit changes. It is like *const; not like const*.
-const chars = "0123456789abcdef";
+//js const means no =; it does not prohibit changes. It is like * const; not like const*.
+const chars       = "0123456789abcdef";
 const keys_in_use = [];
-const games = [];
+const games       = [];
 
 function removeFirstOccurrenceIn(e, arr) {
     const index = arr.indexOf(e);
-    if (index != -1) {
+    if (index !== -1) {
         arr.splice(index, 1);
     };
     return arr;
@@ -25,7 +25,7 @@ function removeFirstOccurrenceIn(e, arr) {
 function new_key() {
     while (true) {
         let out = "";
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 6; ++i) {
             out += chars[Math.floor(Math.random() * 16)];
         };
         if (!keys_in_use.includes(out)) {
@@ -37,9 +37,9 @@ function new_key() {
 
 function keyToGame(someKey) {
     const len = games.length;
-    for (let i = 0; i < len; i++) {
+    for (let i = 0; i < len; ++i) {
         const game = games[i];
-        if (game.game_key == someKey) {
+        if (game.game_key === someKey) {
             return game;
         };
     };
@@ -49,9 +49,9 @@ function keyToGame(someKey) {
 function leaderToGame(someLeader) {
     const someLeaderId = someLeader.id;
     const len = games.length;
-    for (let i = 0; i < len; i++) {
+    for (let i = 0; i < len; ++i) {
         const game = games[i];
-        if (game.leader.id == someLeaderId) {
+        if (game.leader.id === someLeaderId) {
             return game;
         };
     };
@@ -61,9 +61,9 @@ function leaderToGame(someLeader) {
 function gameAndNameToPlayer(someGame, someName) {
     const theCrew = someGame.crew;
     const len = theCrew.length;
-    for (let i = 0; i < len; i++) {
+    for (let i = 0; i < len; ++i) {
         const pirate = theCrew[i];
-        if (pirate.pirateName == someName) {
+        if (pirate.pirateName === someName) {
             return pirate.pirate;
         };
     };
@@ -73,9 +73,9 @@ function gameAndNameToPlayer(someGame, someName) {
 function gameAndPlayerToName(someGame, somePlayer) {
     const theCrew = someGame.crew;
     const len = theCrew.length;
-    for (let i = 0; i < len; i++) {
+    for (let i = 0; i < len; ++i) {
         const pirate = theCrew[i];
-        if (pirate.pirate.id == somePlayer.id) {
+        if (pirate.pirate.id === somePlayer.id) {
             return pirate.pirateName;
         };
     };
@@ -85,9 +85,9 @@ function gameAndPlayerToName(someGame, somePlayer) {
 function crewmemberToGame(someCrewmember) {
     const someCrewmemberId = someCrewmember.id;
     const len = theCrew.length;
-    for (let i = 0; i < len; i++) {
+    for (let i = 0; i < len; ++i) {
         const game = games[i];
-        if (game.crew.map(x => x.pirate.id).includes(someCrewmemberId)) {
+        if (game.crew.map(e => e.pirate.id).includes(someCrewmemberId)) {
             return game;
         };
     };
@@ -121,7 +121,7 @@ io.on('connection', socket => {
             socket.emit('no_such_game');
         } else {
             if (game.available) {
-                if (game.crew.map(x => x.pirateName).includes(name)) {
+                if (game.crew.map(e => e.pirateName).includes(name)) {
                     socket.emit('name_taken');
                 } else {
                     game.crew.push({
@@ -150,7 +150,7 @@ io.on('connection', socket => {
             const player = gameAndNameToPlayer(game, who);
             if (player !== null) {
                 player.emit('join_rejected');
-                game.crew = game.crew.filter(x => (x.pirate.id != player.id));
+                game.crew = game.crew.filter(e => (e.pirate.id != player.id));
             };
         };
     });
@@ -168,12 +168,12 @@ io.on('connection', socket => {
             game.watchable = true;
             const theCrew = game.crew;
             const lenCrew = theCrew.length;
-            for (let i = 0; i < lenCrew; i++) {
+            for (let i = 0; i < lenCrew; ++i) {
                 theCrew[i].pirate.emit('start_game');
             };
             const thoseWatching = game.watching;
             const lenWatching = thoseWatching.length;
-            for (let j = 0; j < lenWatching; j++) {
+            for (let j = 0; j < lenWatching; ++j) {
                 thoseWatching[j].emit('start_game');
             };
         };
@@ -183,16 +183,16 @@ io.on('connection', socket => {
         const game = leaderToGame(socket);
         if (game !== null) {
             const lenWho = who.length;
-            for (let i = 0; i < lenWho; i++) {
+            for (let i = 0; i < lenWho; ++i) {
                 const player = gameAndNameToPlayer(game, who[i]);
                 if (player !== null) {
                     player.emit('too_slow');
                 };
             };
-            game.crew = game.crew.filter((x) => (!who.includes(x.pirateName)));
+            game.crew = game.crew.filter(e => (!who.includes(e.pirateName)));
             const thoseWatching = game.watching;
             const lenWatching = thoseWatching.length;
-            for (let j = 0; j < lenWatching; j++) {
+            for (let j = 0; j < lenWatching; ++j) {
                 thoseWatching[j].emit('too_slow', who);
             };
         };
@@ -202,7 +202,7 @@ io.on('connection', socket => {
         const game = crewmemberToGame(socket);
         if (game !== null) {
             const name = gameAndPlayerToName(game, socket);
-            if (name != "") {
+            if (name !== "") {
                 game.leader.emit('board_ready', name);
             };
         };
@@ -226,7 +226,7 @@ io.on('connection', socket => {
         if (game !== null) {
             const thoseWatching = game.watching;
             const len = thoseWatching.length;
-            for (let i = 0; i < len; i++) {
+            for (let i = 0; i < len; ++i) {
                 thoseWatching[i].emit('state', state);
             };
         };
@@ -237,12 +237,12 @@ io.on('connection', socket => {
         if (game !== null) {
             const theCrew = game.crew;
             const lenCrew = theCrew.length;
-            for (let i = 0; i < lenCrew; i++) {
+            for (let i = 0; i < lenCrew; ++i) {
                 theCrew[i].pirate.emit('current_square', square);
             };
             const thoseWatching = game.watching;
             const lenWatching = thoseWatching.length;
-            for (let j = 0; j < lenWatching; j++) {
+            for (let j = 0; j < lenWatching; ++j) {
                 thoseWatching[j].emit('current_square', square);
             };
         };
@@ -253,7 +253,7 @@ io.on('connection', socket => {
         if (game !== null) {
             const thoseWatching = game.watching;
             const len = thoseWatching.length;
-            for (let i = 0; i < len; i++) {
+            for (let i = 0; i < len; ++i) {
                 thoseWatching[i].emit('choose_next_square', player);
             };
         };
@@ -264,7 +264,7 @@ io.on('connection', socket => {
         if (game !== null) {
             const thoseWatching = game.watching;
             const lenWatching = thoseWatching.length;
-            for (let i = 0; i < lenWatching; i++) {
+            for (let i = 0; i < lenWatching; ++i) {
                 thoseWatching[i].emit('choose', toChoose);
             };
             const playerToChoose = gameAndNameToPlayer(game, toChoose);
@@ -287,7 +287,7 @@ io.on('connection', socket => {
         const game = crewmemberToGame(socket);
         if (game !== null) {
             const thisName = gameAndPlayerToName(game, socket);
-            if (thisName != "") {
+            if (thisName !== "") {
                 game.leader.emit('ready', thisName);
             };
         };
@@ -297,7 +297,7 @@ io.on('connection', socket => {
         const game = crewmemberToGame(socket);
         if (game !== null) {
             const thisName = gameAndPlayerToName(game, socket);
-            if (thisName != "") {
+            if (thisName !== "") {
                 game.leader.emit('got_choose', thisName);
             };
         };
@@ -307,12 +307,12 @@ io.on('connection', socket => {
         const game = crewmemberToGame(socket);
         if (game !== null) {
             const thisName = gameAndPlayerToName(game, socket);
-            if (thisName != "") {
+            if (thisName !== "") {
                 game.leader.emit('some_event', ["parrot", thisName, score]);
             };
             const thoseWatching = game.watching;
             const len = thoseWatching.length;
-            for (let i = 0; i < len; i++) {
+            for (let i = 0; i < len; ++i) {
                 thoseWatching[i].emit('some_event', ["parrot", thisName, score]);
             };
         };
@@ -323,7 +323,7 @@ io.on('connection', socket => {
         if (game !== null) {
             const theCrew = game.crew;
             const len = theCrew.length;
-            for (let i = 0; i < len; i++) {
+            for (let i = 0; i < len; ++i) {
                 theCrew[i].pirate.emit('get_score');
             };
         };
@@ -345,12 +345,12 @@ io.on('connection', socket => {
         if (game !== null) {
             const theCrew = game.crew;
             const lenCrew = theCrew.length;
-            for (let i = 0; i < lenCrew; i++) {
+            for (let i = 0; i < lenCrew; ++i) {
                 theCrew[i].pirate.emit('game_over', leaderboard);
             };
             const thoseWatching = game.watching;
             const lenWatching = thoseWatching.length;
-            for (var j = 0; j < lenWatching; j++) {
+            for (var j = 0; j < lenWatching; ++j) {
                 thoseWatching[j].emit('game_over', leaderboard);
             };
         };
@@ -395,7 +395,7 @@ io.on('connection', socket => {
                 game.leader.emit('some_event', ['present', perpetrator, name]);
                 const thoseWatching = game.watching;
                 const lenWatching = thoseWatching.length;
-                for (let i = 0; i < lenWatching; i++) {
+                for (let i = 0; i < lenWatching; ++i) {
                     thoseWatching[i].emit('some_event', ['present', perpetrator, name]);
                 };
             };
@@ -467,7 +467,7 @@ io.on('connection', socket => {
                 game.leader.emit('some_event', ['rob', name, victim]);
                 const thoseWatching = game.watching;
                 const lenWatching = thoseWatching.length;
-                for (let i = 0; i < lenWatching; i++) {
+                for (let i = 0; i < lenWatching; ++i) {
                     thoseWatching[i].emit('some_event', ['rob', name, victim]);
                 };
             };
@@ -484,7 +484,7 @@ io.on('connection', socket => {
                 game.leader.emit('some_event', ['swap', name, victim]);
                 const thoseWatching = game.watching;
                 const lenWatching = thoseWatching.length;
-                for (let i = 0; i < lenWatching; i++) {
+                for (let i = 0; i < lenWatching; ++i) {
                     thoseWatching[i].emit('some_event', ['swap', name, victim]);
                 };
             };
@@ -498,7 +498,7 @@ io.on('connection', socket => {
             game.leader.emit('some_event', ['kill', name, victim]);
             const thoseWatching = game.watching;
             const lenWatching = thoseWatching.length;
-            for (let i = 0; i < lenWatching; i++) {
+            for (let i = 0; i < lenWatching; ++i) {
                 thoseWatching[i].emit('some_event', ['kill', name, victim]);
             };
         };
@@ -511,7 +511,7 @@ io.on('connection', socket => {
             game.leader.emit('some_event', ['shielded_rob', name, victim]);
             const thoseWatching = game.watching;
             const lenWatching = thoseWatching.length;
-            for (let i = 0; i < lenWatching; i++) {
+            for (let i = 0; i < lenWatching; ++i) {
                 thoseWatching[i].emit('some_event', ['shielded_rob', name, victim]);
             };
         };
@@ -524,7 +524,7 @@ io.on('connection', socket => {
             game.leader.emit('some_event', ['shielded_swap', name, victim]);
             const thoseWatching = game.watching;
             const lenWatching = thoseWatching.length;
-            for (let i = 0; i < lenWatching; i++) {
+            for (let i = 0; i < lenWatching; ++i) {
                 thoseWatching[i].emit('some_event', ['shielded_swap', name, victim]);
             };
         };
@@ -537,7 +537,7 @@ io.on('connection', socket => {
             game.leader.emit('some_event', ['shielded_kill', name, victim]);
             const thoseWatching = game.watching;
             const lenWatching = thoseWatching.length;
-            for (let i = 0; i < lenWatching; i++) {
+            for (let i = 0; i < lenWatching; ++i) {
                 thoseWatching[i].emit('some_event', ['shielded_kill', name, victim]);
             };
         };
@@ -553,7 +553,7 @@ io.on('connection', socket => {
                 game.leader.emit('some_event', ['mirror_robbed', name, victim]);
                 const thoseWatching = game.watching;
                 const lenWatching = thoseWatching.length;
-                for (let i = 0; i < lenWatching; i++) {
+                for (let i = 0; i < lenWatching; ++i) {
                     thoseWatching[i].emit('some_event', ['mirror_robbed', name, victim]);
                 };
             };
@@ -567,7 +567,7 @@ io.on('connection', socket => {
             game.leader.emit('some_event', ['mirror_killed', name, victim]);
             const thoseWatching = game.watching;
             const lenWatching = thoseWatching.length;
-            for (let i = 0; i < lenWatching; i++) {
+            for (let i = 0; i < lenWatching; ++i) {
                 thoseWatching[i].emit('some_event', ['mirror_killed', name, victim]);
             };
         };
@@ -580,7 +580,7 @@ io.on('connection', socket => {
             game.leader.emit('some_event', ['shielded_mirror_rob', name, victim]);
             const thoseWatching = game.watching;
             const lenWatching = thoseWatching.length;
-            for (let i = 0; i < lenWatching; i++) {
+            for (let i = 0; i < lenWatching; ++i) {
                 thoseWatching[i].emit('some_event', ['shielded_mirror_rob', name, victim]);
             };
         };
@@ -593,7 +593,7 @@ io.on('connection', socket => {
             game.leader.emit('some_event', ['shielded_mirror_kill', name, victim]);
             const thoseWatching = game.watching;
             const lenWatching = thoseWatching.length;
-            for (let i = 0; i < lenWatching; i++) {
+            for (let i = 0; i < lenWatching; ++i) {
                 thoseWatching[i].emit('some_event', ['shielded_mirror_kill', name, victim]);
             };
         };
@@ -609,7 +609,7 @@ io.on('connection', socket => {
                 game.leader.emit('some_event', ['mirror_mirror_robbed', name, victim]);
                 const thoseWatching = game.watching;
                 const lenWatching = thoseWatching.length;
-                for (let i = 0; i < lenWatching; i++) {
+                for (let i = 0; i < lenWatching; ++i) {
                     thoseWatching[i].emit('some_event', ['mirror_mirror_robbed', name, victim]);
                 };
             };
@@ -623,7 +623,7 @@ io.on('connection', socket => {
             game.leader.emit('some_event', ['mirror_mirror_killed', name, victim]);
             const thoseWatching = game.watching;
             const lenWatching = thoseWatching.length;
-            for (let i = 0; i < lenWatching; i++) {
+            for (let i = 0; i < lenWatching; ++i) {
                 thoseWatching[i].emit('some_event', ['mirror_mirror_killed', name, victim]);
             };
         };
@@ -636,7 +636,7 @@ io.on('connection', socket => {
             game.leader.emit('some_event', ['shielded_mirror_mirror_rob', name, victim]);
             const thoseWatching = game.watching;
             const lenWatching = thoseWatching.length;
-            for (let i = 0; i < lenWatching; i++) {
+            for (let i = 0; i < lenWatching; ++i) {
                 thoseWatching[i].emit('some_event', ['shielded_mirror_mirror_rob', name, victim]);
             };
         };
@@ -649,7 +649,7 @@ io.on('connection', socket => {
             game.leader.emit('some_event', ['shielded_mirror_mirror_kill', name, victim]);
             const thoseWatching = game.watching;
             const lenWatching = thoseWatching.length;
-            for (let i = 0; i < lenWatching; i++) {
+            for (let i = 0; i < lenWatching; ++i) {
                 thoseWatching[i].emit('some_event', ['shielded_mirror_mirror_kill', name, victim]);
             };
         };
