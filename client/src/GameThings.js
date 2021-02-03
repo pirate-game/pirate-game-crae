@@ -104,7 +104,7 @@ export class List_data {
 
 export function NiceList(props) {
     return <ul style={props.style}>
-        {props.elems.map((e, pos) => (
+        {props.elems.elems.map((e, pos) => (
             <li style={{position:'relative', padding: '5px 10px'}}>
                 {props.callback && <div style={{display: 'inline-block', float: 'right', fontSize: '40px', fontWeight: 'bold', padding: '10px', cursor: 'pointer',
                                                 position: 'absolute', right: 0, top: '-21px'}} onClick={() => props.callback(e, pos)}>&times;</div>}
