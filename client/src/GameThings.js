@@ -84,10 +84,6 @@ export function CurrentSquare(props) {
     </div>;
 };
 
-const listStyle = {minHeight: '70px', maxHeight: '-webkit-fill-available', background: '#fff', 
-                   overflow: 'auto', border: 'solid black 3px', borderRadius: '10px',
-                   listStyleType: 'none', margin: 0, padding: 0};
-
 export class List_data {
     constructor(initial) {
         this.elems = initial || [];
@@ -103,7 +99,7 @@ export class List_data {
 };
 
 export function NiceList(props) {
-    return <ul style={props.style}>
+    return <ul className="listClass" style={props.style}>
         {props.elems.elems.map((e, pos) => (
             <li style={{position:'relative', padding: '5px 10px'}}>
                 {props.callback && <div style={{display: 'inline-block', float: 'right', fontSize: '40px', fontWeight: 'bold', padding: '10px', cursor: 'pointer',
