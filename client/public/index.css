@@ -66,6 +66,7 @@ a {
     margin: 0 5px 15px;
 }
 
+.niceButton,
 #homeButton,
 #nav li a {
     display: block;
@@ -79,6 +80,7 @@ a {
     border-radius: 6px;
 }
 
+.niceButton:hover,
 #homeButton:hover,
 #nav li a:hover {
     background-color: cornflowerblue;
