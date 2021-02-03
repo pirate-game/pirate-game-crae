@@ -17,6 +17,7 @@ export default class Start extends GameThings.SocketfulComponent {
         this.outerName = "startContent";
         
         this.assembleCrew = this.assembleCrew.bind(this);
+        this.prepare_boards = this.prepare_boards.bind(this);
     };
     componentDidMount() {
         super.componentDidMount(); // first line
@@ -37,7 +38,7 @@ export default class Start extends GameThings.SocketfulComponent {
                     <div>
                         <p style={{display: 'inline-block', width: 'calc(100% - 190px)'}}>Those currently in the game are below. You can remove them with the crosses.</p>
                         <div style={{display: 'inline-block'}}>
-                            <button onClick={()=>console.log("start game")}>Start<br />Game</button>
+                            <button onClick={this.prepare_boards}>Start<br />Game</button>
                             <button onClick={()=>{this.socket.emit('change_crew'); this.remove_popUp();}}>Change<br />{this.state.data.playersName}</button>
                         </div>
                     </div>
@@ -63,7 +64,17 @@ export default class Start extends GameThings.SocketfulComponent {
                 <h2 style={{fontSize: '50px', margin: '0px', marginLeft: '10px'}}>{data.playersName}:</h2>
                 <GameThings.NiceList elems={this.state.allPlayers} callback={this.crossCallback} style={{position: 'absolute', left: '10px', right: '10px', top: '60px'}} />
             </div>;
+            case 1: return "Preparing boards!";
         };
+    };
+    add_TooFewPopUp(state) {
+        const data = state.data;
+        state.popUps.addPopUp({
+            title: "Too Few " + data.playersName,
+            textLines: data.tooFewTextLines,
+            btn: this.default_btn
+        });
+        return this;
     };
     assembleCrew() {
         this.setState(state => {
@@ -72,11 +83,18 @@ export default class Start extends GameThings.SocketfulComponent {
                 state.popUps.push(GameThings.waitingPopUp);
                 this.socket.emit('crew_assembled');
             } else {
-                state.popUps.addPopUp({
-                    title: "Too Few Crewmembers",
-                    textLines: ["Yarr, ye be needin' at least 2 players."],
-                    btn: this.default_btn
-                });
+                this.add_TooFewPopUp(state);
+            };
+        });
+    };
+    prepare_boards() {
+        this.setState(state => {
+            state.popUps.clear();
+            if (state.allPlayers.elems.length >= 2) {
+                this.socket.emit('prepare_boards');
+                state.stage = 1;
+            } else {
+                this.add_TooFewPopUp(state);
             };
         });
     };
