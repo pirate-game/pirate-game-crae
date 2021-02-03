@@ -7,28 +7,35 @@
     font-family: inherit;
 }
 
-body {
-    background-color: #DCDCC4;
-    font-family: 'Calibri', Fallback, sans-serif;
-    overscroll-behavior-y: none;
-}
-
-div {
-    border-radius: 10px;
-}
-
 img,
 button,
 a {
     cursor: pointer;
 }
 
+
+
+body {
+    background-color: #DCDCC4;
+    font-family: 'Calibri', Fallback, sans-serif;
+    overscroll-behavior-y: none; // prevents accidental reloads on phones and tablets
+}
+
+div {
+    border-radius: 10px;
+}
+
+.sometext {
+    padding: 25px;
+    margin: auto;
+    font-size: 1em !important;
+}
+
+
+
 #title {
     color: white;
     text-align: center;
-    float: right;
-    width: fit-content;
-    padding-right: 20px;
     padding-bottom: 10px;
 }
 
@@ -44,18 +51,21 @@ a {
     outline: none;
 }
 
-.sometext {
-    padding: 25px;
-    margin: auto;
-    font-size: 1em !important;
-}
 
-#nav {
+
+#nav,
+#titlebar {
     overflow: hidden;
     background-color: #CC6600;
     position: relative;
     top: 0;
 }
+
+#titlebar h1 {
+    font-size: 3em;
+}
+
+
 
 #nav ul {
     list-style-type: none;
@@ -84,6 +94,8 @@ a {
     background-color: cornflowerblue;
 }
 
+
+
 #logo:hover {
     background-color: unset !important;
 }
@@ -94,29 +106,7 @@ a {
     border-radius: 10px;
 }
 
-#titlebar {
-    overflow: hidden;
-    background-color: #CC6600;
-    position: relative;
-    top: 0;
-}
 
-#titlebar h1 {
-    font-size: 3em;
-}
-
-#symbols>div {
-    display: flow-root;
-    margin: 20px;
-}
-
-#symbols p {
-    max-width: calc(100% - 90px);
-    position: relative;
-    top: -1em;
-    left: 70px;
-    margin-left: 1em;
-}
 
 .square {
     position: absolute;
