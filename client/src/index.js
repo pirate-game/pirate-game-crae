@@ -17,7 +17,7 @@ window.addEventListener('hashchange', () => {
         } else {
             window.location.hash = shared_vars.mutables.authenticHash; // set actual location back to proper one
         };
-    }
+    };
 });
 
 class ThemeSelector extends React.Component {
@@ -84,7 +84,7 @@ class MainPageContent extends shared_vars.ThemeDependentComponent {
         if (data) {
             return <div id="mainContent">
                 <br />
-                <div class="sometext" style={{backgroundColor: "lightblue"}}>
+                <div className="sometext">
                     <p>
                         {shared_vars.intersperseWith(data.introduction_before, shared_vars.twoNewLines)}
                         <a href="#rules_tag">{data.introduction_link_text}</a>
@@ -92,8 +92,8 @@ class MainPageContent extends shared_vars.ThemeDependentComponent {
                     </p>
                 </div>
                 <br />
-                <div class="sometext" style={{backgroundColor: "lightblue"}}>
-                    <p style={{marginLeft: "4em", textIndent: "-4em"}}>
+                <div className="sometext">
+                    <p className="indented">
                         {data.music_preamble}
                         <br />
                         {shared_vars.intersperseWith(data.music.map(e => <a href={e[0]} target="_blank">{e[1]}</a>), <br />)}
