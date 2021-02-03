@@ -35,6 +35,7 @@ export default {
   "nameQ": "What is your name?",
   "gameQ": "What is the game's key?",
   "watchQ": "What is the game to watch's key?",
+  "tooFewTextLines": ["Ho ho ho, you need at least 2 players.", "The more the merrier!"],
   "rob": {
     "file_ext": ".png",
     "name": "The Grinch",
