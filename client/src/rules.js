@@ -2,6 +2,8 @@ import React from 'react';
 
 import * as shared_vars from './shared_vars';
 
+import './css/rules.css';
+
 export default class Rules extends shared_vars.ThemeDependentComponent {
     render() {
         let content = shared_vars.defaultLoading;
