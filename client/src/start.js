@@ -52,7 +52,7 @@ export default class Start extends GameThings.SocketfulComponent {
     };
     // add back componentWillUnmount in unlikely event that stage must be reset
     render_helper(data, stage) {
-        console.log("rendering");
+        console.log("key is "+this.state.key);
         switch (stage) {
             default: return null;
             case 0: return <div style={{position: 'relative', minHeight: 'calc(100vh - 230px)'}}>
