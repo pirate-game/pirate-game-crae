@@ -1,7 +1,5 @@
 import React from 'react';
 
-import io from 'socket.io-client';
-
 import * as shared_vars from './shared_vars';
 
 import * as GameThings from './GameThings';
