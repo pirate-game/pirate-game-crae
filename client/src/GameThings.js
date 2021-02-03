@@ -32,7 +32,13 @@ export class PopUps_data {
             <h3>{description.title}</h3>
             <hr />
             <p>{shared_vars.intersperseWith(description.textLines || [], <br />)}</p>
-            {description.btn && <button className="close" onClick={description.btn.onClick}>{description.btn.text}</button>}
+            {description.btn && 
+                <button 
+                    className="niceButton" 
+                    style={{margin: '0 auto', fontSize: 'inherit', fontWeight: 'bold', padding: '9px 12px'}}
+                    onClick={description.btn.onClick}>{description.btn.text}
+                </button>
+            }
         </div></div>);
         return this;
     };
