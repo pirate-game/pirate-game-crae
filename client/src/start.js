@@ -20,7 +20,7 @@ export default class Start extends GameThings.SocketfulComponent {
     componentDidMount() {
         super.componentDidMount(); // first line
         
-        this.socket.on('key', msg => { this.setState({key: msg}); console.log(msg); });
+        this.socket.on('key', msg => { this.setState(state => { state.key = msg; console.log("in callback"); }); console.log(msg); });
         
         this.socket.on('request_join', name => {
             this.setState(state => {
