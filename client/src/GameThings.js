@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import io from 'socket.io-client';
+
 import * as shared_vars from './shared_vars';
 
 import './css/GameThings.css';
