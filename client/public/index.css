@@ -48,6 +48,11 @@ div {
     background-color: cornflowerblue;
 }
 
+.indented {
+    margin-left: 4em;
+    text-indent: -4em;
+}
+
 
 
 #navOrTitleBar {
