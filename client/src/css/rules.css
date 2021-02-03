@@ -1,0 +1,12 @@
+#symbols>div {
+    display: flow-root;
+    margin: 20px;
+}
+
+#symbols p {
+    max-width: calc(100% - 90px);
+    position: relative;
+    top: -1em;
+    left: 70px;
+    margin-left: 1em;
+}
