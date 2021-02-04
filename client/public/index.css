@@ -13,6 +13,13 @@ a {
     cursor: pointer;
 }
 
+button:focus, input:focus {
+    outline: none; 
+    /* remove unsightly default box;
+    add beautiful new box */
+    box-shadow: 0 0 0 2pt black;
+}
+
 
 
 body {
