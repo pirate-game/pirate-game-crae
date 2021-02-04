@@ -20,44 +20,40 @@ export default class Join extends GameThings.SocketfulComponent {
         
         this.socket.on('no_such_game', () => {
             document.getElementById("gameKey").value = "";
-            this.remove_popUp();
             this.add_popUp({
                 title: "No Such Game",
                 textLines: ["You've probably mistyped your key. Try again."],
                 btn: this.default_btn
-            });
+            }, true); // true removes any previous
         });
         
         this.socket.on('name_taken', () => {
             document.getElementById("pirateName").value = "";
-            this.remove_popUp();
             this.add_popUp({
                 title: "Name Taken",
                 textLines: ["Great minds think alike! (And fools' seldom differ!)",
                             "Someone's taken your name already. Choose another one."],
                 btn: this.default_btn
-            });
+            }, true); // true removes any previous
         });
         
         this.socket.on('game_unavailable', () => {
             document.getElementById("gameKey").value = "";
-            this.remove_popUp();
             this.add_popUp({
                 title: "Game Unavailable",
                 textLines: ["Unfortunately for you, this probably means they've started without you. :("],
                 btn: this.default_btn
-            });
+            }, true); // true removes any previous
         });
         
         this.socket.on('join_rejected', () => {
             document.getElementById("pirateName").value = "";
             document.getElementById("gameKey").value = "";
-            this.remove_popUp();
             this.add_popUp({
                 title: "Join Rejected",
                 textLines: ["You have not been allowed to join that game (yet). Maybe they don't like your Pirate Name? Or, maybe they can't stand how you always beat them!"],
                 btn: this.default_btn
-            });
+            }, true); // true removes any previous
         });
         
         this.socket.on('prepare_board', () => {
@@ -86,10 +82,9 @@ export default class Join extends GameThings.SocketfulComponent {
     attemptJoin() {
         const name = document.getElementById("pirateName").value;
         const key = document.getElementById("gameKey").value.toLowerCase(); // ignore uppercase'ness
-        this.remove_popUp();
         if (!shared_vars.wsPattern.test(name)) {
             if (shared_vars.keyPattern.test(key)) {
-                this.push_popUp(GameThings.waitingPopUp);
+                this.push_popUp(GameThings.waitingPopUp, true); // true removes any previous
                 this.socket.emit('attempt_join', name, key);
                 this.name = name;
             } else {
@@ -97,14 +92,14 @@ export default class Join extends GameThings.SocketfulComponent {
                     title: "Invalid Key",
                     textLines: ['Please correctly type the key you have been given. It should be 6 hexadecimal digits e.g. "face42".'],
                     btn: this.default_btn
-                });
+                }, true); // true removes any previous
             };
         } else {
             this.add_popUp({
-                    title: "Invalid Name",
-                    textLines: ["Maybe put some non-whitespace characters in your name?", "Maybe?"],
-                    btn: this.default_btn
-                });
+                title: "Invalid Name",
+                textLines: ["Maybe put some non-whitespace characters in your name?", "Maybe?"],
+                btn: this.default_btn
+            }, true); // true removes any previous
         };
     };
 };
