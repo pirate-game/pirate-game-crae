@@ -3,3 +3,21 @@
   font-size: 40px;
   margin-top: 0;
 }
+
+#watchContent input {
+  width: 70%;
+  font-family: 'Calibri', Fallback, sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+  display: block;
+  margin: auto;
+  text-align: center;
+  border: 1px solid black;
+}
+
+#watchContent #watchB {
+  margin: 0 auto;
+  font-size: 35px;
+  position: relative;
+  top: 40px;
+}
