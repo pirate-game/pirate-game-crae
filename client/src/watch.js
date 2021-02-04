@@ -41,7 +41,7 @@ export default class Watch extends GameThings.SocketfulComponent {
             case 0: return <div>
                 <h2 id="watchQ" style={{marginTop: 0}}>{data.watchQ}</h2>
                 <input type="text" id="gameKey" maxLength="6" />
-                <button className="niceButton" onClick={this.attemptWatch}>Watch</button>
+                <button id="watchB" className="niceButton" onClick={this.attemptWatch}>Watch</button>
             </div>;
             case 2: return "GAME STARTED!";
         };
