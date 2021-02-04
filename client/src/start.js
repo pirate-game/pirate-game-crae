@@ -16,10 +16,10 @@ export default class Start extends GameThings.SocketfulComponent {
         Object.assign(this.state, {gameKey: null});
         this.outerName = "startContent";
         
-        this.crossCallback = player => {
+        this.crossCallback = (player, index) => {
             this.socket.emit('remove_player', player);
             this.setState(state => {
-                state.allPlayers.remove(player);
+                state.allPlayers.removeIndex(index);
                 return state;
             });
         };
