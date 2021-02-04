@@ -13,7 +13,7 @@ a {
     cursor: pointer;
 }
 
-button:focus, input:focus {
+button:focus, input:focus, select:focus {
     outline: none; 
     /* remove unsightly default box;
     add beautiful new box */
@@ -84,10 +84,6 @@ div {
 
 #navOrTitleBar #title label {
     padding-right: 10px;
-}
-
-#navOrTitleBar #title select {
-    outline: none;
 }
 
 #navOrTitleBar ul {
