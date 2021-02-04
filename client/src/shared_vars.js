@@ -9,6 +9,11 @@ export function removeFirstOccurrenceIn(e, arr) {
     return arr;
 };
 
+export function removeAtIndexIn(index, arr) {
+    arr.splice(index, 1);
+    return arr;
+};
+
 export function intersperseWith(array, element) {
     const len = array.length;
     if (len) {
