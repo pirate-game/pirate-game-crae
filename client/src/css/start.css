@@ -27,6 +27,12 @@
     }
 }
 
+#startContent #crewAssembledPopUp button {
+    display: inline-block;
+    padding: 9px 12px;
+    margin: 6px;
+}
+
 /*
 #startContent #crewAssembledPopUp button,
 #startContent #nextSquareConfirm button {
