@@ -20,12 +20,11 @@ export default class Watch extends GameThings.SocketfulComponent {
         
         this.socket.on('no_such_game', () => {
             document.getElementById("gameKey").value = "";
-            this.remove_popUp();
             this.add_popUp({
                 title: "No Such Game",
                 textLines: ["You've probably mistyped your key. Try again."],
                 btn: this.default_btn
-            });
+            }, true); // true removes any previous
         });
         
         this.socket.on('start_game', () => {
@@ -49,16 +48,15 @@ export default class Watch extends GameThings.SocketfulComponent {
     };
     attemptWatch() {
         const key = document.getElementById("gameKey").value;
-        this.remove_popUp();
         if (shared_vars.keyPattern.test(key)) {
-            this.push_popUp(GameThings.waitingPopUp);
+            this.push_popUp(GameThings.waitingPopUp, true); // true removes any previous
             this.socket.emit('attempt_watch', key);
         } else {
             this.add_popUp({
                 title: "Invalid Key",
                 textLines: ['Please correctly type the key you have been given. It should be 6 hexadecimal digits e.g. "face42".'],
                 btn: this.default_btn
-            });
+            }, true); // true removes any previous
         };
     };
 };
