@@ -49,8 +49,8 @@ export default class Start extends GameThings.SocketfulComponent {
                         </div>
                     </div>
                     <GameThings.NiceList elems={this.state.allPlayers} callback={this.crossCallback} style={{maxHeight: 'calc(100vh - 400px)'}} />
-            </div></div>
-        ), true); // optional true removes the previouse popups i.e. the waiting popup
+            </div></div>, true) // optional true removes the previouse popups i.e. the waiting popup
+        );
         
         // this.socket.on(...)...;
         
