@@ -125,12 +125,19 @@ export class SocketfulComponent extends shared_vars.ThemeDependentComponent {
         super();
         Object.assign(this.state, {stage: -1, popUps: new PopUps_data()});
         
-        this.push_popUp = p => this.setState(state => {
-            state.popUps.push(p);
+        this.push_popUp = (p, optionalClear) => this.setState(state => {
+            if (optionalClear) {
+                state.popUps.children = [p];
+            } else {
+                state.popUps.push(p);
+            };
             return state;
         });
         
-        this.add_popUp = p => this.setState(state => {
+        this.add_popUp = (p, optionalClear) => this.setState(state => {
+            if (optionalClear) {
+                state.popUps.clear();
+            };
             state.popUps.addPopUp(p);
             return state;
         });
