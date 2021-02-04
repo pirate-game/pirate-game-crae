@@ -102,6 +102,10 @@ export class List_data {
         shared_vars.removeFirstOccurrenceIn(e, this.elems);
         return this;
     };
+    removeIndex(index) {
+        shared_vars.removeAtIndexIn(index, this.elems);
+        return this;
+    };
 };
 
 export function NiceList(props) {
