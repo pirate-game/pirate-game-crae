@@ -74,7 +74,7 @@ export default class Join extends GameThings.SocketfulComponent {
                     <h2>{data.gameQ}</h2>
                     <input type="text" id="gameKey" maxLength="6" />
                 </div>
-                <button id="join" onClick={this.attemptJoin}>Join</button>
+                <button id="join" className="niceButton" onClick={this.attemptJoin}>Join</button>
             </div>;
             case 1: return "GAME STARTED!";
         };
