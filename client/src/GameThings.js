@@ -107,10 +107,9 @@ export class List_data {
 export function NiceList(props) {
     return <ul className="listClass" style={props.style}>
         {props.elems.elems.map((e, pos) => (
-            <li style={{position:'relative', padding: '5px 10px'}}>
-                {props.callback && <div style={{display: 'inline-block', float: 'right', fontSize: '40px', fontWeight: 'bold', padding: '10px', cursor: 'pointer',
-                                                position: 'absolute', right: 0, top: '-21px'}} onClick={() => props.callback(e, pos)}>&times;</div>}
-                <div style={{background: ((pos % 2) ? '#eee' : '#fff'), width: 'calc(100% - 30px)', overflowWrap: 'break-word'}}>{e}</div>
+            <li>
+                {props.callback && <div className="cross" onClick={() => props.callback(e, pos)}>&times;</div>}
+                <div className="elem" style={{background: ((pos % 2) ? '#fff' : '#eee')}>{e}</div>
             </li>
         ))}
     </ul>;
