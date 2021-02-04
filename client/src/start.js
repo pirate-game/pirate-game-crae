@@ -8,8 +8,6 @@ import './css/start.css';
 
 
 
-const crewAssembledPopUp_buttonStyle = {padding: '9px 12px', margin: '6px'};
-
 export default class Start extends GameThings.SocketfulComponent {
     constructor() {
         super();
@@ -46,8 +44,8 @@ export default class Start extends GameThings.SocketfulComponent {
                     <div>
                         <p style={{display: 'inline-block', width: 'calc(100% - 190px)'}}>Those currently in the game are below. You can remove them with the crosses.</p>
                         <div style={{display: 'inline-block'}}>
-                            <button style={crewAssembledPopUp_buttonStyle} className="niceButton" onClick={this.prepare_boards}>Start<br />Game</button>
-                            <button style={crewAssembledPopUp_buttonStyle} className="niceButton" onClick={()=>{this.socket.emit('change_crew'); this.remove_popUp();}}>Change<br />{this.state.data.playersName}</button>
+                            <button className="niceButton" onClick={this.prepare_boards}>Start<br />Game</button>
+                            <button className="niceButton" onClick={()=>{this.socket.emit('change_crew'); this.remove_popUp();}}>Change<br />{this.state.data.playersName}</button>
                         </div>
                     </div>
                     <GameThings.NiceList elems={this.state.allPlayers} callback={this.crossCallback} style={{maxHeight: 'calc(100vh - 400px)'}} />
@@ -66,7 +64,7 @@ export default class Start extends GameThings.SocketfulComponent {
             default: return null;
             case 0: return <div style={{position: 'relative', minHeight: 'calc(100vh - 230px)'}}>
                 <div style={{position: 'relative', top: '-10%'}}>
-                    <button id="crewAssembled" onClick={this.assembleCrew}>{data.playersName} Assembled!</button>
+                    <button className="niceButton buttonAtRight" onClick={this.assembleCrew}>{data.playersName} Assembled!</button>
                     <KeyBox gameKey={this.state.gameKey} />
                 </div>
                 <h2 style={{fontSize: '50px', margin: '0px', marginLeft: '10px'}}>{data.playersName}:</h2>
@@ -109,7 +107,7 @@ export default class Start extends GameThings.SocketfulComponent {
 };
 
 function KeyBox(props) {
-    return <div id="keyBox" style={{backgroundColor: 'lightblue'}}>
+    return <div className="niceBox" style={{backgroundColor: 'lightblue', float: 'right'}}>
         <h2> Key: {props.gameKey} </h2>
     </div>;
 };
