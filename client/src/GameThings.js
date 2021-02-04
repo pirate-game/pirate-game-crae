@@ -109,7 +109,7 @@ export function NiceList(props) {
         {props.elems.elems.map((e, pos) => (
             <li>
                 {props.callback && <div className="cross" onClick={() => props.callback(e, pos)}>&times;</div>}
-                <div className="elem" style={{background: ((pos % 2) ? '#fff' : '#eee')}>{e}</div>
+                <div className="elem" style={{background: ((pos % 2) ? '#fff' : '#eee')}}>{e}</div>
             </li>
         ))}
     </ul>;
