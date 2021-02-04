@@ -5,6 +5,7 @@
     left: 0;
     top: 0;
     z-index: 1;
+    text-align: center;
 }
 
 .popUp {
@@ -125,4 +126,26 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
+}
+
+.listClass>li {
+    position: relative;
+    padding: 5px 10px;
+}
+
+.listClass>li>.cross {
+    display: inline-block;
+    float: right;
+    font-size: 40px;
+    font-weight: bold;
+    padding: 10px;
+    cursor: pointer;
+    position: absolute;
+    right: 0px;
+    top: -21px;
+}
+
+.listClass>li>.elem {
+    width: calc(100% - 30px);
+    overflow-wrap: break-word;
 }
