@@ -91,6 +91,7 @@ export default class Start extends GameThings.SocketfulComponent {
             } else {
                 this.add_TooFewPopUp(state);
             };
+            return state;
         });
     };
     prepare_boards() {
@@ -102,6 +103,7 @@ export default class Start extends GameThings.SocketfulComponent {
             } else {
                 this.add_TooFewPopUp(state);
             };
+            return state;
         });
     };
 };
