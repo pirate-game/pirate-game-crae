@@ -8,6 +8,8 @@ import './css/start.css';
 
 
 
+const crewAssembledPopUp_buttonStyle = {padding: '9px 12px', margin: '6px'};
+
 export default class Start extends GameThings.SocketfulComponent {
     constructor() {
         super();
@@ -36,8 +38,8 @@ export default class Start extends GameThings.SocketfulComponent {
                     <div>
                         <p style={{display: 'inline-block', width: 'calc(100% - 190px)'}}>Those currently in the game are below. You can remove them with the crosses.</p>
                         <div style={{display: 'inline-block'}}>
-                            <button onClick={this.prepare_boards}>Start<br />Game</button>
-                            <button onClick={()=>{this.socket.emit('change_crew'); this.remove_popUp();}}>Change<br />{this.state.data.playersName}</button>
+                            <button style={crewAssembledPopUp_buttonStyle} className="niceButton" onClick={this.prepare_boards}>Start<br />Game</button>
+                            <button style={crewAssembledPopUp_buttonStyle} className="niceButton" onClick={()=>{this.socket.emit('change_crew'); this.remove_popUp();}}>Change<br />{this.state.data.playersName}</button>
                         </div>
                     </div>
                     <GameThings.NiceList elems={this.state.allPlayers} callback={this.crossCallback} style={{maxHeight: 'calc(100vh - 400px)'}} />
