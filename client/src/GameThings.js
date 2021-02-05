@@ -94,6 +94,9 @@ export class List_data {
     constructor(initial) {
         this.elems = initial || [];
     };
+    clone() {
+        return new List_data(this.elems.splice());
+    };
     push(e) {
         this.elems.unshift(e); // pushes to front
         return this;
