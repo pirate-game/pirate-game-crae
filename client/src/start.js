@@ -24,9 +24,13 @@ export default class Start extends GameThings.SocketfulComponent {
         
         this.assembleCrew = this.assembleCrew.bind(this);
         this.prepare_boards = this.prepare_boards.bind(this);
+        this.stage1done = this.stage1done.bind(this);
+        this.nextSquare = this.nextSquare.bind(this);
     };
     componentDidMount() {
         super.componentDidMount(); // first line
+        
+        // Stage 0:
         
         this.socket.on('key', key => this.setState({gameKey: key}));
         
@@ -49,10 +53,24 @@ export default class Start extends GameThings.SocketfulComponent {
                         </div>
                     </div>
                     <GameThings.NiceList elems={this.state.allPlayers} callback={this.crossCallback} style={{maxHeight: 'calc(100vh - 400px)'}} />
-            </div></div>, true) // optional true removes the previouse popups i.e. the waiting popup
+            </div></div>, true) // optional true removes the previous popups i.e. the waiting popup
         );
         
-        // this.socket.on(...)...;
+        // Stage 1:
+        
+        this.socket.on('board_ready', player => {
+            this.setState(state => {
+                state.readyPlayers.push(player);
+                state.unreadyPlayers.remove(player);
+                return state;
+            });
+        });
+
+        // Stage 2:
+        
+        // Stage 3:
+        
+        
         
         this.setState({stage: 0, allPlayers: new GameThings.List_data()}); // last lines
         
@@ -61,7 +79,9 @@ export default class Start extends GameThings.SocketfulComponent {
     // add back componentWillUnmount in unlikely event that stage must be reset
     render_helper(data, stage) {
         switch (stage) {
+                
             default: return null;
+                
             case 0: return <div style={{position: 'relative', minHeight: 'calc(100vh - 230px)'}}>
                 <div style={{position: 'relative', top: '-10%'}}>
                     <button className="niceButton buttonAtRight" onClick={this.assembleCrew}>{data.playersName} Assembled!</button>
@@ -70,7 +90,26 @@ export default class Start extends GameThings.SocketfulComponent {
                 <h2 style={{fontSize: '50px', margin: '0px', marginLeft: '10px'}}>{data.playersName}:</h2>
                 <GameThings.NiceList elems={this.state.allPlayers} callback={this.crossCallback} style={{position: 'absolute', left: '10px', right: '10px', top: '60px'}} />
             </div>;
-            case 1: return "Preparing boards!";
+
+            case 1: return <React.Fragment>
+                <div className="niceBox">
+                    <h2 style={{fontSize: '30px', padding: '10px'}}>Fill in your boards</h2>
+                </div>
+                <button className="niceButton buttonAtRight" onClick={this.stage1done}>Done</button>
+                <div>
+                    <div className="stage1col" style={{left: '10px'}}>
+                        <h2>Waiting for:</h2>
+                        <GameThings.NiceList elems={this.state.unreadyPlayers} style={{height: 'calc(100vh - 290px)'}} />
+                    </div>
+                    <div className="stage1col" style={{right: '10px'}}>
+                        <h2>Ready:</h2>
+                        <GameThings.NiceList elems={this.state.readyPlayers} style={{height: 'calc(100vh - 290px)'}} />
+                    </div>
+                </div>
+            </React.Fragment>;
+
+            case 2: return "GAME STARTED!!!";
+
         };
     };
     add_TooFewPopUp(state) {
@@ -78,6 +117,15 @@ export default class Start extends GameThings.SocketfulComponent {
         state.popUps.addPopUp({
             title: "Too Few " + data.playersName,
             textLines: data.tooFewTextLines,
+            btn: this.default_btn
+        });
+        return this;
+    };
+    add_TooFewReadyPopUp(state) {
+        const data = state.data;
+        state.popUps.addPopUp({
+            title: "Too Few " + data.playersName + " Ready",
+            textLines: data.tooFewReadyTextLines,
             btn: this.default_btn
         });
         return this;
@@ -99,12 +147,31 @@ export default class Start extends GameThings.SocketfulComponent {
             state.popUps.clear();
             if (state.allPlayers.elems.length >= 2) {
                 this.socket.emit('prepare_boards');
+                state.unreadyPlayers = state.allPlayers.clone();
+                state.readyPlayers = new GameThings.List_data();
                 state.stage = 1;
             } else {
                 this.add_TooFewPopUp(state);
             };
             return state;
         });
+    };
+    stage1done() {
+        this.setState(state => {
+            state.popUps.clear();
+            if (state.readyPlayers.elems.length >= 2) {
+                state.allPlayers = state.readyPlayers;
+                this.socket.emit('too_slow', state.unreadyPlayers.elems);
+                state.stage = 2;
+                this.nextSquare();
+            } else {
+                this.add_TooFewReadyPopUp(state);
+            };
+            return state;
+        });
+    };
+    nextSquare() {
+        console.log("next square");
     };
 };
 
