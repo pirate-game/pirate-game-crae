@@ -77,7 +77,7 @@ export function Board(props) {
             <tr className="edge">
                 <th className="edge">{col}</th>
                 {["A","B","C","D","E","F","G"].map(row => (
-                    <td id={row+col} className="square" style={{backgroundColor:(props.done.includes(row+col)?"#CC6600":"white")}}></td>
+                    <td id={row + col} className="square" onClick={props.callback ? (() => props.callback(row + col)) : undefined} style={{backgroundColor:(props.done.includes(row+col) ? "#CC6600" : "white")}}></td>
                 ))}
             </tr>
         ))}
