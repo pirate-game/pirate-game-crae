@@ -120,7 +120,7 @@ export default class Join extends GameThings.SocketfulComponent {
         // test
         this.setState(state => {
             this.state.doneSquares.push("A1");
-            this.state.board["B4"] = "bomb";
+            this.state.board["B4"] = "goToZero";
             this.socket.emit('board_ready');
             return state;
         });
