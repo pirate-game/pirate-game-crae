@@ -60,7 +60,7 @@ export default class Join extends GameThings.SocketfulComponent {
         
         this.socket.on('prepare_board', () => {
             this.remove_popUp();
-            this.setState({stage: 1});
+            this.setState({board: {}, doneSquares: [], stage: 1});
         });
         
         // Stage 1:
@@ -83,9 +83,13 @@ export default class Join extends GameThings.SocketfulComponent {
                 </div>
                 <button id="join" className="niceButton" onClick={this.attemptJoin}>Join</button>
             </div>;
-            /*case 1: return <React.Fragment>
-                <GameThings.SymbolBoard callback={this.squareClicked} />
-            </React.Fragment>;*/
+            case 1: return <React.Fragment>
+                <GameThings.SymbolBoard callback={this.squareClicked}
+                    board={this.state.board}
+                    done={this.state.done}
+                    data={data} />
+                
+            </React.Fragment>;
         };
     };
     attemptJoin() {
@@ -110,5 +114,13 @@ export default class Join extends GameThings.SocketfulComponent {
                 btn: this.default_btn
             }, true); // true removes any previous
         };
+    };
+    squareClicked(square) {
+        // test
+        this.setState(state => {
+            this.state.doneSquares.push("A1");
+            this.state.board["B4"] = "bomb";
+            return state;
+        });
     };
 };
