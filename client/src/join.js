@@ -86,7 +86,7 @@ export default class Join extends GameThings.SocketfulComponent {
             case 1: return <React.Fragment>
                 <GameThings.SymbolBoard callback={this.squareClicked}
                     board={this.state.board}
-                    done={this.state.done}
+                    done={this.state.doneSquares}
                     data={data} />
                 
             </React.Fragment>;
