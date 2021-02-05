@@ -124,7 +124,7 @@ export class List_data {
         this.elems = initial || [];
     };
     clone() {
-        return new List_data(this.elems.splice());
+        return new List_data(this.elems.slice());
     };
     push(e) {
         this.elems.unshift(e); // pushes to front
