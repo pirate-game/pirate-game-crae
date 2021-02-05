@@ -1,4 +1,5 @@
 #startContent .niceBox {
+    float: left;
     height: 50px;
     padding: 0 8px;
     display: flex;
