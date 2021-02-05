@@ -36,7 +36,6 @@
     font-size: calc(50vh/14);
 }
 
-#board tr,
 #board td {
     border: 2px solid black;
     border-collapse: collapse;
@@ -64,7 +63,7 @@
     cursor: cell;
 }
 
-.edge {
+#board .edge {
     border: 0px solid transparent;
 }
 
