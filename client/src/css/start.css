@@ -4,6 +4,7 @@
     display: flex;
     align-items: center;
     margin: 0 5px 15px;
+    background-color: lightblue;
 }
 
 #startContent .buttonAtRight {
