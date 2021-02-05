@@ -102,7 +102,13 @@ export function SymbolBoard(props) {
                 {["A","B","C","D","E","F","G"].map(row => {
                     const square = row + col;
                     const content = props.board[row + col];
-                    const image = content && <img src={process.env.PUBLIC_URL+"/imgs/"+shared_vars.mutables.theme+"/"+content+props.data[content].file_ext} />;
+                    const image = content && props.data 
+                                    && props.data[content] 
+                                    && props.data[content].file_ext 
+                                    && <img src={
+                                        process.env.PUBLIC_URL
+                                        +"/imgs/"+shared_vars.mutables.theme
+                                        +"/"+content+props.data[content].file_ext} />;
                     return <td id={square} className="square" onClick={props.callback ? (() => props.callback(square)) : undefined}>
                         {image}
                         {props.done.includes(square) && <div className="crossout" />}
