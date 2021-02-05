@@ -18,6 +18,8 @@ export default class Join extends GameThings.SocketfulComponent {
     componentDidMount() {
         super.componentDidMount(); // first line
         
+        // Stage 0:
+        
         this.socket.on('no_such_game', () => {
             document.getElementById("gameKey").value = "";
             this.add_popUp({
@@ -61,6 +63,11 @@ export default class Join extends GameThings.SocketfulComponent {
             this.setState({stage: 1});
         });
         
+        // Stage 1:
+        
+        
+        
+        
         this.setState({stage: 0}); // last line
     };
     // add back componentWillUnmount in unlikely event that stage must be reset
@@ -76,7 +83,9 @@ export default class Join extends GameThings.SocketfulComponent {
                 </div>
                 <button id="join" className="niceButton" onClick={this.attemptJoin}>Join</button>
             </div>;
-            case 1: return "GAME STARTED!";
+            /*case 1: return <React.Fragment>
+                <GameThings.SymbolBoard callback={this.squareClicked} />
+            </React.Fragment>;*/
         };
     };
     attemptJoin() {
