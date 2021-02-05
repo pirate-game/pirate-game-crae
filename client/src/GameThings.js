@@ -112,7 +112,7 @@ export class List_data {
 };
 
 export function NiceList(props) {
-    return <ul className="listClass" style={props.style}>
+    return <ul id={props.id} className={"listClass " + (props.className || "")} style={props.style}>
         {props.elems.elems.map((e, pos) => (
             <li style={{background: ((pos % 2) ? '#fff' : '#eee')}}>
                 {props.callback && <div className="cross" onClick={() => props.callback(e, pos)}>&times;</div>}
