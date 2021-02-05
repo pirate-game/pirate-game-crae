@@ -61,7 +61,7 @@ export function PopUps(props) {
     return <div id="popUps" style={props.style}>{props.popUps.children}</div>;
 };
 
-export function Board(props) {
+export function DoneBoard(props) {
     return <table id="board" style={props.style}>
         <tr className="edge">
             <th className="edge"></th>
@@ -77,8 +77,37 @@ export function Board(props) {
             <tr className="edge">
                 <th className="edge">{col}</th>
                 {["A","B","C","D","E","F","G"].map(row => (
-                    <td id={row + col} className="square" onClick={props.callback ? (() => props.callback(row + col)) : undefined} style={{backgroundColor:(props.done.includes(row+col) ? "#CC6600" : "white")}}></td>
+                    <td id={row + col} className="square" style={{backgroundColor:(props.done.includes(row+col) ? "#CC6600" : "white")}} />
                 ))}
+            </tr>
+        ))}
+    </table>;
+};
+
+export function SymbolBoard(props) {
+    return <table id="board" style={props.style}>
+        <tr className="edge">
+            <th className="edge"></th>
+            <th className="edge">A</th>
+            <th className="edge">B</th>
+            <th className="edge">C</th>
+            <th className="edge">D</th>
+            <th className="edge">E</th>
+            <th className="edge">F</th>
+            <th className="edge">G</th>
+        </tr>
+        {["1","2","3","4","5","6","7"].map(col => (
+            <tr className="edge">
+                <th className="edge">{col}</th>
+                {["A","B","C","D","E","F","G"].map(row => {
+                    const square = row + col;
+                    const content = props.board[row + col];
+                    const image = content && <img src={process.env.PUBLIC_URL+"/imgs/"+shared_vars.mutables.theme+"/"+content+props.data[content].file_ext} />;
+                    return <td id={square} className="square" onClick={props.callback ? (() => props.callback(square)) : undefined}>
+                        {image}
+                        {props.done.includes(square) && <div className="crossout" />}
+                    </td>;
+                })}
             </tr>
         ))}
     </table>;
