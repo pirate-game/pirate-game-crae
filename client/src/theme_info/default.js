@@ -33,6 +33,7 @@ export default {
   "gameQ": "What game be ye joinin'?",
   "watchQ": "What game be ye watchin'?",
   "tooFewTextLines": ["Yarr, ye be needin' at least 2 players."],
+  "tooFewReadyTextLines": ["Yarr, ye be needin' at least 2 players before ye's can drop people for bein' slow."],
   "rob": {
     "file_ext": ".png",
     "name": "Rob",
