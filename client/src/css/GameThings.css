@@ -42,7 +42,7 @@
     border-collapse: collapse;
 }
 
-#board table,
+#board,
 #board th {
     border-collapse: collapse;
 }
