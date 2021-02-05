@@ -34,10 +34,8 @@
     margin: 6px;
 }
 
-/*
-#startContent #crewAssembledPopUp button,
-#startContent #nextSquareConfirm button {
-    padding: 9px 12px;
-    margin: 6px;
+#startContent .stage1col {
+    position: fixed;
+    width: calc(50% - 15px);
+    bottom: 10px;
 }
-*/
