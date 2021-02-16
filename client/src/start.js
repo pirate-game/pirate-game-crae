@@ -149,6 +149,7 @@ export default class Start extends GameThings.SocketfulComponent {
                 this.socket.emit('prepare_boards', this.state.gameKey);
                 state.unreadyPlayers = state.allPlayers.clone();
                 state.readyPlayers = new GameThings.List_data();
+                console.log(state); ////////////////////
                 state.stage = 1;
             } else {
                 this.add_TooFewPopUp(state);
@@ -158,6 +159,7 @@ export default class Start extends GameThings.SocketfulComponent {
     };
     stage1done() {
         this.setState(state => {
+            console.log(state); ////////////////////
             state.popUps.clear();
             if (state.readyPlayers.elems.length >= 2) {
                 state.allPlayers = state.readyPlayers;
@@ -167,6 +169,7 @@ export default class Start extends GameThings.SocketfulComponent {
             } else {
                 this.add_TooFewReadyPopUp(state);
             };
+            console.log(state); ////////////////////
             return state;
         });
     };
