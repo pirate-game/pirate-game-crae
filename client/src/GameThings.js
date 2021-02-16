@@ -136,15 +136,20 @@ export function CurrentSquare(props) {
 };
 
 export class List_data {
-    constructor(initial) {
+    constructor(initial, add_to_front = true) {
         this.elems = initial || [];
+        this.push = (add_to_front 
+            ? (e => {
+                this.elems.unshift(e); // pushes to front
+                return this;
+            }) : (e => {
+                this.elems.push(e); // pushes to back
+                return this;
+            })
+       );
     };
     clone() {
         return new List_data(this.elems.slice());
-    };
-    push(e) {
-        this.elems.unshift(e); // pushes to front
-        return this;
     };
     remove(e) {
         shared_vars.removeFirstOccurrenceIn(e, this.elems);
