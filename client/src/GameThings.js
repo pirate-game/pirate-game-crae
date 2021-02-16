@@ -77,7 +77,7 @@ export function DoneBoard(props) {
             <tr className="edge">
                 <th className="edge">{col}</th>
                 {["A","B","C","D","E","F","G"].map(row => (
-                    <td id={row + col} className="square" style={{backgroundColor:(props.done.includes(row+col) ? "#CC6600" : "white")}} />
+                    <td id={row + col} className="square" style={{backgroundColor:(props.remaining.includes(row+col) ? "white" : "#CC6600")}} />
                 ))}
             </tr>
         ))}
