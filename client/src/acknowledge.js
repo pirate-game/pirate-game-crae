@@ -43,6 +43,7 @@ export default class Acknowledge extends React.Component {
                 <p>
                     If you believe that we are using any of this in error and would like us to change our website - or you have anything else you'd like to speak to us about - please contact us with the form below. You <b>do not</b> need to put your email address it will send fine with a fake one like "fake@fake" and <b>do not</b> send us your email address if you are not completely comfortable with our having it.
                 </p>
+                <p>The form isn't the best; it might be prudent to copy-and-paste your submission before submitting it, in case the form forgets. Soz.</p>
             </div>
             <br />
             <div id="theform" className="sometext" style={{backgroundColor:"pink"}}>
