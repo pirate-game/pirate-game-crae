@@ -99,8 +99,9 @@ export default class Join extends GameThings.SocketfulComponent {
         if (!shared_vars.wsPattern.test(name)) {
             if (shared_vars.keyPattern.test(key)) {
                 this.push_popUp(GameThings.waitingPopUp, true); // true removes any previous
-                this.socket.emit('attempt_join', name, key);
                 this.name = name;
+                this.gameKey = key;
+                this.socket.emit('attempt_join', key, name);
             } else {
                 this.add_popUp({
                     title: "Invalid Key",
@@ -121,7 +122,7 @@ export default class Join extends GameThings.SocketfulComponent {
         this.setState(state => {
             this.state.doneSquares.push("A1");
             this.state.board["B4"] = "goToZero";
-            this.socket.emit('board_ready');
+            this.socket.emit('board_ready', this.gameKey);
             return state;
         });
     };
