@@ -108,7 +108,9 @@ export default class Start extends GameThings.SocketfulComponent {
                 </div>
             </React.Fragment>;
 
-            case 2: return "GAME STARTED!!!";
+            case 2: return <React.Fragment>
+                <GameThings.DoneBoard remaining={this.state.remainingSquares} />
+            </React.Fragment>;
 
         };
     };
@@ -149,7 +151,6 @@ export default class Start extends GameThings.SocketfulComponent {
                 this.socket.emit('prepare_boards', this.state.gameKey);
                 state.unreadyPlayers = state.allPlayers.clone();
                 state.readyPlayers = new GameThings.List_data();
-                console.log(state); ////////////////////
                 state.stage = 1;
             } else {
                 this.add_TooFewPopUp(state);
@@ -159,22 +160,23 @@ export default class Start extends GameThings.SocketfulComponent {
     };
     stage1done() {
         this.setState(state => {
-            console.log(state); ////////////////////
             state.popUps.clear();
             if (state.readyPlayers.elems.length >= 2) {
                 state.allPlayers = state.readyPlayers;
                 this.socket.emit('too_slow', this.state.gameKey, state.unreadyPlayers.elems);
                 state.stage = 2;
+                state.remainingSquares = GameThings.allSquares.slice();
+                state.readyToChoose = new GameThings.List_data([], false); // false => add to back
                 this.nextSquare();
             } else {
                 this.add_TooFewReadyPopUp(state);
             };
-            console.log(state); ////////////////////
             return state;
         });
     };
     nextSquare() {
         console.log("next square");
+        this.setState({remainingSquares: ["A4"]}); // test
     };
 };
 
@@ -183,4 +185,3 @@ function KeyBox(props) {
         <h2> Key: {props.gameKey} </h2>
     </div>;
 };
-
