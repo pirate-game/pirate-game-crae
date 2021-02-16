@@ -16,19 +16,7 @@
 
 #theform input[type=submit] {
     background-color: #22971D;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    cursor: pointer;
     float: right;
-    border-radius: 10px;
-}
-
-#theform input[type=submit]:hover {
-    background-color: cornflowerblue;
-    font-family: 'Calibri', Fallback, sans-serif;
-    font-weight: bold;
-    font-size: inherit;
 }
 
 #theform .col-25 {
