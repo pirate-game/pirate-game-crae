@@ -61,7 +61,7 @@ export default class Acknowledge extends React.Component {
                         <div className="col-75"><textarea name="comment" id="comment" rows="3" /></div>
                     </div>
                     <input name="_formsubmit_id" type="text" style={{display: "none"}} />
-                    <input value="Submit" type="submit" />
+                    <input value="Submit" type="submit" className="niceButton" />
                     <br />
                 </form>
             </div>
