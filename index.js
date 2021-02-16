@@ -7,20 +7,39 @@ const port    = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-//Begin Game section
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build/index.html'));
+});
 
-//js const means no =; it does not prohibit changes. It is like * const; not like const*.
-const chars       = "0123456789abcdef";
-const keys_in_use = [];
-const games       = [];
+app.use((req, res) => {
+    res.status(404).sendFile(__dirname + '/404.html');
+});
 
-function removeFirstOccurrenceIn(e, arr) {
-    const index = arr.indexOf(e);
-    if (index !== -1) {
-        arr.splice(index, 1);
+http.listen(port);
+
+// end web section
+
+function lower_bound(arr, value, cmp = ((a, b) => (a < b))) {
+    let upper = arr.length;
+    if (!upper) return 0;
+    let lower = 0;
+    while (true) {
+	if (upper === lower + 1) return cmp(arr[lower], value) ? upper : lower;
+        const mid = (lower + upper) >> 1; // average
+        if (cmp(arr[mid], value)) {
+            lower = mid;
+        } else {
+            upper = mid;
+        };
     };
-    return arr;
 };
+
+// begin game section
+
+// js const means no =; it does not prohibit changes. It is like * const; not like const*.
+
+const chars = "0123456789abcdef";
+const games = {};
 
 function new_key() {
     while (true) {
@@ -28,107 +47,46 @@ function new_key() {
         for (let i = 0; i < 6; ++i) {
             out += chars[Math.floor(Math.random() * 16)];
         };
-        if (!keys_in_use.includes(out)) {
-            keys_in_use.push(out);
+        if (games[out] === undefined) { // not in use
             return out;
         };
     };
 };
 
-function keyToGame(someKey) {
-    const len = games.length;
-    for (let i = 0; i < len; ++i) {
-        const game = games[i];
-        if (game.game_key === someKey) {
-            return game;
-        };
-    };
-    return null;
-};
-
-function leaderToGame(someLeader) {
-    const someLeaderId = someLeader.id;
-    const len = games.length;
-    for (let i = 0; i < len; ++i) {
-        const game = games[i];
-        if (game.leader.id === someLeaderId) {
-            return game;
-        };
-    };
-    return null;
-};
-
-function gameAndNameToPlayer(someGame, someName) {
-    const theCrew = someGame.crew;
-    const len = theCrew.length;
-    for (let i = 0; i < len; ++i) {
-        const pirate = theCrew[i];
-        if (pirate.pirateName === someName) {
-            return pirate.pirate;
-        };
-    };
-    return null;
-};
-
-function gameAndPlayerToName(someGame, somePlayer) {
-    const theCrew = someGame.crew;
-    const len = theCrew.length;
-    for (let i = 0; i < len; ++i) {
-        const pirate = theCrew[i];
-        if (pirate.pirate.id === somePlayer.id) {
-            return pirate.pirateName;
-        };
-    };
-    return "";
-};
-
-function crewmemberToGame(someCrewmember) {
-    const someCrewmemberId = someCrewmember.id;
-    const len = theCrew.length;
-    for (let i = 0; i < len; ++i) {
-        const game = games[i];
-        if (game.crew.map(e => e.pirate.id).includes(someCrewmemberId)) {
-            return game;
-        };
-    };
-    return null;
-};
-
 io.on('connection', socket => {
 
+
+    // begin game set-up
+
+    // start
     socket.on('request_key', () => {
         const key = new_key();
-        socket.emit('key', key);
-        const game = {
+        games[key] = {
             leader: socket,
-            game_key: key,
-            crew: [],
+            crew: {},
             available: true,
-            watchable: false,
+            begun: false,
             watching: [],
             scores: []
         };
-        games.push(game);
-        socket.on('disconnect', why => {
-            removeFirstOccurrenceIn(game, games);
-            removeFirstOccurrenceIn(key, keys_in_use);
-        }); // cleans up the game, and key when the host leaves
+        socket.on('disconnect', () => {
+            delete games[key]; // cleans up the game, and key when the host leaves
+        });
+	socket.emit('key', key);
     });
 
-    socket.on('attempt_join', (name, key) => {
-        const game = keyToGame(key);
-        if (game === null) {
+    // join
+    socket.on('attempt_join', (key, name) => {
+        const game = games[key];
+        if (game === undefined) {
             socket.emit('no_such_game');
         } else {
             if (game.available) {
-                if (game.crew.map(e => e.pirateName).includes(name)) {
-                    socket.emit('name_taken');
-                } else {
-                    game.crew.push({
-                        pirate: socket,
-                        pirateName: name
-                    });
+                if (game.crew[name] === undefined) {
+                    game.crew[name] = socket;
                     game.leader.emit('request_join', name);
+                } else {
+                    socket.emit('name_taken');
                 };
             } else {
                 socket.emit('game_unavailable');
@@ -136,101 +94,102 @@ io.on('connection', socket => {
         };
     });
 
-    socket.on('crew_assembled', () => {
-        const game = leaderToGame(socket);
-        if (game !== null) {
+    // start
+    socket.on('remove_player', (key, who) => {
+        const game = games[key];
+        if (game !== undefined) {
+            const player = game.crew[who];
+            if (player !== undefined) {
+                delete game.crew[who];
+                player.emit('join_rejected');
+            };
+        };
+    });
+
+    // start
+    socket.on('crew_assembled', key => {
+        const game = games[key];
+        if (game !== undefined) {
             game.available = false;
             socket.emit('show_provisional_crew');
         };
     });
 
-    socket.on('remove_player', who => {
-        const game = leaderToGame(socket);
-        if (game !== null) {
-            const player = gameAndNameToPlayer(game, who);
-            if (player !== null) {
-                player.emit('join_rejected');
-                game.crew = game.crew.filter(e => (e.pirate.id != player.id));
-            };
-        };
-    });
-
-    socket.on('change_crew', () => {
-        const game = leaderToGame(socket);
-        if (game !== null) {
+    // start
+    socket.on('change_crew', key => {
+        const game = games[key];
+        if (game !== undefined) {
             game.available = true;
         };
     });
 
-    socket.on('prepare_boards', () => {
-        const game = leaderToGame(socket);
-        if (game !== null) {
-            game.watchable = true;
-            const theCrew = game.crew;
-            const lenCrew = theCrew.length;
-            for (let i = 0; i < lenCrew; ++i) {
-                theCrew[i].pirate.emit('prepare_board');
-            };
-            const thoseWatching = game.watching;
-            const lenWatching = thoseWatching.length;
-            for (let j = 0; j < lenWatching; ++j) {
-                thoseWatching[j].emit('start_game');
-            };
+    // start
+    socket.on('prepare_boards', key => {
+        const game = games[key];
+        if (game !== undefined) {
+            game.begun = true;
+            for (const pirate of Object.values(game.crew)) pirate.emit('prepare_board');
+            for (const watcher of game.watching) watcher.emit('start_game');
         };
     });
 
-    socket.on('too_slow', who => {
-        const game = leaderToGame(socket);
-        if (game !== null) {
-            const lenWho = who.length;
-            for (let i = 0; i < lenWho; ++i) {
-                const player = gameAndNameToPlayer(game, who[i]);
-                if (player !== null) {
-                    player.emit('too_slow');
+    // join
+    socket.on('board_ready', (key, name) => {
+        const game = games[key];
+        if (game !== undefined) {
+            game.leader.emit('board_ready', name);
+        };
+    });
+
+    // start
+    socket.on('too_slow', (key, who) => {
+        const game = games[key];
+        if (game !== undefined) {
+            const crew = game.crew;
+            for (const pirateName of who) {
+                const pirate = crew[pirateName];
+                if (pirate !== undefined) {
+                    pirate.emit('too_slow');
                 };
+		delete crew[pirateName];
             };
-            game.crew = game.crew.filter(e => (!who.includes(e.pirateName)));
-            const thoseWatching = game.watching;
-            const lenWatching = thoseWatching.length;
-            for (let j = 0; j < lenWatching; ++j) {
-                thoseWatching[j].emit('too_slow', who);
-            };
+            for (const watcher of game.watching) watcher.emit('too_slow', who);
         };
     });
 
-    socket.on('board_ready', () => {
-        const game = crewmemberToGame(socket);
-        if (game !== null) {
-            const name = gameAndPlayerToName(game, socket);
-            if (name !== "") {
-                game.leader.emit('board_ready', name);
-            };
-        };
-    });
+    // end game set-up
 
+
+    // begin watch
+
+    // watch
     socket.on('attempt_watch', key => {
-        const game = keyToGame(key);
-        if (game === null) {
+        const game = games[key];
+        if (game === undefined) {
             socket.emit('no_such_game');
         } else {
             game.watching.push(socket);
-            if (game.watchable) {
+            if (game.begun) {
                 socket.emit('start_game');
                 game.leader.emit('request_state');
             };
         };
     });
 
-    socket.on('state', state => {
-        const game = leaderToGame(socket);
-        if (game !== null) {
-            const thoseWatching = game.watching;
-            const len = thoseWatching.length;
-            for (let i = 0; i < len; ++i) {
-                thoseWatching[i].emit('state', state);
-            };
+    // start
+    socket.on('state', (key, state) => {
+        const game = games[key];
+        if (game !== undefined) {
+            for (const watcher of game.watching) watcher.emit('state', state);
         };
     });
+
+    // end watch
+
+
+    // begin main section
+
+    /*
 
     socket.on('current_square', square => {
         const game = leaderToGame(socket);
@@ -315,51 +274,6 @@ io.on('connection', socket => {
             for (let i = 0; i < len; ++i) {
                 thoseWatching[i].emit('some_event', ["parrot", thisName, score]);
             };
-        };
-    });
-
-    socket.on('get_scores', () => {
-        const game = leaderToGame(socket);
-        if (game !== null) {
-            const theCrew = game.crew;
-            const len = theCrew.length;
-            for (let i = 0; i < len; ++i) {
-                theCrew[i].pirate.emit('get_score');
-            };
-        };
-    });
-
-    socket.on('got_score', someScore => {
-        const game = crewmemberToGame(socket);
-        if (game !== null) {
-            game.scores.push({
-                name: gameAndPlayerToName(game, socket),
-                score: someScore
-            });
-            game.leader.emit('got_scores', game.scores);
-        };
-    });
-
-    socket.on('game_over', leaderboard => {
-        const game = leaderToGame(socket);
-        if (game !== null) {
-            const theCrew = game.crew;
-            const lenCrew = theCrew.length;
-            for (let i = 0; i < lenCrew; ++i) {
-                theCrew[i].pirate.emit('game_over', leaderboard);
-            };
-            const thoseWatching = game.watching;
-            const lenWatching = thoseWatching.length;
-            for (var j = 0; j < lenWatching; ++j) {
-                thoseWatching[j].emit('game_over', leaderboard);
-            };
-        };
-    });
-
-    socket.on('request_crew', () => {
-        const game = crewmemberToGame(socket);
-        if (game !== null) {
-            socket.emit('crew', game.crew.map(e => e.pirateName));
         };
     });
 
@@ -655,16 +569,68 @@ io.on('connection', socket => {
         };
     });
 
-});
+    */
 
-//End Game section
+    // end main section
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build/index.html'));
-});
 
-http.listen(port);
+    // begin leaderboard
 
-app.use((req, res, next) => {
-    res.status(404).sendFile(__dirname + '/404.html');
+    /*
+
+    socket.on('get_scores', () => {
+        const game = leaderToGame(socket);
+        if (game !== null) {
+            const theCrew = game.crew;
+            const len = theCrew.length;
+            for (let i = 0; i < len; ++i) {
+                theCrew[i].pirate.emit('get_score');
+            };
+        };
+    });
+
+    socket.on('got_score', someScore => {
+        const game = crewmemberToGame(socket);
+        if (game !== null) {
+            game.scores.push({
+                name: gameAndPlayerToName(game, socket),
+                score: someScore
+            });
+            game.leader.emit('got_scores', game.scores);
+        };
+    });
+
+    socket.on('game_over', leaderboard => {
+        const game = leaderToGame(socket);
+        if (game !== null) {
+            const theCrew = game.crew;
+            const lenCrew = theCrew.length;
+            for (let i = 0; i < lenCrew; ++i) {
+                theCrew[i].pirate.emit('game_over', leaderboard);
+            };
+            const thoseWatching = game.watching;
+            const lenWatching = thoseWatching.length;
+            for (var j = 0; j < lenWatching; ++j) {
+                thoseWatching[j].emit('game_over', leaderboard);
+            };
+        };
+    });
+
+    */
+
+    // end leaderboard
+
+
+    /* // miscellaneous
+
+    socket.on('request_crew', () => {
+        const game = crewmemberToGame(socket);
+        if (game !== null) {
+            socket.emit('crew', game.crew.map(e => e.pirateName));
+        };
+    });
+
+    */
+
+
 });
