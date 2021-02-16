@@ -58,7 +58,7 @@ div {
 }
 
 .niceButton:hover {
-    background-color: cornflowerblue;
+    background-color: cornflowerblue!important;
 }
 
 .indented {
