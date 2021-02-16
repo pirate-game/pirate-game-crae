@@ -15,7 +15,7 @@ export default class Start extends GameThings.SocketfulComponent {
         this.outerName = "startContent";
         
         this.crossCallback = (player, index) => {
-            this.socket.emit('remove_player', player);
+            this.socket.emit('remove_player', this.state.gameKey, player);
             this.setState(state => {
                 state.allPlayers.removeIndex(index);
                 return state;
@@ -49,7 +49,7 @@ export default class Start extends GameThings.SocketfulComponent {
                         <p style={{display: 'inline-block', width: 'calc(100% - 190px)'}}>Those currently in the game are below. You can remove them with the crosses.</p>
                         <div style={{display: 'inline-block'}}>
                             <button className="niceButton" onClick={this.prepare_boards}>Start<br />Game</button>
-                            <button className="niceButton" onClick={()=>{this.socket.emit('change_crew'); this.remove_popUp();}}>Change<br />{this.state.data.playersName}</button>
+                            <button className="niceButton" onClick={()=>{this.socket.emit('change_crew', this.state.gameKey); this.remove_popUp();}}>Change<br />{this.state.data.playersName}</button>
                         </div>
                     </div>
                     <GameThings.NiceList elems={this.state.allPlayers} callback={this.crossCallback} style={{maxHeight: 'calc(100vh - 400px)'}} />
@@ -135,7 +135,7 @@ export default class Start extends GameThings.SocketfulComponent {
             state.popUps.clear();
             if (state.allPlayers.elems.length >= 2) {
                 state.popUps.push(GameThings.waitingPopUp);
-                this.socket.emit('crew_assembled');
+                this.socket.emit('crew_assembled', this.state.gameKey);
             } else {
                 this.add_TooFewPopUp(state);
             };
@@ -146,7 +146,7 @@ export default class Start extends GameThings.SocketfulComponent {
         this.setState(state => {
             state.popUps.clear();
             if (state.allPlayers.elems.length >= 2) {
-                this.socket.emit('prepare_boards');
+                this.socket.emit('prepare_boards', this.state.gameKey);
                 state.unreadyPlayers = state.allPlayers.clone();
                 state.readyPlayers = new GameThings.List_data();
                 state.stage = 1;
@@ -161,7 +161,7 @@ export default class Start extends GameThings.SocketfulComponent {
             state.popUps.clear();
             if (state.readyPlayers.elems.length >= 2) {
                 state.allPlayers = state.readyPlayers;
-                this.socket.emit('too_slow', state.unreadyPlayers.elems);
+                this.socket.emit('too_slow', this.state.gameKey, state.unreadyPlayers.elems);
                 state.stage = 2;
                 this.nextSquare();
             } else {
