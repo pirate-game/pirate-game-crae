@@ -26,6 +26,8 @@ export default class Start extends GameThings.SocketfulComponent {
         this.prepare_boards = this.prepare_boards.bind(this);
         this.stage1done = this.stage1done.bind(this);
         this.nextSquare = this.nextSquare.bind(this);
+        this.doNextSquare = this.doNextSquare.bind(this);
+        this.tooSlowToChoose = this.tooSlowToChoose.bind(this);
     };
     componentDidMount() {
         super.componentDidMount(); // first line
@@ -42,7 +44,7 @@ export default class Start extends GameThings.SocketfulComponent {
         });
         
         this.socket.on('show_provisional_crew', () => this.push_popUp(
-            <div id="crewAssembledPopUp" className="popUp"><div>
+            <div className="popUp crewAssembledPopUp"><div>
                     <h3>{this.state.data.playersName} Assembled</h3>
                     <hr />
                     <div>
@@ -132,6 +134,14 @@ export default class Start extends GameThings.SocketfulComponent {
         });
         return this;
     };
+    add_WaitForChoosePopUp(state) {
+        state.popUps.addPopUp({
+            title: "Waiting For Next Square to be Chosen",
+            textLines: ["This won't take too long, I hope!"],
+            btn: this.tooSlowToChoose
+        });
+        return this;
+    };
     assembleCrew() {
         this.setState(state => {
             state.popUps.clear();
@@ -162,11 +172,13 @@ export default class Start extends GameThings.SocketfulComponent {
         this.setState(state => {
             state.popUps.clear();
             if (state.readyPlayers.elems.length >= 2) {
-                state.allPlayers = state.readyPlayers;
                 this.socket.emit('too_slow', this.state.gameKey, state.unreadyPlayers.elems);
                 state.stage = 2;
+                state.allPlayers = state.readyPlayers.clone();
+                state.unreadyPlayers = new GameThings.List_data();
                 state.remainingSquares = GameThings.allSquares.slice();
                 state.readyToChoose = new GameThings.List_data([], false); // false => add to back
+                state.currentSquare = "??";
                 this.nextSquare();
             } else {
                 this.add_TooFewReadyPopUp(state);
@@ -175,8 +187,63 @@ export default class Start extends GameThings.SocketfulComponent {
         });
     };
     nextSquare() {
-        console.log("next square");
-        this.setState({remainingSquares: ["A4"]}); // test
+        this.setState(state => {
+            if (state.readyPlayers.elems.length >= 2) {
+                if (state.unreadyPlayers.elems.length == 0) {
+                    this.doNextSqaure();
+                } else {
+                    this.push_popUp(
+                        <div className="popUp crewAssembledPopUp"><div>
+                            <h3>Confirm Next Square</h3>
+                            <hr />
+                            <div>
+                                <p style={{display: 'inline-block', width: 'calc(100% - 190px)'}}>Those below are not ready and will be dropped from the game.</p>
+                                <div style={{display: 'inline-block'}}>
+                                    <button className="niceButton" onClick={this.doNextSquare}>Okay!</button>
+                                    <button className="niceButton" onClick={this.remove_popUp}>Wait!</button>
+                                </div>
+                            </div>
+                            <GameThings.NiceList elems={state.unreadyPlayers} style={{maxHeight: 'calc(100vh - 400px)'}} />
+                    </div></div>, true);
+                };
+            } else {
+                this.add_TooFewReadyPopUp(state);
+            };
+            return state;
+        });
+    };
+    doNextSquare() {
+        this.setState(state => {
+            this.remove_popUp();
+            this.socket.emit('too_slow', this.state.gameKey, state.unreadyPlayers.elems);
+            state.allPlayers.elems.filter(e => !state.unreadyPlayers.elems.includes(e));
+            state.unreadyPlayers.elems = [];
+            state.readyPlayers = state.allPlayers.clone();
+            if (this.state.readyToChoose.is_empty()) {
+                const index = Math.floor(Math.random() * state.remainingSquares.length);
+                state.currentSquare = state.remainingSquares.splice(index, 1)[0];
+                // pops from the index
+                this.socket.emit('current_square', state.gameKey, state.currentSquare);
+            } else {
+                state.toChoose = state.readyToChoose.pop();
+                this.socket.emit('ask_to_choose', state.gameKey, state.toChoose);
+                this.add_WaitForChoosePopUp(state);
+            };
+            return state;
+        });
+    };
+    tooSlowToChoose() {
+        this.setState(state => {
+            if (state.allPlayers.elems.length > 2) {
+                shared_vars.removeFirstOccurrenceIn(state.toChoose, state.allPlayers);
+                shared_vars.removeFirstOccurrenceIn(state.toChoose, state.readyPlayers);
+                this.socket.emit('too_slow', state.gameKey, [state.toChoose]);
+                this.doNextSquare();
+            } else {
+                this.add_TooFewReadyPopUp(state);
+            };
+            return state;
+        });
     };
 };
 
