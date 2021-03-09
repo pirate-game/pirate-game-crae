@@ -159,6 +159,9 @@ export class List_data {
         shared_vars.removeAtIndexIn(index, this.elems);
         return this;
     };
+    is_empty() {
+        return this.elems.length == 0;
+    };
 };
 
 export function NiceList(props) {
