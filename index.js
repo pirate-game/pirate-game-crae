@@ -195,6 +195,19 @@ io.on('connection', socket => {
             for (const watcher of game.watching) watcher.emit('current_square', square);
         };
     });
+	
+    socket.on('ask_to_choose', (key, player) => {
+    	const game = games[key];
+        if (game !== undefined) {
+	    for (const watcher of game.watching) watcher.emit('asked_to_choose', player);
+	    	const toChoose = game.crew[player];
+			if (toChoose === undefined) {
+				socket.emit('player_gone', player);
+			} else {
+				toChoose.emit('please_choose');
+			};
+        };
+    });
 
     /*
 
@@ -205,23 +218,6 @@ io.on('connection', socket => {
             const len = thoseWatching.length;
             for (let i = 0; i < len; ++i) {
                 thoseWatching[i].emit('choose_next_square', player);
-            };
-        };
-    });
-
-    socket.on('choose', toChoose => {
-        const game = leaderToGame(socket);
-        if (game !== null) {
-            const thoseWatching = game.watching;
-            const lenWatching = thoseWatching.length;
-            for (let i = 0; i < lenWatching; ++i) {
-                thoseWatching[i].emit('choose', toChoose);
-            };
-            const playerToChoose = gameAndNameToPlayer(game, toChoose);
-            if (playerToChoose === null) {
-                socket.emit('player_gone', toChoose);
-            } else {
-                playerToChoose.emit('choose');
             };
         };
     });
