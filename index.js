@@ -55,7 +55,6 @@ function new_key() {
 
 io.on('connection', socket => {
 
-
     // begin game set-up
 
     // start
@@ -188,24 +187,16 @@ io.on('connection', socket => {
 
 
     // begin main section
-
-    /*
-
-    socket.on('current_square', square => {
-        const game = leaderToGame(socket);
-        if (game !== null) {
-            const theCrew = game.crew;
-            const lenCrew = theCrew.length;
-            for (let i = 0; i < lenCrew; ++i) {
-                theCrew[i].pirate.emit('current_square', square);
-            };
-            const thoseWatching = game.watching;
-            const lenWatching = thoseWatching.length;
-            for (let j = 0; j < lenWatching; ++j) {
-                thoseWatching[j].emit('current_square', square);
-            };
+	
+    socket.on('current_square', (key, square) => {
+        const game = games[key];
+        if (game !== undefined) {
+	    for (const pirate of Object.values(game.crew)) pirate.emit('current_square', square);
+            for (const watcher of game.watching) watcher.emit('current_square', square);
         };
     });
+
+    /*
 
     socket.on('choose_next_square', player => {
         const game = leaderToGame(socket);
