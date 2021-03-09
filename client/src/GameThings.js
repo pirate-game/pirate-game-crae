@@ -147,6 +147,13 @@ export class List_data {
                 return this;
             })
        );
+       this.pop = (add_to_front 
+            ? (e => {
+                return this.elems.pop(e); // pops from back
+            }) : (e => {
+                return this.elems.splice(0, 1)[0]; // pops from front
+            })
+       );
     };
     clone() {
         return new List_data(this.elems.slice());
