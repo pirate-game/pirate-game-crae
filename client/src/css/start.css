@@ -29,7 +29,7 @@
     }
 }
 
-#crewAssembledPopUp button {
+.crewAssembledPopUp button {
     display: inline-block;
     padding: 9px 12px;
     margin: 6px;
