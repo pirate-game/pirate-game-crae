@@ -89,7 +89,20 @@ export default class Join extends GameThings.SocketfulComponent {
                     board={this.state.board}
                     done={this.state.doneSquares}
                     data={data} />
-                
+                <div id="fillInBoard" className="stage1PopUp">
+                    <h3>Fill in the Board</h3>
+                    <hr />
+                    <p>Would you like to fill in your Board yourself, or have it done for you, randomly?</p>
+                    <button className="niceButton" id="leftBtn" onClick={this.fillItMyself}>Fill&nbsp;it<br />Myself</button>
+                    <button className="niceButton" id="rightBtn" onClick={this.fillRandomly}>Randomly</button>
+                </div>
+            </React.Fragment>;
+            case 2: return <React.Fragment>
+                <GameThings.SymbolBoard callback={this.squareClicked}
+                    board={this.state.board}
+                    done={this.state.doneSquares}
+                    data={data} />
+                <p>STAGE 2</p>
             </React.Fragment>;
         };
     };
@@ -116,6 +129,21 @@ export default class Join extends GameThings.SocketfulComponent {
                 btn: this.default_btn
             }, true); // true removes any previous
         };
+    };
+    fillItMyself() {
+        // ...
+        this.boardReady();
+    };
+    fillRandomly() {
+        // ...
+        this.boardReady();
+    };
+    boardReady() {
+        this.setState(state => {
+            this.socket.emit('board_ready', this.gameKey, this.name);
+            state.stage = 2;
+            return state;
+        });
     };
     squareClicked(square) {
         // test
