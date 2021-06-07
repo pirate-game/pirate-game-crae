@@ -15,6 +15,8 @@ export default class Join extends GameThings.SocketfulComponent {
 
         this.attemptJoin = this.attemptJoin.bind(this);
         this.squareClicked = this.squareClicked.bind(this);
+        this.fillItMyself = this.fillItMyself.bind(this);
+        this.fillRandomly = this.fillRandomly.bind(this);
     };
     componentDidMount() {
         super.componentDidMount(); // first line
