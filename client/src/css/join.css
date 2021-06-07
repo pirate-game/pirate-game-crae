@@ -25,3 +25,11 @@
   border: 1px solid black;
 }
 
+#joinContent .stage1PopUp {
+  position: fixed;
+  top: calc(40vh + 300px);
+  background: white;
+  border: 1px solid #888;
+  padding: 10px;
+  width: calc(100% - 40px);
+}
